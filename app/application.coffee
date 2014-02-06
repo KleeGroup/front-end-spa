@@ -35,6 +35,12 @@ class Application extends Backbone.Marionette.Application
           # trigger the correct events. The Router's internal `navigate` method
           # calls this anyways.  The fragment is sliced from the root.
           Backbone.history.navigate(href.attr, true)
+    
+    #Initialisation of the translations, warning, it has to be done before the first render.
+    @addInitializer (options) =>
+      # Initiate the translation
+      resources = require 'internationalization/all'
+      i18n.init({resStore: resources, lng: config.lang}, (content)-> console.log('Traduction correctement initialisée.'))
 
     @addInitializer (options) =>
       # Add the main layout
@@ -42,6 +48,7 @@ class Application extends Backbone.Marionette.Application
       @layout = new AppLayout()
       @layout.render()
 
+    
     @addInitializer (options) =>
       # Instantiate the router
       Router = require 'lib/router'

@@ -1,6 +1,6 @@
 module.exports = {
 	"key": "value",
 	"application": {
-		"title": "Application blanche"
+		"name": "Application blanche"
 	}
 };

@@ -4,7 +4,7 @@ module.exports = {
 			'key': 'value'
 		}
 	},
-	"fr": {
+	"fr-FR": {
 		"translation": require("./fr-FR")
 	}
 };
