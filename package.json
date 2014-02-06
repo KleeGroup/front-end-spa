@@ -1,16 +1,16 @@
 {
-  "author": "Klee Group",
-  "name": "Applicationblanche",
-  "description": "Application blanche spa klee group.",
+  "author": "Simeon Bateman",
+  "name": "Brunch-With-Marionette",
+  "description": "MarionetteJS application template for Brunch.io",
   "version": "0.0.1",
   "homepage": "",
   "repository": {
     "type": "git",
-    "url": "git@github.com/dtklee/front-end-spa.git"
+    "url": "git@github.com/simbco/brunch-with-marionette"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.3.x"
+    "node": "0.8.x",
+    "npm": "1.1.x"
   },
   "scripts": {
     "start": "brunch watch --server",
@@ -32,5 +32,5 @@
   "directories": {
     "test": "test"
   },
-  "license": "MIT"
+  "license": "BSD"
 }
