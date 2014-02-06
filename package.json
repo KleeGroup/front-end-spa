@@ -1,6 +1,6 @@
 {
   "author": "Klee Group",
-  "name": "Application blanche",
+  "name": "Applicationblanche",
   "description": "Application blanche spa klee group.",
   "version": "0.0.1",
   "homepage": "",
@@ -32,5 +32,5 @@
   "directories": {
     "test": "test"
   },
-  "license": "BSD"
+  "license": "MIT"
 }
