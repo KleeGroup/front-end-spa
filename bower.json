@@ -8,14 +8,17 @@
     "bower_components"
   ],
   "dependencies": {
-    "backbone": "~1.0.0",
-    "backbone.marionette": "~1.1.0",
+    "backbone": "~1.1.0",
+    "backbone.marionette": "~1.2.8",
     "underscore": "~1.5.2",
-    "bootstrap": "~3.0.0",
+    "bootstrap": "~3.1.0",
     "console-polyfill": "~0.1.0",
-    "jquery": "~2.0.3",
-    "moment": "~2.2.1",
-    "bootstrap-switch": "*"
+    "jquery": "~2.1.0",
+    "moment": "~2.5.1",
+    "bootstrap-switch": "*",
+    "i18next": "*",
+    "Faker": "~0.5.11",
+    "backbone-validation": "~0.9.1"
   },
   "overrides": {
     "backbone": {
@@ -46,6 +49,12 @@
     },
     "underscore": {
       "main": "underscore.js"
+    },
+    "i18next": {
+      "main": "release/i18next-1.7.1.min.js"
+    },
+    "Faker": {
+      "main": "Faker.js"
     }
   }
 }
