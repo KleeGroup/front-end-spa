@@ -38,6 +38,16 @@
         "dist/fonts/*"
       ]
     },
+    "backbone.marionette":{
+      "dependencies": {
+        "backbone": "*"
+      }
+    },
+    "backbone-validation": {
+      "dependencies": {
+        "backbone": "*"
+      }, "main":"src/backbone-validation.js"
+    },
     "bootstrap-switch": {
       "dependencies": {
         "jquery": "*"
