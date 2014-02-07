@@ -4,6 +4,8 @@ HomeView = require 'views/home-view'
 AboutView = require 'views/about-view'
 ContactView = require 'views/contact-view'
 SigninView = require 'views/signin-view'
+VirtualMachineSearch = require 'models/virtualMachineSearch' 
+VirtualMachineSearchView = require 'views/virtualMachine-search-view'
 
 module.exports = class Router extends Backbone.Router
 
@@ -12,6 +14,7 @@ module.exports = class Router extends Backbone.Router
     'about': 'about'
     'contact': 'contact'
     'signin': 'signin'
+    'searchVirtualMachine': 'searchVirtualMachine' 
 
   home: =>
     view = new HomeView()
@@ -52,3 +55,8 @@ module.exports = class Router extends Backbone.Router
           name: 'signin'
           time: moment().format('MMMM Do YYYY, h:mm:ss a')
       )
+
+  searchVirtualMachine: =>
+    model = new VirtualMachineSearch()
+    view = new VirtualMachineSearchView({model: model})
+    application.layout.content.show(view)
