@@ -42,6 +42,11 @@ class Application extends Backbone.Marionette.Application
       resources = require 'internationalization/all'
       i18n.init({resStore: resources, lng: config.lang}, (content)-> console.log('Traduction correctement initialisée.'))
 
+    #Initialiation of backbone validation model
+    @addInitializer((options) =>
+            _.extend(Backbone.Model.prototype, Backbone.Validation.mixin)
+        )
+
     @addInitializer (options) =>
       # Add the main layout
       AppLayout = require 'views/app-layout'

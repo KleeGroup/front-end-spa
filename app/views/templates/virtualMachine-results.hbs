@@ -1,0 +1,19 @@
+<table class="table table-hover table-bordered">
+	<caption><br/></caption>
+    <thead>
+    	<tr>
+	        <th>{{t "virtualMachine.name"}}</th>
+	        <th>{{t "virtualMachine.nbCpu"}}</th>
+	        <th>{{t "virtualMachine.memory"}}</th>
+      	</tr>
+    </thead>
+    <tbody>
+    	{{#each collection}}
+	        <tr id="{{id}}">
+	          <td>{{name}}</td>
+	          <td>{{nbCpu}}</td>
+	          <td>{{memory}}</td>
+	        </tr>    
+		{{/each}}
+    </tbody>
+</table>

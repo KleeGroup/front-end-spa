@@ -18,6 +18,6 @@ module.exports = Backbone.Model.extend({
 	url: URL.virtualMachine,
 
 	initialize: function initializeVirtualMachine(){
-
+		//this.set({startDate: new Date()});
 	}
 });
