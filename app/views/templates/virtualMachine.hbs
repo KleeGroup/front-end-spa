@@ -1,14 +1,16 @@
-<div class="panel panel-default">
- 	<div class="panel-heading">
-    	<h3 class="panel-title">{{t "virtualMachine.detail.title" }}</h3>
-  	</div>
-  	<div class="panel-body">
-  		{{input_for "name" translationRoot="virtualMachine" readonly="true"}}
-		{{input_for "nbCpu" translationRoot="virtualMachine" readonly="true"}}
-		{{input_for "memory" translationRoot="virtualMachine" readonly="true"}}   	 
-		{{input_for "users" translationRoot="virtualMachine" readonly="true"}}
-		{{input_for "diskCapacity" translationRoot="virtualMachine" readonly="true"}}
-		{{input_for "startDate" translationRoot="virtualMachine" readonly="true" dataType="date"}}
-		{{input_for "endDate" translationRoot="virtualMachine" readonly="true" dataType="date"}}
-  	</div>
-</div>
+<form class="form-horizontal" role="form">
+	<div class="panel panel-default">
+	 	<div class="panel-heading">
+	    	<h3 class="panel-title">{{t "virtualMachine.detail.title" }}</h3>
+	  	</div>
+	  	<div class="panel-body">
+	  		{{input_for "name" translationRoot="virtualMachine" readonly="true"}}
+			{{input_for "nbCpu" translationRoot="virtualMachine" readonly="true"}}
+			{{input_for "memory" translationRoot="virtualMachine" readonly="true"}}   	 
+			{{input_for "users" translationRoot="virtualMachine" readonly="true"}}
+			{{input_for "diskCapacity" translationRoot="virtualMachine" readonly="true"}}
+			{{input_for "startDate" translationRoot="virtualMachine" readonly="true" dataType="date"}}
+			{{input_for "endDate" translationRoot="virtualMachine" readonly="true" dataType="date"}}
+	  	</div>
+	</div>
+</form>
