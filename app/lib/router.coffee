@@ -6,6 +6,8 @@ ContactView = require 'views/contact-view'
 SigninView = require 'views/signin-view'
 VirtualMachineSearch = require 'models/virtualMachineSearch' 
 VirtualMachineSearchView = require 'views/virtualMachine-search-view'
+VirtualMachine = require 'models/virtualMachine'
+VirtualMachineView = require 'views/virtualMachine-view'
 
 module.exports = class Router extends Backbone.Router
 
@@ -15,6 +17,7 @@ module.exports = class Router extends Backbone.Router
     'contact': 'contact'
     'signin': 'signin'
     'searchVirtualMachine': 'searchVirtualMachine' 
+    'virtualMachine': 'virtualMachine'
 
   home: =>
     view = new HomeView()
@@ -59,4 +62,9 @@ module.exports = class Router extends Backbone.Router
   searchVirtualMachine: =>
     model = new VirtualMachineSearch()
     view = new VirtualMachineSearchView({model: model})
+    application.layout.content.show(view)
+
+  virtualMachine: (id) =>
+    model = new VirtualMachine({id: id})
+    view = new VirtualMachineView({model: model})
     application.layout.content.show(view)

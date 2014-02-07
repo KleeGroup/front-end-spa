@@ -17,13 +17,15 @@ Handlebars.registerHelper "display_for", (property, options) ->
   maxLength = opt.max
   if this[property]? then result = this[property] else return ""
   #console.log 'displayFor', this, 'result ', result, 'max', maxLength
-  str = ""
+  
   #Reduce a string only if it exceed the max. And add .... .
   reduce = (s, max)->
     if s.length > max then "#{s.slice(0,+maxLength)}... " else "#{s} "
   if maxLength? and result?
+    str = ""
     str += reduce(res, maxLength) for res in result.split(' ')
-  new Handlebars.SafeString(str)
+    return new Handlebars.SafeString(str)
+  return new Handlebars.SafeString(result)
 
 
 #use in order to debug a template.

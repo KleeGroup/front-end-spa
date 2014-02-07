@@ -5,10 +5,13 @@ module.exports = {
 	},
 	"virtualMachine": {
 		"search": {
-			"title": "recherche de machines virtuelles",
+			"title": "Recherche de machines virtuelles",
 			"btnReset": "effacer",
 			"btnSearch": "rechercher",
 			"noResult": "Aucun résultat ne correspond à vos critères."
+		},
+		"detail": {
+			"title": "Détail de la machine"
 		},
 		"name": "Nom",
 		"nbCpu": "Nombre de CPU",
