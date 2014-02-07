@@ -15,7 +15,7 @@ module.exports = {
 		},
 		"name": "Nom",
 		"nbCpu": "Nombre de CPU",
-		"os": "Operating system",
+		"osId": "Operating system",
 		"memory": "Mémoire",
 		"diskCapacity": "Capacité du disque",
 		"users": "Utilisateurs ayant droit",

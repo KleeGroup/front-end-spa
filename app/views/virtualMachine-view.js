@@ -6,6 +6,7 @@ module.exports = Backbone.View.extend({
 	initialize: function initializeVirtualMachine(){
 		this.model.set({
 			name: "toto",
+			osId:1,
 			nbCpu: 2,
 			memory: 4,
 			diskCapacity: 40,
@@ -13,10 +14,16 @@ module.exports = Backbone.View.extend({
 			startDate: new Date(),
 			endDate: moment().add('months',6).calendar()
 		});
+
+		this.osList = [{id:"1", name: "Windows 8"}, {id:"2", name: "Linux"}, {id:"3", name: "Mac os X"}];
 	},
 
 	render: function renderVirtualMachine(){
-		this.$el.html(this.template(this.model.toJSON()));
+		var JsonModel = this.model.toJSON();
+		_.extend(JsonModel,{
+			osList : this.osList
+		})
+		this.$el.html(this.template(JsonModel));
 		return this;
 	}
 });
