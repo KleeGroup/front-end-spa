@@ -1,6 +1,6 @@
 <a href="#reference/{{id}}" class="list-group-item">
 	{{#if isEdit}}
-		{{input_for "name" }}
+		{{input_for "name" isNoLabel="true"}}<button class="btn btn-success btn-xs pull-right">{{t "Save"}}</button>
 	{{else}}
 		{{name}} <span class="badge">{{t "edit"}}</span><button class="btn btn-primary btn-xs pull-right">{{t "Edit"}}</button>
 	{{/if}}

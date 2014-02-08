@@ -8,9 +8,10 @@ module.exports = Backbone.View.extend({
 		this.isEdit = false;
 	},
 	events: {
-		"button click": "toogleEditMode"
+		"click button": "toogleEditMode"
 	},
 	toogleEditMode: function toogleEditMode(event) {
+		console.log("toogle");
 		event.preventDefault();
 		this.isEdit = !this.isEdit;
 		this.render();
