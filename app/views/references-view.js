@@ -7,7 +7,7 @@ module.exports = Backbone.View.extend({
 	events: {},
 	/*How to deal with the add one medhot.*/
 	addOne: function addOneRefernceView(model) {
-		$("div#referencesContainer", this.$el).append(new ReferenceView({
+		$("div.list-group", this.$el).append(new ReferenceView({
 			model: model
 		}).render().el);
 	},
