@@ -4,6 +4,7 @@ var URL = require('./URL');
 //define a model for a virtual machine
 module.exports = Backbone.Model.extend({
 	defaults: {
+		id: undefined,
 		name: undefined,
 		translationKey: undefined
 	},

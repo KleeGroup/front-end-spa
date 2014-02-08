@@ -8,6 +8,8 @@ VirtualMachineSearch = require 'models/virtualMachineSearch'
 VirtualMachineSearchView = require 'views/virtualMachine-search-view'
 VirtualMachine = require 'models/virtualMachine'
 VirtualMachineView = require 'views/virtualMachine-view'
+References = require('../models/references')
+ReferencesView = require('../views/references-view')
 
 module.exports = class Router extends Backbone.Router
 
@@ -18,6 +20,7 @@ module.exports = class Router extends Backbone.Router
     'signin': 'signin'
     'searchVirtualMachine': 'searchVirtualMachine' 
     'virtualMachine': 'virtualMachine'
+    'reference': 'reference'
 
   home: =>
     view = new HomeView()
@@ -67,4 +70,8 @@ module.exports = class Router extends Backbone.Router
   virtualMachine: (id) =>
     model = new VirtualMachine({id: id})
     view = new VirtualMachineView({model: model})
+    application.layout.content.show(view)
+  reference: ()=>
+    model = new References([{name: "valeur1", translationKey: "t_valeur1"}, {name: "valeur2", translationKey: "t_valeur2"}, {name: "valeur3", translationKey: "t_valeur3"}])
+    view = new ReferencesView({model: model})
     application.layout.content.show(view)
