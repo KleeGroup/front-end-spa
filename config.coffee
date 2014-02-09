@@ -1,6 +1,6 @@
 exports.config =
   # See http://brunch.io/#documentation for docs.
-  sourceMaps: false
+  sourceMaps: false # Source maps are usefull in order to see the dev structure into the dev tools, and they are not use outside of the devtools, there is no perturbation of the performance in production.
   files:
     javascripts:
       joinTo:
