@@ -14,7 +14,8 @@
   },
   "scripts": {
     "start": "brunch watch --server",
-    "test": "brunch test"
+    "test": "brunch test",
+    "api": "node ./example/api/server.js"
   },
   "dependencies": {
     "javascript-brunch": ">= 1.0 < 1.7",
@@ -30,5 +31,8 @@
   "directories": {
     "test": "test"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "hapi": "~2.1.2"
+  }
 }
