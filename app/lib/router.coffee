@@ -19,7 +19,7 @@ module.exports = class Router extends Backbone.Router
     'contact': 'contact'
     'signin': 'signin'
     'searchVirtualMachine': 'searchVirtualMachine' 
-    'virtualMachine': 'virtualMachine'
+    'virtualMachine/:id': 'virtualMachine'
     'reference': 'reference'
 
   home: =>

@@ -2,7 +2,7 @@
 class Config
   appcontainer: 'content'
   approot: '/'
-  apiroot: 'https://api.github.com/'
+  apiroot: 'http://localhost:8080/'
   lang: "fr-FR"
   dateFormat: "JJ/MM/AAAA HH:mm"
 

@@ -1,4 +1,4 @@
-/*global Backbone*/
+/*global Backbone, $*/
 
 var template = require('./templates/virtualMachine-search');
 var VirtualMachines = require('../models/virtualMachines');
@@ -37,7 +37,7 @@ module.exports = Backbone.View.extend({
 		form_helper.formModelBinder({
 			inputs: $('input', this.$el)
 		}, this.model);
-		this.model.validate()
+		this.model.validate();
 	},
 
 	//When there is a validation problem, we put the errors into the model in order to display them in the form.
@@ -51,29 +51,19 @@ module.exports = Backbone.View.extend({
 	//When the model is valid, the  process continue.
 	modelValid: function modelValid(model) {
 		this.model.unset('errors');
-		this.searchResults.reset([{
-			name: "toto",
-			nbCpu: 2,
-			memory: 4
-		}, {
-			name: "tata",
-			nbCpu: 2,
-			memory: 4
-		}, {
-			name: "titi",
-			nbCpu: 2,
-			memory: 4
-		}]);
+		this.searchResults.fetch({
+			reset: true
+		});
 	},
 
 	renderSearchResult: function renderSearchResult() {
 		if (this.searchResults !== undefined) {
-			if(this.searchResults.length === 0){
-				/*Backbone.Notification.addNotification({
+			if (this.searchResults.length === 0) {
+				Backbone.Notification.addNotification({
 					type: 'info',
 					message: i18n.t('virtualMachine.search.noResult')
-				}, true);*/
-			}else{
+				}, true);
+			} else {
 				var virtualMachineResultsView = new VirtualMachineResultsView({
 					model: this.searchResults
 				});
@@ -82,7 +72,7 @@ module.exports = Backbone.View.extend({
 		}
 	},
 
-	clearSearchCriteria: function clearSearchCriteria(){
+	clearSearchCriteria: function clearSearchCriteria(event) {
 		event.preventDefault();
 		//Backbone.Notification.clearNotifications();
 		this.model.clear();
