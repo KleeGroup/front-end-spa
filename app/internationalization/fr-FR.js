@@ -13,6 +13,10 @@ module.exports = {
 
 		}
 	},
+	"home":{
+		"title": "Bienvenue dans l'application vm tickets.",
+		"description": "Vous pouvez voir ici toutes les demandes de création de VMs."
+	},
 	"virtualMachine": {
 		"search": {
 			"title": "Recherche de machines virtuelles",
