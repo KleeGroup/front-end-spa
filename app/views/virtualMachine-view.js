@@ -3,7 +3,9 @@ var template = require('./templates/virtualMachine');
 module.exports = Backbone.View.extend({
 	tagName: 'div',
 	template: template,
-
+	events: {
+		"click btn#btnEditVm": "edit"
+	},
 	initialize: function initializeVirtualMachine(){
 		this.model.on('change', this.render);
 		if(this.model.has('id')){
@@ -22,12 +24,15 @@ module.exports = Backbone.View.extend({
 
 		this.osList = [{id:"1", name: "Windows 8"}, {id:"2", name: "Linux"}, {id:"3", name: "Mac os X"}];
 	},
-
+	edit: function editVm(event){
+		event.preventDefault();
+		Backbone.history.navigate("updateVirtualMachine/"+this.model.get('id'), true);
+	},
 	render: function renderVirtualMachine(){
 		var JsonModel = this.model.toJSON();
 		_.extend(JsonModel,{
 			osList : this.osList
-		})
+		});
 		this.$el.html(this.template(JsonModel));
 		return this;
 	}

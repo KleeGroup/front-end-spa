@@ -13,7 +13,14 @@ module.exports = {
 
 		}
 	},
-	"home":{
+	"button": {
+		"cancel": "Cancel",
+		"create": "Create",
+		"update": "Update",
+		"back": "Back",
+		"edit":"Edit"
+	},
+	"home": {
 		"title": "Bienvenue dans l'application vm tickets.",
 		"description": "Vous pouvez voir ici toutes les demandes de création de VMs."
 	},
