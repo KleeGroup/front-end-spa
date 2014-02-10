@@ -1,0 +1,4 @@
+{
+  "glob": ["app/{,lib/,models/,views/}*.*", "README.md"]
+  //,"github": true
+}
