@@ -19,7 +19,8 @@
     "Faker": "~0.5.11",
     "backbone-validation": "~0.9.1",
     "backbone.marionette": "~1.6.1",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.0.3",
+    "bluebird": "~1.0.4"
   },
   "overrides": {
     "backbone": {
@@ -68,11 +69,14 @@
     "Faker": {
       "main": "Faker.js"
     },
-    "font-awesome":{
+    "font-awesome": {
       "main": [
-      "css/font-awesome.css",
-      "fonts/*"
+        "css/font-awesome.css",
+        "fonts/*"
       ]
+    },
+    "bluebird": {
+      "main": "js/browser/bluebird.js"
     }
   }
 }
