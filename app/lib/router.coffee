@@ -21,6 +21,7 @@ module.exports = class Router extends Backbone.Router
     'searchVirtualMachine': 'searchVirtualMachine'
     'newVirtualMachine': 'newVirtualMachine' 
     'virtualMachine/:id': 'virtualMachine'
+    'updateVirtualMachine/:id': 'updateVirtualMachine'
     'reference': 'reference'
 
   home: =>
@@ -74,7 +75,11 @@ module.exports = class Router extends Backbone.Router
     application.layout.content.show(view)
 
   newVirtualMachine:() =>
-    model = new VirtualMachine({isEdit: true})
+    model = new VirtualMachine({isEdit: true, isCreate: true})
+    view = new VirtualMachineView({model: model})
+    application.layout.content.show(view)
+  updateVirtualMachine:(id) =>
+    model = new VirtualMachine({id: id, isEdit: true})
     view = new VirtualMachineView({model: model})
     application.layout.content.show(view)
   reference: ()=>

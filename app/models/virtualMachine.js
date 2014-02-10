@@ -14,11 +14,40 @@ module.exports = Backbone.Model.extend({
 		startDate: undefined,
 		endDate: undefined
 	},
+	validation: {
+		name: {
+			required: true
+		},
+		nbCpu: {
+			required: true
+		},
+		memory: {
+			required: true
+		},
+		diskTypeId: {
+			required: true
+		},
+		diskCapacity: {
+			required: true
+		},
+		users: {
+			required: true
+		},
+		osId: {
+			required: true
+		},
+		startDate: {
+			required: true
+		},
+		endDate: {
+			required: true
+		}
 
-	url: URL.virtualMachine,
+	},
+	urlRoot: URL.virtualMachine,
 
-	initialize: function initializeVirtualMachine(){
-		
+	initialize: function initializeVirtualMachine() {
+
 		//this.set({startDate: new Date()});
 	}
 });

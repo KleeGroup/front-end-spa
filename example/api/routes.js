@@ -20,11 +20,11 @@ module.exports = [{
 	path: '/vm',
 	config: {
 		handler: addVm,
-		validate: {
+		/*validate: {
 			payload: {
 				name: Hapi.types.String().required().min(3)
 			}
-		}
+		}*/
 	}
 }];
 
@@ -75,5 +75,5 @@ function addVm(request, reply) {
 
 	vms.push(vm);
 
-	reply(vm).code(201).header('Location', '/products/' + vm.id);
+	reply(vm).code(201);
 }

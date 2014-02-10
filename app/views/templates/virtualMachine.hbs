@@ -5,16 +5,20 @@
 	  	</div>
 	  	<div class="panel-body">
 	  	{{#if isEdit}}
-	  		{{input_for "name" translationRoot="virtualMachine" }}
-			{{input_for "nbCpu" translationRoot="virtualMachine"}}
-			{{input_for "memory" translationRoot="virtualMachine" }}   	 
-			{{input_for "users" translationRoot="virtualMachine" }}
-			{{input_for "diskCapacity" translationRoot="virtualMachine" }}
-			{{input_for "startDate" translationRoot="virtualMachine"  dataType="date"}}
-			{{input_for "endDate" translationRoot="virtualMachine"  dataType="date"}}
-			{{options_selected "osId" listKey="osList" translationRoot="virtualMachine" }}
+	  		{{input_for "name" translationRoot="virtualMachine" isRequired="true" isNoLabel="true"}}
+			{{input_for "nbCpu" translationRoot="virtualMachine" dataType="number" isRequired="true"}}
+			{{input_for "memory" translationRoot="virtualMachine" dataType="number" isRequired="true"}}   	 
+			{{input_for "users" translationRoot="virtualMachine" isRequired="true"}}
+			{{input_for "diskCapacity" translationRoot="virtualMachine" isRequired="true"}}
+			{{input_for "startDate" translationRoot="virtualMachine"  dataType="date" isRequired="true"}}
+			{{input_for "endDate" translationRoot="virtualMachine"  dataType="date" isRequired="true"}}
+			{{options_selected "osId" listKey="osList" translationRoot="virtualMachine" isRequired="true"}}
 			{{button "button.cancel" class="pull-left btn-default"}}
-			{{button "button.create" class="pull-right btn-success"}}
+			{{#if isCreate}}
+				{{button "button.create" type="submit" class="pull-right btn-success"}}
+			{{else}}
+				{{button "button.update" type="submit" class="pull-right btn-success"}}
+			{{/if}}
 		{{else}}
 			{{input_for "name" translationRoot="virtualMachine" readonly="true"}}
 			{{input_for "nbCpu" translationRoot="virtualMachine" readonly="true"}}

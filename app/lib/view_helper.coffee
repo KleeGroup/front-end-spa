@@ -93,9 +93,13 @@ Handlebars.registerHelper "input_for", (property, options) ->
   error = ""
   error = "has-error" if @errors? and @errors[property]?
   errorValue = if @errors? and @errors[property]? then @errors[property] else ""
+  errorSize = ()=>
+    errorLength = 12 - labelSizeValue
+    offsetError = labelSizeValue
+    return "col-sm-#{errorLength} col-md-#{errorLength} col-lg-#{errorLength} col-sm-offset-#{offsetError} col-md-offset-#{offsetError} col-lg-offset-#{offsetError}"
   #Deal with error
   errors = ()=>
-    if error == "has-error" then "<span class='#{error} help-inline pull-left' style='color:#b94a48'> #{errorValue } </span>" else ""
+    if error == "has-error" then "<span class='#{error} #{errorSize()} help-inline pull-left' style='color:#b94a48'> #{errorValue } </span>" else ""
   #Build the html tag.
   # <div class="form-group">
   #     <label for="exampleInputEmail">Email address</label>
