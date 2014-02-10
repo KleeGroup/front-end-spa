@@ -1,4 +1,24 @@
 <i class="fa fa-desktop"></i> fa-desktop
 <h1>{{t "references.title"}}</h1>
 {{! Best practice: do not put Capitalize and camelcase in css classes.}}
-<div id="references-container" class='list-group'></div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">{{t "references.title"}}</div>
+  <div class="panel-body">
+    <p>These are all reference lists.</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Translation Key</th>
+        <th>Actions</th>
+     </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>

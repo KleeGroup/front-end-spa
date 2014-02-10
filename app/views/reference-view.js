@@ -1,7 +1,7 @@
 /* global Backbone, _ */
 var template = require('./templates/reference');
 module.exports = Backbone.View.extend({
-	tagName: 'div',
+	tagName: 'tr',
 	template: template,
 	/*Good practice fordebugging to name the anonymous function. In order to see it in the stack trace.*/
 	initialize: function initializeReferenceView() {

@@ -1,7 +1,16 @@
-<a href="#reference/{{id}}" class="list-group-item">
 	{{#if isEdit}}
-		{{input_for "name" isNoLabel="true"}}<button class="btn btn-success btn-xs pull-right">{{t "Save"}}</button>
+            <td>{{id}}</td>
+            <td>{{input_for "name" isNoLabel="true"}}</td>
+            <td>{{input_for "translationKey" isNoLabel="true"}}</td>
+            <td><button class="btn btn-success  pull-right">{{t "Save"}}</button></td>
+         
 	{{else}}
-		{{name}} <span class="badge">{{t "edit"}}</span><button class="btn btn-primary btn-xs pull-right">{{t "Edit"}}</button>
+		
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>{{translationKey}}</td>
+            <td>
+            	<button class="btn btn-danger  ">{{t "Delete"}}</button>
+            	<button class="btn btn-primary  ">{{t "Edit"}}</button>
+            </td>
 	{{/if}}
-</a>
