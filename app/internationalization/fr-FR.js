@@ -1,7 +1,17 @@
 module.exports = {
 	"key": "value",
 	"application": {
-		"name": "Application blanche"
+		"name": "VM tickets",
+		"navigation": {
+			"home": "home",
+			"virtualMachines": {
+				"title": "vms",
+				"search": "search",
+				"new": "new"
+			},
+			"reference": "reference"
+
+		}
 	},
 	"virtualMachine": {
 		"search": {

@@ -7,7 +7,7 @@ class Application extends Backbone.Marionette.Application
 
     @on "initialize:after", (options) =>
       Backbone.history.start
-        pushState: true
+        #pushState: true
         root: config.approot
 
       # Freeze the object
@@ -46,6 +46,10 @@ class Application extends Backbone.Marionette.Application
     # the prototype of the model is extended in order to replace standard backbone validate method.
     @addInitializer (options) =>
       _.extend(Backbone.Model.prototype, Backbone.Validation.mixin)
+
+    # Add a notification functionnality into Backbone.
+    @addInitializer (options) =>
+      window.Backbone.Notification = require './lib/backbone_notification'
 
     @addInitializer (options) =>
       # Add the main layout
