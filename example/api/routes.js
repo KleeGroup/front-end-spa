@@ -2,6 +2,12 @@ var Hapi = require('hapi');
 ///var Types = require('hapi').Types;
 module.exports = [{
 	method: 'GET',
+	path: '/reference',
+	config: {
+		handler: getRefs
+	}
+}, {
+	method: 'GET',
 	path: '/vm',
 	config: {
 		handler: getVms
@@ -34,6 +40,16 @@ module.exports = [{
 	}
 }];
 
+var references = [{
+	id: 1,
+	name: 'Linux',
+	translationKey: 'linux'
+}, {
+	id: 2,
+	name: 'Windows',
+	translationKey: 'windows'
+}];
+
 var vms = [{
 	id: 0,
 	name: 'VM1',
@@ -53,6 +69,10 @@ var vms = [{
 	users: undefined,
 	osId: 1
 }];
+
+function getRefs(request, reply) {
+	reply(references);
+}
 
 function getVms(request, reply) {
 	if (request.query.name) {
@@ -84,7 +104,8 @@ function addVm(request, reply) {
 	reply(vm).code(201);
 }
 
-function updateVm(request, reply){
+function updateVm(request, reply) {
+	console.log('Update VM', request, reply);
 	vms[vms.request.payload.id] = request.payload;
 	reply(request.payload).code(200);
 }
