@@ -34,6 +34,11 @@ module.exports = {
 		"detail": {
 			"title": "Détail de la machine"
 		},
+		"save":{
+			"createSuccess": "La création s'est déroulée avec succès.",
+			"updateSuccess": "La mise à jour s'est déroulée avec succès.",
+			"error": "Une erreur est survenue lors de la mise à jour, pouvez vous essayer à nouveau."
+		},
 		"name": "Nom",
 		"nbCpu": "Nombre de CPU",
 		"osId": "Operating system",

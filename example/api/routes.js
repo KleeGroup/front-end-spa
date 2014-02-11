@@ -1,4 +1,4 @@
-var Hapi  = require('hapi');
+var Hapi = require('hapi');
 ///var Types = require('hapi').Types;
 module.exports = [{
 	method: 'GET',
@@ -25,6 +25,12 @@ module.exports = [{
 				name: Hapi.types.String().required().min(3)
 			}
 		}*/
+	}
+}, {
+	method: 'PUT',
+	path: '/vm',
+	config: {
+		handler: updateVm
 	}
 }];
 
@@ -76,4 +82,9 @@ function addVm(request, reply) {
 	vms.push(vm);
 
 	reply(vm).code(201);
+}
+
+function updateVm(request, reply){
+	vms[vms.request.payload.id] = request.payload;
+	reply(request.payload).code(200);
 }

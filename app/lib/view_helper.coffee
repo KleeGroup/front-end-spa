@@ -83,7 +83,8 @@ Handlebars.registerHelper "input_for", (property, options) ->
   translationKey = i18n.t(((if (translationRoot?) and typeof translationRoot is "string" then translationRoot + "." else "")) + property)
   #Deal with the icon case
   icon = ()=>  
-    if opt.icon? then "<span class='input-group-addon'> <span class='glyphicon glyphicon-#{opt.icon}'></span></span>" else ""
+    #<span class='glyphicon glyphicon-#{opt.icon}'></span>
+    if opt.icon? then "<span class='input-group-addon'><i class='fa fa-#{opt.icon} fa-fw'></i> </span>" else ""
   #Deal with the label
   label = ()=>
     if not opt.isNoLabel? then "<label class='control-label #{labelSize}' for='#{property}'> #{translationKey} </label>" else ""
@@ -142,7 +143,9 @@ Handlebars.registerHelper "options_selected", (property, options) ->
   #Get the value of the transalated label.
   translationKey = i18n.t(((if (translationRoot?) and typeof translationRoot is "string" then translationRoot + "." else "")) + property)
   icon = ()=>  
-    if opt.icon? then "<span class='input-group-addon'> <span class='glyphicon glyphicon-#{opt.icon}'></span></span>" else ""
+  #<span class='glyphicon glyphicon-#{opt.icon}'></span>
+    if opt.icon? then "<span class='input-group-addon'><i class='fa fa-#{opt.icon} fa-fw'></i> </span>" else ""
+    #if opt.icon? then "<span class='input-group-addon'> <span class='glyphicon glyphicon-#{opt.icon}'></span></span>" else ""
   isAddOnInput = opt.icon? or opt.isRequired?
    #Deal with the label
   label = ()=>

@@ -1,0 +1,19 @@
+<h2>{{t "virtualMachine.detail.title" }}</h2>
+<hr>
+<form class="form-horizontal" role="form">
+	
+	{{input_for "name" translationRoot="virtualMachine" isRequired="true" icon="edit"}}
+	{{input_for "nbCpu" translationRoot="virtualMachine" dataType="number" isRequired="true" icon="dashboard"}}
+	{{input_for "memory" translationRoot="virtualMachine" dataType="number" isRequired="true" icon="ellipsis-v"}}   	 
+	{{input_for "users" translationRoot="virtualMachine" isRequired="true" icon="user"}}
+	{{input_for "diskCapacity" translationRoot="virtualMachine" isRequired="true" icon='hdd-o'}}
+	{{input_for "startDate" translationRoot="virtualMachine"  dataType="date" isRequired="true" icon="calendar-o"}}
+	{{input_for "endDate" translationRoot="virtualMachine"  dataType="date" isRequired="true" icon="calendar-o"}}
+	{{options_selected "osId" listKey="osList" translationRoot="virtualMachine" isRequired="true" icon="laptop"}}
+	{{button "button.cancel" class="pull-left btn-default"}}
+	{{#if isCreate}}
+		{{button "button.create" type="submit" class="pull-right btn-success"}}
+	{{else}}
+		{{button "button.update" type="submit" class="pull-right btn-success"}}
+	{{/if}}
+</form>

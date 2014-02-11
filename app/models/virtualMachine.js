@@ -25,7 +25,7 @@ module.exports = Backbone.Model.extend({
 			required: true
 		},
 		diskTypeId: {
-			required: true
+		//	required: true
 		},
 		diskCapacity: {
 			required: true
@@ -34,7 +34,7 @@ module.exports = Backbone.Model.extend({
 			required: true
 		},
 		osId: {
-			required: true
+			//required: true
 		},
 		startDate: {
 			required: true
