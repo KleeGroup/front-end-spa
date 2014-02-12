@@ -17,8 +17,10 @@ module.exports = {
 		"cancel": "Cancel",
 		"create": "Create",
 		"update": "Update",
+		"save": "Save",
 		"back": "Back",
-		"edit":"Edit"
+		"edit":"Edit",
+		"loading": "Loading"
 	},
 	"home": {
 		"title": "Bienvenue dans l'application vm tickets.",

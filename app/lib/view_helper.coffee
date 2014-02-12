@@ -205,6 +205,7 @@ guid = ->
 
 # Example => button "transalationKey", icon="heart" id="12" class="btn-danger" type="submit"
 Handlebars.registerHelper "button",(text_key, options) ->
+  console.log "button", i18n.t(text_key)
   opt = options.hash or {}
   isScript = if typeof opt.isScript is "undefined" then true else opt.isScript
   cssClass = opt.class or ""
