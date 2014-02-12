@@ -24,6 +24,9 @@ module.exports = {
 		"title": "Bienvenue dans l'application vm tickets.",
 		"description": "Vous pouvez voir ici toutes les demandes de création de VMs."
 	},
+	"references":{
+		"title": "Reférences"
+	},
 	"virtualMachine": {
 		"search": {
 			"title": "Recherche de machines virtuelles",
