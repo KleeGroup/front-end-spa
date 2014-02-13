@@ -1,3 +1,4 @@
+/* global Promise */
 var Reference = require('../models/reference');
 var reference = new Reference();
 // var References = require('../models/references');
@@ -7,20 +8,31 @@ function saveReference(model) {
 	reference.clear({
 		silent: true
 	});
-	reference.save(model.toJSON(), {
-		success: function(newModel, response) {
-			model.trigger('save:success', newModel);
-		},
-		error: function(model, response) {
-			model.trigger('save:error', response);
-		}
+
+	new Promise(function(resolve, reject) {
+		reference.save(model.toJSON(), {
+			success: resolve,
+			error: reject
+		});
+	}).then(function success(argument) {
+		console.log("Success", argument);
+	}, function(error) {
+		console.log("error", error);
 	});
 }
 
 
 function loadReferences(collection) {
-	collection.fetch({
-		reset: true
+	new Promise(function(resolve, reject) {
+		collection.fetch({
+			success: resolve,
+			error: reject
+		});
+	}).then(function success(argument) {
+		console.log('success promise fetch', argument);
+		collection.reset(argument.toJSON());
+	}, function error(err) {
+		console.log("error promise fetch", err);
 	});
 }
 module.exports = {
