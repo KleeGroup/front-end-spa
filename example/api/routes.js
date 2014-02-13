@@ -68,6 +68,24 @@ var vms = [{
 	diskCapacity: 300,
 	users: undefined,
 	osId: 1
+}, {
+	id: 2,
+	name: 'VM3',
+	nbCpu: 4,
+	memory: 3000,
+	diskTypeId: 1,
+	diskCapacity: 300,
+	users: undefined,
+	osId: 1
+},{
+	id: 3,
+	name: 'VM4',
+	nbCpu: 4,
+	memory: 4000,
+	diskTypeId: 1,
+	diskCapacity: 300,
+	users: undefined,
+	osId: 1
 }];
 
 function getRefs(request, reply) {

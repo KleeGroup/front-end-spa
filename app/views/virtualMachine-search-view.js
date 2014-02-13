@@ -10,7 +10,7 @@ module.exports = Backbone.View.extend({
 	template: template,
 
 	initialize: function initializeVirtualMachineSearch() {
-		this.searchResults = new VirtualMachines();
+		this.searchResults = new VirtualMachines([], {state: {pageSize: 2}});
 
 		//handle the search action
 		this.listenTo(this.searchResults, 'reset', this.renderSearchResult);

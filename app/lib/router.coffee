@@ -11,6 +11,7 @@ VirtualMachineView = require 'views/virtualMachine-view'
 VirtualMachineSaveView = require 'views/virtualMachine-save-view'
 References = require('../models/references')
 ReferencesView = require('../views/references-view')
+TestPage = require('../views/test-page-view')
 
 module.exports = class Router extends Backbone.Router
 
@@ -24,6 +25,7 @@ module.exports = class Router extends Backbone.Router
     'virtualMachine/:id': 'virtualMachine'
     'updateVirtualMachine/:id': 'updateVirtualMachine'
     'reference': 'reference'
+    'testPage': 'testPage'
 
   home: =>
     view = new HomeView()
@@ -86,4 +88,7 @@ module.exports = class Router extends Backbone.Router
   reference: ()=>
     model = new References([{name: "valeur1", translationKey: "t_valeur1"}, {name: "valeur2", translationKey: "t_valeur2"}, {name: "valeur3", translationKey: "t_valeur3"}])
     view = new ReferencesView({model: model})
+    application.layout.content.show(view)
+  testPage: ()=>
+    view = new TestPage()
     application.layout.content.show(view)

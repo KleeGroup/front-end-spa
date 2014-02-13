@@ -20,7 +20,10 @@
     "backbone-validation": "~0.9.1",
     "backbone.marionette": "~1.6.1",
     "font-awesome": "~4.0.3",
-    "bluebird": "~1.0.4"
+    "bluebird": "~1.0.4",
+    "backbone-pageable": "~1.4.5",
+    "backgrid": "~0.3.5",
+    "backgrid-paginator": "~0.3.5"
   },
   "overrides": {
     "backbone": {
@@ -77,6 +80,38 @@
     },
     "bluebird": {
       "main": "js/browser/bluebird.js"
+    },
+    "backbone-pageable": {
+      "dependencies": {
+        "backbone": "*",
+        "underscore": "*",
+        "jquery": "*"
+      },
+      "main": "lib/backbone-pageable.js"
+    },
+    "backgrid": {
+      "dependencies": {
+        "backbone": "*",
+        "underscore": "*",
+        "jquery": "*"
+      },
+      "main": [
+        "lib/backgrid.css",
+        "lib/backgrid.js"
+      ]
+    },
+    "backgrid-paginator": {
+       "dependencies": {
+        "backbone-pageable": "*",
+        "backbone": "*",
+        "underscore": "*",
+        "jquery": "*",
+        "backgrid": "*"
+      },
+      "main": [
+        "backgrid-paginator.css",
+        "backgrid-paginator.js"
+      ]
     }
   }
 }

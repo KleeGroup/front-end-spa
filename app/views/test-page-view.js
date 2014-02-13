@@ -1,12 +1,13 @@
-/*global Backbone, $*/
-var template = require('./templates/virtualMachine-results');
-var _url = require('../lib/url_helper');
+var template = require('./templates/test-page');
+var VirtualMachines = require('../models/virtualMachines');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
 	template: template,
 
-	initialize: function initializeSearchResult() {
+	initialize: function initializePage(){
+
+		this.model = new VirtualMachines([], {state: {pageSize: 2}});
 
 		var columns = [{
 			name: "id",
@@ -33,13 +34,13 @@ module.exports = Backbone.View.extend({
 		this.paginator = new Backgrid.Extension.Paginator({
 			collection: this.model
 		});
+
+		this.model.fetch({
+			reset: true
+		});
 	},
 
-	events: {
-		'click tbody tr': 'virtualMachineSelection'
-	},
-
-	render: function renderVirtualMachineResults() {
+	render: function render(){
 		//the template must have named property to iterate over it
 		this.$el.html(this.template({
 			collection: this.model.toJSON()
@@ -47,13 +48,5 @@ module.exports = Backbone.View.extend({
 		$("#grid", this.$el).append(this.grid.render().$el);
 		$("#paginator", this.$el).append(this.paginator.render().$el);
 		return this;
-	},
-
-	virtualMachineSelection: function virtualMachineSelection(event) {
-		var id = +event.target.parentElement.getAttribute('id');
-		//Navigate 
-		var url = _url.generateUrl(['virtualMachine', id]);
-		//Backbone.Notification.clearNotifications();
-		Backbone.history.navigate(url, true);
 	}
 });
