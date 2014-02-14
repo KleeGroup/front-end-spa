@@ -14,6 +14,12 @@ function saveVirtualMachine(model) {
 		}
 	});
 }
+
+function deleteVm(model){
+	model.destroy();
+}
+
 module.exports = {
-	save: saveVirtualMachine
+	save: saveVirtualMachine,
+	deleteVm: deleteVm
 };

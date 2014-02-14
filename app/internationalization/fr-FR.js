@@ -20,6 +20,7 @@ module.exports = {
 		"save": "Save",
 		"back": "Back",
 		"edit":"Edit",
+		"delete": "delete",
 		"loading": "Loading"
 	},
 	"home": {

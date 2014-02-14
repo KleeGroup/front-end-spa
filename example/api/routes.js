@@ -38,6 +38,12 @@ module.exports = [{
 	config: {
 		handler: updateVm
 	}
+},{
+	method: 'DELETE',
+	path: '/vm/{id}',
+	config: {
+		handler: deleteVm
+	}
 }];
 
 var references = [{
@@ -108,4 +114,9 @@ function updateVm(request, reply) {
 	console.log('Update VM', request, reply);
 	vms[vms.request.payload.id] = request.payload;
 	reply(request.payload).code(200);
+}
+
+function deleteVm(request,reply){
+	console.log('delete VM', request.params.id);
+	reply();
 }
