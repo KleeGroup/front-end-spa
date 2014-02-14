@@ -34,7 +34,7 @@ module.exports = [{
 	}
 }, {
 	method: 'PUT',
-	path: '/vm',
+	path: '/vm/{id}',
 	config: {
 		handler: updateVm
 	}
@@ -112,8 +112,13 @@ function addVm(request, reply) {
 
 function updateVm(request, reply) {
 	console.log('Update VM', request, reply);
-	vms[vms.request.payload.id] = request.payload;
-	reply(request.payload).code(200);
+	//vms[vms.request.payload.id] = request.payload;
+	//reply(request.payload).code(200);
+
+	//error response
+	reply({
+		errors : [{fieldName: "memory", message: "la memoire est insuffisante."},{fieldName:"" , message: "erreur globale de la VM."}]
+	}).code(501);
 }
 
 function deleteVm(request,reply){
