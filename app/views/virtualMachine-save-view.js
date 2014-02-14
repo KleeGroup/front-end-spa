@@ -2,11 +2,14 @@
 var template = require('./templates/virtualMachine-save');
 var form_helper = require('../lib/form_helper');
 var VmSvc = require('../service/ServiceVirtualMachine');
+var _url = require('../lib/url_helper');
+
 module.exports = Backbone.View.extend({
 	tagName: 'div',
 	template: template,
 	events: {
-		"click button[type='submit']": "save"
+		"click button[type='submit']": "save",
+		"click button#btnCancel": "cancelEdition",
 	},
 	initialize: function initializeVirtualMachine() {
 		this.model.on('change', this.render, this);
@@ -71,6 +74,12 @@ module.exports = Backbone.View.extend({
 			silent: true
 		});
 		VmSvc.save(this.model);
+	},
+
+	cancelEdition: function cancelEdition(){
+		var url = _url.generateUrl(["virtualMachine", this.model.get("id")], {});
+		Backbone.Notification.clearNotifications();
+		Backbone.history.navigate(url, true);
 	},
 
 	render: function renderVirtualMachine() {
