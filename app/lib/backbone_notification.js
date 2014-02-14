@@ -23,7 +23,7 @@ var backboneNotification = {
     this.notificationsView.model.reset();
     $('button').button('reset');
     var that = this;
-    timeout = timeout || 5;
+    //timeout = timeout || 5;
     /*Notifications are displayed only timeout seconds.*/
     if (timeout !== null && timeout !== undefined) {
       setTimeout(function() {

@@ -1,4 +1,5 @@
 var VirtualMachine = require('../models/virtualMachine');
+var ErrorHelper = require('../lib/error_helper');
 var virtualMachine = new VirtualMachine();
 
 function saveVirtualMachine(model) {
@@ -9,8 +10,8 @@ function saveVirtualMachine(model) {
 		success: function(newModel, response) {
 			model.trigger('save:success', newModel);
 		},
-		error: function(model, response) {
-			model.trigger('save:error', response);
+		error: function(newModel, response) {
+			model.trigger('save:error', ErrorHelper.manageResponseErrors(response));
 		}
 	});
 }

@@ -45,12 +45,17 @@ module.exports = Backbone.View.extend({
 		Backbone.history.navigate('virtualMachine/' + model.get('id'), true);
 		//console.log('succeess', model);
 	},
-	saveError: function saveError(response) {
-		console.log('error', response);
-		Backbone.Notification.addNotification({
-			type: 'error',
-			message: i18n.t('virtualMachine.error')
-		}, true);
+	saveError: function saveError(errors) {
+		console.log('error', errors);
+		this.model.set({
+			'errors': errors.fieldErrors
+		});
+		_.each(errors.globalErrors, function(error) {
+			Backbone.Notification.addNotification({
+				type: 'error',
+				message: error
+			},true);
+		})
 	},
 	//When there is a validation problem, we put the errors into the model in order to display them in the form.
 	modelInValid: function vmModelInValid(model, errors) {
