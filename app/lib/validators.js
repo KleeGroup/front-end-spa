@@ -1,5 +1,6 @@
 var regex = {
-	email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+	number: /^-?\d+(?:\.d*)?(?:e[+\-]?\d+)?$/i
 };
 
 //Function to test an email.
@@ -16,8 +17,15 @@ function stringLength(stringToTest, options) {
 	options.minLength = options.minLength || 0;
 	return stringToTest.length > options.minLength;
 }
+//Function to  validate that an input is a number.
+function numberRegexValidation(numberToValidate, options){
+	options = options || options;
+	numberToValidate = ''+numberToValidate;//Cast it into a number.
+	return regex.number.test(numberToValidate);
+}
 // Validations functions.
 module.exports = {
 	email: emailRegexValidation,
-	stringLength: stringLength
+	stringLength: stringLength,
+	number: numberRegexValidation
 };
