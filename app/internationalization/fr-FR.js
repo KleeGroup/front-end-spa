@@ -3,25 +3,25 @@ module.exports = {
 	"application": {
 		"name": "VM tickets",
 		"navigation": {
-			"home": "home",
+			"home": "accueil",
 			"virtualMachines": {
 				"title": "vms",
-				"search": "search",
-				"new": "new"
+				"search": "Recherche",
+				"new": "Création"
 			},
-			"reference": "reference"
+			"reference": "Référence"
 
 		}
 	},
 	"button": {
-		"cancel": "Cancel",
-		"create": "Create",
-		"update": "Update",
-		"save": "Save",
-		"back": "Back",
-		"edit":"Edit",
-		"delete": "delete",
-		"loading": "Loading"
+		"cancel": "Annuler",
+		"create": "Créer",
+		"update": "Mettre à jour",
+		"save": "Enregistrer",
+		"back": "Retour",
+		"edit":"Modifier",
+		"delete": "Supprimer",
+		"loading": "Chargement"
 	},
 	"home": {
 		"title": "Bienvenue dans l'application vm tickets.",
@@ -33,8 +33,8 @@ module.exports = {
 	"virtualMachine": {
 		"search": {
 			"title": "Recherche de machines virtuelles",
-			"btnReset": "effacer",
-			"btnSearch": "rechercher",
+			"btnReset": "Effacer",
+			"btnSearch": "Rechercher",
 			"noResult": "Aucun résultat ne correspond à vos critères."
 		},
 		"detail": {
@@ -52,6 +52,7 @@ module.exports = {
 		"diskCapacity": "Capacité du disque",
 		"users": "Utilisateurs ayant droit",
 		"startDate": "Date de création",
-		"endDate": "Date limite"
+		"endDate": "Date limite",
+		"os": "OS"
 	}
 };
