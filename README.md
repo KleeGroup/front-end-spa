@@ -1,5 +1,8 @@
-# Blank spaapplication
-This is a simple coffeescript based skeleton for [Brunch](http://brunch.io/) which utilizes [MarionetteJS](http://marionettejs.com/) and Bootstrap 3.
+# Blank spa application
+## Purpose
+
+## Skeleton
+This is a simple Backbone based skeleton for [Brunch](http://brunch.io/) which utilizes [MarionetteJS](http://marionettejs.com/) and Bootstrap 3.
 
 Main features are [CoffeeScript](http://coffeescript.org/),
 [Stylus](http://learnboost.github.com/stylus/) and
