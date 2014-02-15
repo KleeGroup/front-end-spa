@@ -38,7 +38,7 @@ module.exports = [{
 	config: {
 		handler: updateVm
 	}
-},{
+}, {
 	method: 'DELETE',
 	path: '/vm/{id}',
 	config: {
@@ -117,11 +117,20 @@ function updateVm(request, reply) {
 
 	//error response
 	reply({
-		errors : [{fieldName: "memory", message: "la memoire est insuffisante."},{fieldName:"" , message: "erreur globale de la VM."}]
+		errors: [{
+			fieldName: "memory",
+			message: "la memoire est insuffisante."
+		}, {
+			fieldName: "",
+			message: "erreur globale de la VM."
+		}]
 	}).code(501);
 }
 
-function deleteVm(request,reply){
+function deleteVm(request, reply) {
 	console.log('delete VM', request.params.id);
-	reply();
+	reply({
+		"deleted": true,
+		"id": request.params.id
+	});
 }
