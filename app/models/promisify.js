@@ -11,6 +11,16 @@ var PromiseModel = Backbone.Model.extend({
 				});
 			}
 		);
+	}, destroy: function promiseDestroyModel(){
+		var model = this;
+		return new Promise(
+			function(resolve, reject) {
+				Backbone.sync('delete', model, {
+					success: resolve,
+					error: reject
+				});
+			}
+		);
 	}
 
 });
@@ -29,6 +39,7 @@ var PromiseCollection = Backbone.Collection.extend({
 		});
 	}
 });
+
 
 
 module.exports = {
