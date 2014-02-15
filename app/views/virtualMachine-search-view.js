@@ -1,9 +1,11 @@
-/*global Backbone, $*/
+/*global Backbone, $, i18n*/
 
 var template = require('./templates/virtualMachine-search');
 var VirtualMachines = require('../models/virtualMachines');
 var VirtualMachineResultsView = require("./virtualMachine-results-view");
 var form_helper = require('../lib/form_helper');
+var VmSvc = require('../service/ServiceVirtualMachine');
+var ErrorHelper = require('../lib/error_helper');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
@@ -51,9 +53,18 @@ module.exports = Backbone.View.extend({
 	//When the model is valid, the  process continue.
 	modelValid: function modelValid(model) {
 		this.model.unset('errors');
-		this.searchResults.fetch({
-			reset: true
-		});
+		/*Call the service in otder to fetch correctly the results.*/
+		/*This service return a promise.*/
+		var vmSearchView = this;
+		VmSvc.search(this.model.toJSON())
+			.then(function success(jsonResponse) {
+				return vmSearchView.searchResults.reset(jsonResponse);
+			}, function error(errorResponse){
+				ErrorHelper.manageResponseErrors(errorResponse, {isDisplay: true});
+			}); //Pass the criteria to the model.
+		// this.searchResults.fetch({
+		// 	reset: true
+		// });
 	},
 
 	renderSearchResult: function renderSearchResult() {
