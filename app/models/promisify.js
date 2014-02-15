@@ -17,10 +17,15 @@ var PromiseModel = Backbone.Model.extend({
 
 var PromiseCollection = Backbone.Collection.extend({
 	//Ovverride the default collection fetch method, using and returning a promise.
-	fetch: function promiseFetchCollection() {
+	//Options is the options object which is sent to the jquery method.
+	fetch: function promiseFetchCollection(options) {
+		options = options || {};
 		var collection = this;
 		return new Promise(function(resolve, reject) {
-			Backbone.sync('read', collection, {success: resolve, error: reject});
+			/*Don't use underscore but could have because bacckbone has a dependency on it.*/
+			options.success = resolve;
+			options.error = reject;
+			Backbone.sync('read', collection, options);
 		});
 	}
 });
