@@ -7,6 +7,9 @@ var Promisify = require('../models/promisify');
 var ErrorHelper = require('../lib/error_helper');
 /*Instances of both model and collection of virtual machines.*/
 var virtualMachine = new VirtualMachine();
+var promisifyVirtualMachine = new Promisify.Model();
+promisifyVirtualMachine.urlRoot = virtualMachine.urlRoot;
+
 var virtualMachines = new VirtualMachines();
 var promiseVirtualMachines = new Promisify.Collection();
 promiseVirtualMachines.url = virtualMachines.url;
@@ -26,13 +29,16 @@ function saveVirtualMachine(model) {
 	});
 }
 
-function deleteVm(model) {
-	model.destroy();
+//Try to delete a virtual machine and return a promise.
+function deleteVm(jsonModel) {
+	promisifyVirtualMachine.clear({silent: true});
+	promisifyVirtualMachine.set(jsonModel, {silent: true});
+	return promisifyVirtualMachine.destroy();
 }
 
-// Seach for a virtual machine, using a criteria into the request.
+// Seach for a virtual machine, using a criteria into the request. And return a promise.
 function searchVirtualMachine(criteria) {
-	promiseVirtualMachines.reset(null, {silet: true});
+	promiseVirtualMachines.reset(null, {silent: true});
 	if(criteria === undefined){
 		return promiseVirtualMachines.fetch();
 	} return  promiseVirtualMachines.fetch({data: criteria});
