@@ -1,6 +1,6 @@
 # Blank spa application
 ## Purpose
-
+This application should be both a model and a tutorial for the SPA applications.
 ## Skeleton
 This is a simple Backbone based skeleton for [Brunch](http://brunch.io/) which utilizes [MarionetteJS](http://marionettejs.com/) and Bootstrap 3.
 
