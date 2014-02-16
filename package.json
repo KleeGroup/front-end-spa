@@ -15,7 +15,8 @@
   "scripts": {
     "start": "brunch watch --server",
     "test": "brunch test",
-    "api": "node ./example/api/server.js"
+    "api": "node ./example/api/server.js",
+    "doc": "docco app/{,lib/,models/,views/}* README.md"
   },
   "dependencies": {
     "javascript-brunch": ">= 1.0 < 1.7",
