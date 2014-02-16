@@ -84,6 +84,6 @@ module.exports = class Router extends Backbone.Router
     view = new VirtualMachineSaveView({model: model})
     application.layout.content.show(view)
   reference: ()=>
-    model = new References([{name: "valeur1", translationKey: "t_valeur1"}, {name: "valeur2", translationKey: "t_valeur2"}, {name: "valeur3", translationKey: "t_valeur3"}])
+    model = new References()
     view = new ReferencesView({model: model})
     application.layout.content.show(view)
