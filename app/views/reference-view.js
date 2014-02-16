@@ -1,4 +1,5 @@
-/* global Backbone, _ , i18n*/
+/* global Backbone, _ , i18n, $*/
+var form_helper = require('../lib/form_helper');
 var RefSvc = require('../service/ServiceReferential');
 
 var template = require('./templates/reference');
@@ -10,6 +11,7 @@ module.exports = Backbone.View.extend({
 		this.isEdit = false;
 		this.listenTo(this.model, 'validated:valid', this.modelValid);
 		this.listenTo(this.model, 'validated:invalid', this.modelInValid);
+		this.listenTo(this.model, 'change:errors', this.render);
 		this.listenTo(this.model, 'save:success', this.saveSuccess);
 		this.listenTo(this.model, 'save:error', this.saveError);
 	},
@@ -25,6 +27,10 @@ module.exports = Backbone.View.extend({
 	},
 	save: function saveReferenceChange(event) {
 		event.preventDefault();
+		//Bind the model on the form.
+		form_helper.formModelBinder({
+			inputs: $('input', this.$el)
+		}, this.model);
 		this.model.validate();
 	},
 	saveSuccess: function refSaveSuccess(model) {
@@ -43,17 +49,12 @@ module.exports = Backbone.View.extend({
 	},
 	//When there is a validation problem, we put the errors into the model in order to display them in the form.
 	modelInValid: function refModelInValid(model, errors) {
-		this.model.set({
-			'errors': errors
-		});
-		//this.render();
+		this.model.setErrors(errors);
 	},
 
 	//When the model is valid, the  process continue.
 	modelValid: function refModelValid() {
-		this.model.unset('errors', {
-			silent: true
-		});
+		this.model.unsetErrors();
 		RefSvc.save(this.model);
 	},
 	render: function renderVirtualMachine() {
