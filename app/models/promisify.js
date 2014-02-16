@@ -4,9 +4,10 @@ var PromiseModel = Backbone.Model.extend({
 	//Ovverride the save method on the model in order to Return a promise.
 	save: function saveModel() {
 		var model = this;
+		var method = this.isNew() ? 'create' : 'update';
 		return new Promise(
 			function(resolve, reject) {
-				Backbone.Model.prototype.save(model.toJSON(), {
+				Backbone.sync(method, model, {
 					success: resolve,
 					error: reject
 				});
@@ -46,7 +47,7 @@ var PromiseCollection = Backbone.Collection.extend({
 //Convert an existing Backbone model to a _promise_ version of it.
 var ConvertModel = function ConvertBackBoneModelToPromiseModel(model) {
 	if (model.url === undefined || model.urlRoot === undefined) {
-		throw new Error("The model url cannot be undefined.");
+		throw new Error("ConvertBackBoneModelToPromiseModel: The model url cannot be undefined.");
 	}
 	var promiseModel = new PromiseModel();
 	var property = model.urlRoot !== undefined ? 'urlRoot' : 'url';
