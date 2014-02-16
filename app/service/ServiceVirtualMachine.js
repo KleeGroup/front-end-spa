@@ -3,26 +3,15 @@ var VirtualMachine = require('../models/virtualMachine');
 var VirtualMachines = require('../models/virtualMachines');
 /*Load the promisify helper.*/
 var Promisify = require('../models/promisify');
-/*Error helper dependency.*/
-var ErrorHelper = require('../lib/error_helper');
 /*Instances of both model and collection of virtual machines.*/
-var virtualMachine = new VirtualMachine();
 var promisifyVirtualMachine = Promisify.Convert.Model(new VirtualMachine());
 var promiseVirtualMachines = Promisify.Convert.Collection(new VirtualMachines());//new Promisify.Collection();
 
-
-function saveVirtualMachine(model) {
-	virtualMachine.clear({
-		silent: true
-	});
-	virtualMachine.save(model.toJSON(), {
-		success: function successSaveVirtualMachine(newModel, response) {
-			model.trigger('save:success', newModel);
-		},
-		error: function errorSaveVirtualMachine(newModel, response) {
-			model.trigger('save:error', ErrorHelper.manageResponseErrors(response));
-		}
-	});
+//Try to save a virtual machine, returning a promise.
+function saveVirtualMachine(jsonModel) {
+	promisifyVirtualMachine.clear({silent: true});
+	promisifyVirtualMachine.set(jsonModel, {silent: true});
+	return promisifyVirtualMachine.save();
 }
 
 //Try to delete a virtual machine and return a promise.
