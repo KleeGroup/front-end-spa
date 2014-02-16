@@ -61,10 +61,7 @@ module.exports = Backbone.View.extend({
 				return vmSearchView.searchResults.reset(jsonResponse);
 			}, function error(errorResponse){
 				ErrorHelper.manageResponseErrors(errorResponse, {isDisplay: true});
-			}); //Pass the criteria to the model.
-		// this.searchResults.fetch({
-		// 	reset: true
-		// });
+			});
 	},
 
 	renderSearchResult: function renderSearchResult() {
