@@ -6,7 +6,7 @@ var template = require('./templates/reference');
 module.exports = Backbone.View.extend({
 	tagName: 'tr',
 	template: template,
-	/*Good practice fordebugging to name the anonymous function. In order to see it in the stack trace.*/
+	/*Best practice for debugging to name the anonymous function. In order to see it in the stack trace.*/
 	initialize: function initializeReferenceView() {
 		this.isEdit = false;
 		this.listenTo(this.model, 'validated:valid', this.modelValid);
@@ -44,7 +44,7 @@ module.exports = Backbone.View.extend({
 		console.log('error', response);
 		Backbone.Notification.addNotification({
 			type: 'error',
-			message: i18n.t('reference.save.success')
+			message: i18n.t('reference.save.error')
 		}, true);
 	},
 	//When there is a validation problem, we put the errors into the model in order to display them in the form.
