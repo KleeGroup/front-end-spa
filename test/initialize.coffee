@@ -1,7 +1,6 @@
+require('./initialize-globals').load({log: true});
 tests = [
-  './views/header-view-test'
-  './views/home-page-view-test'
-  './views/site-view-test'
+  './models/model'
 ]
 
 for test in tests
