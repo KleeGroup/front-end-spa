@@ -9,7 +9,7 @@ module.exports = Model.extend({
 		translationKey: undefined
 	},
 
-	url: URL.reference,
+	urlRoot: URL.reference,
 	/*Initialize the default values which are not defined in the prototype as defaults,
 	valid for all the function call as initialization.*/
 	initialize: function initializeReference() {},
