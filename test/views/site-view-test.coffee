@@ -1,4 +1,4 @@
-SiteView = require 'views/site-view'
+SiteView = require '../../app/views/site-view'
 
 describe 'SiteView', ->
   beforeEach ->

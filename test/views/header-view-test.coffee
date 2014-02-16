@@ -1,4 +1,4 @@
-HeaderView = require 'views/header-view'
+HeaderView = require '../../app/views/header-view'
 
 class HeaderViewTest extends HeaderView
   renderTimes: 0
