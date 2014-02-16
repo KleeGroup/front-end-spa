@@ -1,6 +1,7 @@
 /* global Backbone, _ , i18n, $*/
 var form_helper = require('../lib/form_helper');
 var RefSvc = require('../service/ServiceReferential');
+var ErrorHelper = require('../lib/error_helper');
 
 var template = require('./templates/reference');
 module.exports = Backbone.View.extend({
@@ -20,7 +21,6 @@ module.exports = Backbone.View.extend({
 		"click button[type='submit']": 'save'
 	},
 	toogleEditMode: function toogleEditMode(event) {
-		console.log("toogle");
 		event.preventDefault();
 		this.isEdit = !this.isEdit;
 		this.render();
@@ -34,18 +34,14 @@ module.exports = Backbone.View.extend({
 		this.model.validate();
 	},
 	saveSuccess: function refSaveSuccess(model) {
-		console.log(model);
+		//console.log(model);
 		Backbone.Notification.addNotification({
 			type: 'success',
 			message: i18n.t('reference.save.success')
 		}, true);
 	},
 	saveError: function refSaveError(response) {
-		console.log('error', response);
-		Backbone.Notification.addNotification({
-			type: 'error',
-			message: i18n.t('reference.save.error')
-		}, true);
+		ErrorHelper.manageResponseErrors(response, {isDisplay: true});
 	},
 	//When there is a validation problem, we put the errors into the model in order to display them in the form.
 	modelInValid: function refModelInValid(model, errors) {
@@ -54,8 +50,11 @@ module.exports = Backbone.View.extend({
 
 	//When the model is valid, the  process continue.
 	modelValid: function refModelValid() {
+		var refView = this;
 		this.model.unsetErrors();
-		RefSvc.save(this.model);
+		RefSvc.save(this.model.toJSON())
+              .then(refView.saveSuccess)
+              .catch(refView.saveError);
 	},
 	render: function renderVirtualMachine() {
 		this.$el.html(

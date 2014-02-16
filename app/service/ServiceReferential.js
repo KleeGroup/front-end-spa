@@ -6,21 +6,11 @@ var Promisify = require('../models/promisify');
 var promiseReference = Promisify.Convert.Model(new Reference());
 var promiseReferences = Promisify.Convert.Collection(new References());
 
-function saveReference(model) {
-	reference.clear({
+function saveReference(jsonModel) {
+	promiseReference.clear({
 		silent: true
 	});
-
-	new Promise(function(resolve, reject) {
-		reference.save(model.toJSON(), {
-			success: resolve,
-			error: reject
-		});
-	}).then(function success(argument) {
-		console.log("Success", argument);
-	}, function(error) {
-		console.log("error", error);
-	});
+	return promiseReference.save(jsonModel);
 }
 
 //Load all the references of the application
