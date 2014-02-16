@@ -7,12 +7,8 @@ var Promisify = require('../models/promisify');
 var ErrorHelper = require('../lib/error_helper');
 /*Instances of both model and collection of virtual machines.*/
 var virtualMachine = new VirtualMachine();
-var promisifyVirtualMachine = new Promisify.Model();
-promisifyVirtualMachine.urlRoot = virtualMachine.urlRoot;
-
-var virtualMachines = new VirtualMachines();
-var promiseVirtualMachines = new Promisify.Collection();
-promiseVirtualMachines.url = virtualMachines.url;
+var promisifyVirtualMachine = Promisify.Convert.Model(new VirtualMachine());
+var promiseVirtualMachines = Promisify.Convert.Collection(new VirtualMachines());//new Promisify.Collection();
 
 
 function saveVirtualMachine(model) {
