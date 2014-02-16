@@ -3,6 +3,7 @@ var template = require('./templates/virtualMachine-save');
 var form_helper = require('../lib/form_helper');
 var VmSvc = require('../service/ServiceVirtualMachine');
 var _url = require('../lib/url_helper');
+var ErrorHelper = require('../lib/error_helper');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
@@ -40,25 +41,15 @@ module.exports = Backbone.View.extend({
 		this.model.validate();
 
 	},
-	saveSuccess: function saveSuccess(model) {
+	saveSuccess: function saveSuccess(jsonModel) {
 		Backbone.Notification.addNotification({
 			type: 'success',
-			message: i18n.t('virtualMachine.save.' + (this.model.get('isCreate') ? 'create' : 'update') + 'success')
+			message: i18n.t('virtualMachine.save.' + (jsonModel.isCreate ? 'create' : 'update') + 'success')
 		});
-		Backbone.history.navigate('virtualMachine/' + model.get('id'), true);
-		//console.log('succeess', model);
+		Backbone.history.navigate('virtualMachine/' + jsonModel.id, true);
 	},
 	saveError: function saveError(errors) {
-		console.log('error', errors);
-		this.model.set({
-			'errors': errors.fieldErrors
-		});
-		_.each(errors.globalErrors, function(error) {
-			Backbone.Notification.addNotification({
-				type: 'error',
-				message: error
-			},true);
-		})
+		ErrorHelper.manageResponseErrors(errors, {model: this.model});
 	},
 	//When there is a validation problem, we put the errors into the model in order to display them in the form.
 	modelInValid: function vmModelInValid(model, errors) {
@@ -73,10 +64,18 @@ module.exports = Backbone.View.extend({
 		this.model.unset('errors', {
 			silent: true
 		});
-		VmSvc.save(this.model);
+		var model = this.model;
+		VmSvc.save(this.model.toJSON())
+			.then(
+				function success(successResponse) {
+					model.trigger('save:success', successResponse);
+				},function error(errorResponse) {
+					model.trigger('save:error', errorResponse);
+				}
+		);
 	},
 
-	cancelEdition: function cancelEdition(){
+	cancelEdition: function cancelEdition() {
 		var url = _url.generateUrl(["virtualMachine", this.model.get("id")], {});
 		Backbone.Notification.clearNotifications();
 		Backbone.history.navigate(url, true);
