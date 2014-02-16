@@ -40,7 +40,7 @@ class Application extends Backbone.Marionette.Application
     @addInitializer (options) =>
       # Initiate the translation
       resources = require 'internationalization/all'
-      i18n.init({resStore: resources, lng: config.lang}, (content)-> console.log('Traduction correctement initialisée.'))
+      i18n.init({resStore: resources, lng: config.lang}, (content)-> console.log('Translation correctly initialized.'))
 
     #Initialiation of backbone validation model, 
     # the prototype of the model is extended in order to replace standard backbone validate method.
