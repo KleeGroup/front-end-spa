@@ -1,4 +1,5 @@
 /*global Backbone, Promise*/
+// Backbone model with **promise** CRUD method instead of its own methods.
 var PromiseModel = Backbone.Model.extend({
 	//Ovverride the save method on the model in order to Return a promise.
 	save: function saveModel() {
@@ -11,7 +12,8 @@ var PromiseModel = Backbone.Model.extend({
 				});
 			}
 		);
-	}, destroy: function promiseDestroyModel(){
+	},
+	destroy: function promiseDestroyModel() {
 		var model = this;
 		return new Promise(
 			function(resolve, reject) {
@@ -25,8 +27,9 @@ var PromiseModel = Backbone.Model.extend({
 
 });
 
+// Backbone collection with **promise** CRUD method instead of its own methods.
 var PromiseCollection = Backbone.Collection.extend({
-	//Ovverride the default collection fetch method, using and returning a promise.
+	//Override the default collection fetch method, using and returning a promise.
 	//Options is the options object which is sent to the jquery method.
 	fetch: function promiseFetchCollection(options) {
 		options = options || {};
@@ -40,9 +43,32 @@ var PromiseCollection = Backbone.Collection.extend({
 	}
 });
 
+//Convert an existing Backbone model to a _promise_ version of it.
+var ConvertModel = function ConvertBackBoneModelToPromiseModel(model) {
+	if (model.url === undefined || model.urlRoot === undefined) {
+		throw new Error("The model url cannot be undefined.");
+	}
+	var promiseModel = new PromiseModel();
+	var property = model.urlRoot !== undefined ? 'urlRoot' : 'url';
+	promiseModel[property] = model[property];
+	return promiseModel;
+};
 
+//Convert an existing Backbone collection to a _promise_ version of it.
+var ConvertCollection = function ConvertBackboneCollectionToPromiseCollection(collection) {
+	if (collection.url === undefined || collection.urlRoot === null) {
+		throw new Error("The collection url cannot be undefined.");
+	}
+	var promiseCollection = new PromiseCollection();
+	promiseCollection.url = collection.url;
+	return promiseCollection;
+};
 
 module.exports = {
 	Model: PromiseModel,
-	Collection: PromiseCollection
+	Collection: PromiseCollection,
+	Convert: {
+		Model: ConvertModel,
+		Collection: ConvertCollection
+	}
 };
