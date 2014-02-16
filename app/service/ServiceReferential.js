@@ -1,11 +1,10 @@
 /* global Promise */
 var Reference = require('../models/reference');
-var reference = new Reference();
-// var References = require('../models/references');
-// var references = new References();
+var References = require('../models/references');
 var Promisify = require('../models/promisify');
-var promiseCollection = new Promisify.Collection();
-promiseCollection.url = reference.url;
+/*Instances of both model and collection of virtual machines.*/
+var promiseReference = Promisify.Convert.Model(new Reference());
+var promiseReferences = Promisify.Convert.Collection(new References());
 
 function saveReference(model) {
 	reference.clear({
@@ -24,26 +23,10 @@ function saveReference(model) {
 	});
 }
 
-
-function loadReferences(collection) {
-	promiseCollection.reset(collection.toJSON());
-	promiseCollection.fetch().then(function success(jsonResponse) {
-		console.log('success promisify fetch', jsonResponse);
-		collection.reset(jsonResponse);
-	}, function error(err) {
-		console.log("error promisify fetch", err);
-	});
-	// new Promise(function(resolve, reject) {
-	// 	collection.fetch({
-	// 		success: resolve,
-	// 		error: reject
-	// 	});
-	// }).then(function success(argument) {
-	// 	console.log('success promise fetch', argument);
-	// 	collection.reset(argument.toJSON());
-	// }, function error(err) {
-	// 	console.log("error promise fetch", err);
-	// });
+//Load all the references of the application
+function loadReferences() {
+	promiseReferences.reset(null, {silent: true});
+	return promiseReferences.fetch();
 }
 module.exports = {
 	save: saveReference,
