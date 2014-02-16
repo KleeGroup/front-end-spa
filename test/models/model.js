@@ -28,4 +28,12 @@ describe('default model', function() {
       model.has('errors').should.be.false;
     });
   });
+  describe('#toJSON', function() {
+    it('should have a papa singe property in addition to the other property', function() {
+      var jsonModel = model.toJSON();
+      jsonModel.should.have.property('papa', 'singe');
+      jsonModel.should.have.property('firstName', 'Pierre');
+      jsonModel.should.have.property('lastName', 'Besson');
+    });
+  });
 });
