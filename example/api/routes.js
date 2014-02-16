@@ -77,10 +77,12 @@ var vms = [{
 }];
 
 function getRefs(request, reply) {
+	console.log('Get References');
 	reply(references);
 }
 
 function getVms(request, reply) {
+	console.log('getVMS request');
 	if (request.query.name) {
 		reply(vms);
 	} else {
@@ -89,11 +91,12 @@ function getVms(request, reply) {
 }
 
 function getVm(request, reply) {
+	console.log('Get VM : id: ', request.params.id);
 	reply(vms[request.params.id]);
 }
 
 function addVm(request, reply) {
-
+	console.log('addVM', vms[vms.length - 1].id + 1);
 	var vm = {
 		id: vms[vms.length - 1].id + 1,
 		name: request.payload.name,
