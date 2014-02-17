@@ -43,8 +43,13 @@ Handlebars.registerHelper "debug", (optionalValue) ->
 # Get the metadatad for a property.
 getMetadataFor = (property, context)->
   metadata = {}
-  if context? and context['metadatas']?
-    md = context['metadatas'][property]
+  if context?
+    if context['metadatas']?
+      md = context['metadatas'][property]
+    if not md?
+      domainOfModel = require('./domains-definition')[context['modelName']];
+      if domainOfModel?
+        md = {metadata : domainOfModel[property]}
     if md?
       # First copy the "globals" metadata
       _.extend(metadata, md.metadata) if md.metadata?
