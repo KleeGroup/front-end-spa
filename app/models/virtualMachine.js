@@ -19,11 +19,11 @@ module.exports = Model.extend({
 	//Each domain key much match a model property when given to the template.
 	metadatas: {
 		//Obtained by generation.
-		nbCpu: {
+		/*nbCpu: {
 			metadata: domDef.virtualMachine.nbCpu,
 			label: "virtualMachine.nbCpu",
 			required: false
-		},
+		},*/
 		osId: {
 			metadata: domDef.virtualMachine.osId
 		},

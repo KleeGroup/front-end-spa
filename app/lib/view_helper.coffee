@@ -46,8 +46,8 @@ getMetadataFor = (property, context)->
   if context?
     if context['metadatas']?
       md = context['metadatas'][property]
-    if not md?
-      domainOfModel = require('./domains-definition')[context['modelName']];
+    if not md? and domains_definition?
+      domainOfModel = domains_definition[context['modelName']];
       if domainOfModel?
         md = {metadata : domainOfModel[property]}
     if md?
