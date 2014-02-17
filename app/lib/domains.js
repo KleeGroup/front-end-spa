@@ -14,7 +14,7 @@ module.exports = {
 		}]
 	},
 	"DO_TEXTE_50": {
-		"type": "number",
+		"type": "text",
 		"validation": [{
 			"type": "regex",
 			"value": "^\\+$"
@@ -28,6 +28,13 @@ module.exports = {
 		}]
 	},
 	"DO_ID": {
+		"type": "text",
+		"validation": [{
+			"type": "regex",
+			"value": "^\\+$"
+		}]
+	},
+	"DO_TEXTE_30": {
 		"type": "text",
 		"validation": [{
 			"type": "regex",

@@ -14,6 +14,7 @@ module.exports = Backbone.Model.extend({
 		startDate: undefined,
 		endDate: undefined
 	},
+	//Each domain key much match a model property when given to the template.
 	domains: {
 		//Obtained by generation.
 		nbCpu: domDef.virtualMachine.nbCpu,
@@ -31,6 +32,7 @@ module.exports = Backbone.Model.extend({
 			"required": true
 		}
 	},
+	//Each label key much match a domain key.
 	labels: {
 		//Obtain by generation
 		nbCpu: "virtualMachine.nbCpu",
