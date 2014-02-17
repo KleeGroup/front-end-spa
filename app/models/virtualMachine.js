@@ -1,6 +1,6 @@
 /*global Backbone*/
 var URL = require('./URL');
-
+var domDef = require('../lib/domains-definitions');
 //define a model for a virtual machine
 module.exports = Backbone.Model.extend({
 	defaults: {
@@ -13,6 +13,36 @@ module.exports = Backbone.Model.extend({
 		osId: undefined,
 		startDate: undefined,
 		endDate: undefined
+	},
+	domains: {
+		//Obtained by generation.
+		nbCpu: domDef.virtualMachine.nbCpu,
+		osId: domDef.virtualMachine.osId,
+		memory: domDef.virtualMachine.memory,
+		diskCapacity: domDef.virtualMachine.diskCapacity,
+		users: domDef.virtualMachine.users,
+		startDate: domDef.virtualMachine.startDate,
+		endDate: domDef.virtualMachine.endDate,
+		// Override with an other entity domain
+		name: domDef.virtualMachineSearch.name,
+		//Manual override
+		os: {
+			"domain": "DO_TEXTE_50",
+			"required": true
+		}
+	},
+	labels: {
+		//Obtain by generation
+		nbCpu: "virtualMachine.nbCpu",
+		memory: "virtualMachine.memory",
+		diskTypeId: "virtualMachine.diskTypeId",
+		diskCapacity: "virtualMachine.diskCapacity",
+		users: "virtualMachine.users",
+		osId: "virtualMachine.osId",
+		startDate: "virtualMachine.startDate",
+		endDate: "virtualMachine.endDate",
+		//Override with an other translation key.
+		name: "virtualMachineSearch.name"
 	},
 	validation: {
 		name: {
@@ -42,7 +72,6 @@ module.exports = Backbone.Model.extend({
 		endDate: {
 			required: true
 		}
-
 	},
 	urlRoot: URL.virtualMachine,
 

@@ -30,9 +30,11 @@ module.exports = {
 		},
 		"endDate": {
 			"domain": "DO_DATE"
-		},
-		"os": {
-			"domain": "DO_TEXTE_50",
+		}
+	},
+	"virtualMachineSearch": {
+		"name": {
+			"domain": "DO_TEXTE_30",
 			"required": true
 		}
 	}
