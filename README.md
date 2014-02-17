@@ -1,6 +1,7 @@
 # Blank spa application
 ## Purpose
 This application should be both a model and a tutorial for the SPA applications.
+It tries to treat as much simple behaviour as possible.
 ## Skeleton
 This is a simple Backbone based skeleton for [Brunch](http://brunch.io/) which utilizes [MarionetteJS](http://marionettejs.com/) and Bootstrap 3.
 
@@ -18,6 +19,8 @@ Main features are [CoffeeScript](http://coffeescript.org/),
 ## Launch an api in order to simulate the app
 * `npm run api` will launch a server on `localhost:8080`
 
+## Generate the code documentation
+* `npm run doc` will launch docco and serve it into the docs directory, which is by the way not commited.
 ## Wiki
 In order to fully understant the concepts in this application you can have a look on the [wiki](https://github.com/dtklee/front-end-spa/wiki)
 
