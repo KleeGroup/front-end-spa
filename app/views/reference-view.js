@@ -18,7 +18,8 @@ module.exports = Backbone.View.extend({
 	},
 	events: {
 		"click button#edit": "toogleEditMode",
-		"click button[type='submit']": 'save'
+		"click button[type='submit']": 'save',
+		"click button#cancel": "toogleEditMode"
 	},
 	toogleEditMode: function toogleEditMode(event) {
 		event.preventDefault();
