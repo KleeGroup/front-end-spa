@@ -66,7 +66,8 @@ Handlebars.registerHelper "input_for", (property, options) ->
   opt = options.hash or {}
   metadata = getMetadataFor(property, this)
   domain = domains_definition[metadata.domain] or {}
-  console.log "domain", domain
+  #console.log "domain", domain
+  isDisplayRequired = false
   isRequired = ()=>
     isDisplayRequired = false
     if opt.isRequired?
@@ -96,7 +97,7 @@ Handlebars.registerHelper "input_for", (property, options) ->
       inputSizeValue = 12 - labelSizeValue
       inputSize = opt.inputSize or "col-sm-#{inputSizeValue} col-md-#{inputSizeValue} col-lg-#{inputSizeValue}"
 
-  isAddOnInput = opt.icon? or opt.isRequired?
+  isAddOnInput = opt.icon? or (opt.isRequired || metadata.required) is true
   #Get the value of the property
   propertyValue =  ()=>
     if this[property]?
@@ -118,7 +119,7 @@ Handlebars.registerHelper "input_for", (property, options) ->
   #Deal with the icon case
   icon = ()=>  
     #<span class='glyphicon glyphicon-#{opt.icon}'></span>
-    if opt.icon? then "<span class='input-group-addon'><i class='fa fa-#{opt.icon} fa-fw'></i> </span>" else ""
+    if opt.icon? then "<span class='input-group-addon'><i class='fa fa-#{opt.icon}  fa-fw'></i> </span>" else ""
   #Deal with the label
   label = ()=>
     if opt.isNoLabel?
@@ -169,7 +170,16 @@ Handlebars.registerHelper "options_selected", (property, options) ->
   selected = this[property] or opt.selected or undefined
   if(opt.addDefault)
     list =[{id: undefined, label: ''}].concat(list)
-  isRequired = if !opt.isRequired? or !opt.isRequired then "" else "<span class='input-group-addon'>*</span>"
+  metadata = getMetadataFor(property, this)
+  domain = domains_definition[metadata.domain] or {}
+  #console.log "domain", domain
+  isRequired = ()=>
+    isDisplayRequired = false
+    if opt.isRequired?
+      isDisplayRequired = opt.isRequired
+    else if metadata.required?
+      isDisplayRequired = metadata.required
+    return if isDisplayRequired then "<span class='input-group-addon'>*</span>" else ""
   translationRoot = opt.translationRoot or undefined
   isAtLine = opt.isAtLine or false
   readonly = opt.readonly or false
@@ -179,19 +189,25 @@ Handlebars.registerHelper "options_selected", (property, options) ->
   inputSizeValue = 12 -labelSizeValue
   inputSize = opt.inputSize or "col-sm-#{inputSizeValue} col-md-#{inputSizeValue} col-lg-#{inputSizeValue}"
   #Get the value of the transalated label.
-  translationKey = i18n.t(((if (translationRoot?) and typeof translationRoot is "string" then translationRoot + "." else "")) + property)
+  #Get the value of the transalated label.
+  translationKey =()=>
+    translation = metadata.label or ("#{this['modelName']}.#{property}" if this['modelName']?) or ""
+    if translationRoot?
+      translation = ((if (translationRoot?) and typeof translationRoot is "string" then translationRoot + "." else "")) + property
+    
+    return if(translation is "") then "" else i18n.t(translation)
   icon = ()=>  
   #<span class='glyphicon glyphicon-#{opt.icon}'></span>
     if opt.icon? then "<span class='input-group-addon'><i class='fa fa-#{opt.icon} fa-fw'></i> </span>" else ""
     #if opt.icon? then "<span class='input-group-addon'> <span class='glyphicon glyphicon-#{opt.icon}'></span></span>" else ""
-  isAddOnInput = opt.icon? or opt.isRequired?
+  isAddOnInput = opt.icon? or (opt.isRequired || metadata.required) is true
    #Deal with the label
   label = ()=>
     if not opt.isNoLabel?
       if isAtLine
-        "<div class='row'><label class='control-label for='#{property}'> #{translationKey} </label></div>"
+        "<div class='row'><label class='control-label for='#{property}'> #{translationKey()} </label></div>"
       else
-        "<label class='control-label #{labelSize}' for='#{property}'> #{translationKey} </label>" 
+        "<label class='control-label #{labelSize}' for='#{property}'> #{translationKey()} </label>" 
     else ""
   #Initialize the errors variables => Is there an error, if yes what is the message.
   error = ""
@@ -217,7 +233,7 @@ Handlebars.registerHelper "options_selected", (property, options) ->
                 <select id='#{property}' #{readonly} #{optName} #{optToTriggerName} #{optToTriggerListKey} #{dataMapping} class='form-control input-sm'>"
   #add options foreach options in the list
   addOption(elt) for elt in list
-  html +=      "</select>#{isRequired} 
+  html +=      "</select>#{isRequired()} 
               </div>
               #{errors()}
             </div>
