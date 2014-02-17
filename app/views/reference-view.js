@@ -31,6 +31,9 @@ module.exports = Backbone.View.extend({
 		form_helper.formModelBinder({
 			inputs: $('input', this.$el)
 		}, this.model);
+		// require("../lib/model-validation-promise").validate(this.model).then(function(success) {
+		// 	console.log(success);
+		// }).catch(function(error){console.error(error);});
 		this.model.validate();
 	},
 	saveSuccess: function refSaveSuccess(model) {
@@ -41,7 +44,9 @@ module.exports = Backbone.View.extend({
 		}, true);
 	},
 	saveError: function refSaveError(response) {
-		ErrorHelper.manageResponseErrors(response, {isDisplay: true});
+		ErrorHelper.manageResponseErrors(response, {
+			isDisplay: true
+		});
 	},
 	//When there is a validation problem, we put the errors into the model in order to display them in the form.
 	modelInValid: function refModelInValid(model, errors) {
@@ -52,9 +57,7 @@ module.exports = Backbone.View.extend({
 	modelValid: function refModelValid() {
 		var refView = this;
 		this.model.unsetErrors();
-		RefSvc.save(this.model.toJSON())
-              .then(refView.saveSuccess)
-              .catch(refView.saveError);
+		RefSvc.save(this.model.toJSON()).then(refView.saveSuccess).catch(refView.saveError);
 	},
 	render: function renderVirtualMachine() {
 		this.$el.html(
