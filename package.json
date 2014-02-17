@@ -38,6 +38,7 @@
     "hapi": "~2.1.2",
     "backbone": "~1.1.0",
     "underscore": "~1.6.0",
-    "bluebird": "~1.0.5"
+    "bluebird": "~1.0.5",
+    "backbone-validation": "~0.9.1"
   }
 }

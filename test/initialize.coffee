@@ -1,6 +1,7 @@
 require('./initialize-globals').load({log: true});
 tests = [
-  './models/model'
+  './models/model',
+  './lib/model-validation-promise'
 ]
 
 for test in tests
