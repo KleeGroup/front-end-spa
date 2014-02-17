@@ -1,8 +1,9 @@
 /*global Backbone*/
 var URL = require('./URL');
-var domDef = require('../lib/domains-definitions');
+var domDef = require('../lib/domains-definition');
+var Model = require('./model');
 //define a model for a virtual machine
-module.exports = Backbone.Model.extend({
+module.exports = Model.extend({
 	defaults: {
 		name: undefined,
 		nbCpu: undefined,
@@ -14,37 +15,46 @@ module.exports = Backbone.Model.extend({
 		startDate: undefined,
 		endDate: undefined
 	},
+	modelName: "virtualMachine",
 	//Each domain key much match a model property when given to the template.
-	domains: {
+	metadatas: {
 		//Obtained by generation.
-		nbCpu: domDef.virtualMachine.nbCpu,
-		osId: domDef.virtualMachine.osId,
-		memory: domDef.virtualMachine.memory,
-		diskCapacity: domDef.virtualMachine.diskCapacity,
-		users: domDef.virtualMachine.users,
-		startDate: domDef.virtualMachine.startDate,
-		endDate: domDef.virtualMachine.endDate,
+		nbCpu: {
+			metadata: domDef.virtualMachine.nbCpu,
+			label: "virtualMachine.nbCpu",
+			required: false
+		},
+		osId: {
+			metadata: domDef.virtualMachine.osId
+		},
+		memory: {
+			metadata: domDef.virtualMachine.memory
+		},
+		diskCapacity: {
+			metadata: domDef.virtualMachine.diskCapacity
+		},
+		users: {
+			metadata: domDef.virtualMachine.users
+		},
+		startDate: {
+			metadata: domDef.virtualMachine.startDate,
+			required: false
+		},
+		endDate: {
+			metadata: domDef.virtualMachine.endDate
+		},
 		// Override with an other entity domain
-		name: domDef.virtualMachineSearch.name,
+		name: {
+			metadata: domDef.virtualMachineSearch.name,
+			domain: "DO_TEXTE_50",
+			label: "virtualMachine.name"
+		},
 		//Manual override
 		os: {
 			"domain": "DO_TEXTE_50",
-			"required": true
+			"required": true,
+			"label": "virtualMachine.os"
 		}
-	},
-	//Each label key much match a domain key.
-	labels: {
-		//Obtain by generation
-		nbCpu: "virtualMachine.nbCpu",
-		memory: "virtualMachine.memory",
-		diskTypeId: "virtualMachine.diskTypeId",
-		diskCapacity: "virtualMachine.diskCapacity",
-		users: "virtualMachine.users",
-		osId: "virtualMachine.osId",
-		startDate: "virtualMachine.startDate",
-		endDate: "virtualMachine.endDate",
-		//Override with an other translation key.
-		name: "virtualMachineSearch.name"
 	},
 	validation: {
 		name: {
@@ -57,7 +67,7 @@ module.exports = Backbone.Model.extend({
 			required: true
 		},
 		diskTypeId: {
-		//	required: true
+			//	required: true
 		},
 		diskCapacity: {
 			required: true
