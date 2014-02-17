@@ -268,8 +268,8 @@ Handlebars.registerHelper "button",(text_key, options) ->
   script = ()->
     if isScript and type is 'submit' then "<script type='text/javascript'>$('##{cssId}').on('click', function(){$(this).button('loading');});</script>" else ""
   icon = ()->
-     if opt.icon? then "<span class='glyphicon glyphicon-#{opt.icon}'></span>" else ""
-  button = "<button type='#{type}' class='btn #{cssClass}' id='#{cssId}' data-loading-text='#{i18n.t('button.loading')}'>#{icon()} #{i18n.t(text_key)}</button>#{script()}"
+     if opt.icon? then "<i class='fa fa-fw fa-#{opt.icon}'></i>" else ""
+  button = "<button type='#{type}' class='btn #{cssClass}' id='#{cssId}' data-loading-text='#{i18n.t('button.loading')}'>#{icon()} #{if text_key isnt '' then i18n.t(text_key) else ''}</button>#{script()}"
   new Handlebars.SafeString(button)
 # Currency helper in order to have a vizualization for the currency.
 ## Todo: reenable when number format is needed..
