@@ -1,4 +1,7 @@
 # Put your handlebars.js helpers here.
+# Globals variables.
+# Get the domains definition as globals.
+domains_definition = require('./domains')
 
 Handlebars.registerHelper 'pick', (val, options) ->
 	return options.hash[val]
@@ -37,6 +40,21 @@ Handlebars.registerHelper "debug", (optionalValue) ->
     console.log "Value"
     console.log "===================="
     console.log optionalValue
+# Get the metadatad for a property.
+getMetadataFor = (property, context)->
+  metadata = {}
+  if context? and context['metadatas']?
+    md = context['metadatas'][property]
+    if md?
+      # First copy the "globals" metadata
+      _.extend(metadata, md.metadata) if md.metadata?
+      # Extend the "overriden" metadatas
+      _.extend(metadata, {required: md.required}) if md.required?
+      _.extend(metadata, {label: md.label}) if md.label?
+      _.extend(metadata, {domain: md.domain}) if md.domain?
+      console.log "property", property,"metadata", metadata
+  return metadata
+   
 
 ###------------------------------------------- FORM FOR THE INPUTS -------------------------------------------###
 Handlebars.registerHelper "input_for", (property, options) ->
@@ -46,9 +64,19 @@ Handlebars.registerHelper "input_for", (property, options) ->
   dataType = undefined
   #Read all the options if they exists
   opt = options.hash or {}
-  isRequired = if !opt.isRequired? or !opt.isRequired then "" else "<span class='input-group-addon'>*</span>"
+  metadata = getMetadataFor(property, this)
+  domain = domains_definition[metadata.domain] or {}
+  console.log "domain", domain
+  isRequired = ()=>
+    isDisplayRequired = false
+    if opt.isRequired?
+      isDisplayRequired = opt.isRequired
+    else if metadata.required?
+      isDisplayRequired = metadata.required
+    return if isDisplayRequired then "<span class='input-group-addon'>*</span>" else ""
+  #isRequired = if !opt.isRequired? or !opt.isRequired then "" else "<span class='input-group-addon'>*</span>"
   translationRoot = opt.translationRoot or undefined
-  dataType = opt.dataType or "text"
+  dataType = opt.dataType or domain.type or "text"
   readonly = opt.readonly or false
   readonly = if readonly then "readonly" else ""
   disabled = opt.disabled or false
@@ -80,16 +108,26 @@ Handlebars.registerHelper "input_for", (property, options) ->
       else return "value='#{_.escape(this[property])}'"
     "" 
   #Get the value of the transalated label.
-  translationKey = i18n.t(((if (translationRoot?) and typeof translationRoot is "string" then translationRoot + "." else "")) + property)
+  translationKey =()=>
+    translation = metadata.label or ("#{this['modelName']}.#{property}" if this['modelName']?) or ""
+    if translationRoot?
+      translation = ((if (translationRoot?) and typeof translationRoot is "string" then translationRoot + "." else "")) + property
+    
+    return if(translation is "") then "" else i18n.t(translation)
+   
   #Deal with the icon case
   icon = ()=>  
     #<span class='glyphicon glyphicon-#{opt.icon}'></span>
     if opt.icon? then "<span class='input-group-addon'><i class='fa fa-#{opt.icon} fa-fw'></i> </span>" else ""
   #Deal with the label
   label = ()=>
-    if not opt.isNoLabel? then "<label class='control-label #{labelSize}' for='#{property}'> #{translationKey} </label>" else ""
+    if opt.isNoLabel?
+      return ""
+    else
+      return "<label class='control-label #{labelSize}' for='#{property}'>#{translationKey()}</label>"
+    #if not opt.isNoLabel? then "<label class='control-label #{labelSize}' for='#{property}'> #{translationKey} </label>" else ""
   #By default there is a placeholder or if the preperty is true.
-  placeholder = if !opt.placeholder? or opt.placeholder then "placeholder='#{translationKey}'" else ""
+  placeholder = if !opt.placeholder? or opt.placeholder then "placeholder='#{translationKey()}'" else ""
   #Initialize the errors variables => Is there an error, if yes what is the message.
   error = ""
   error = "has-error" if @errors? and @errors[property]?
@@ -112,7 +150,7 @@ Handlebars.registerHelper "input_for", (property, options) ->
             <div class='#{if isAddOnInput then 'input-group' else ""} #{inputSize()} #{containerCss}' #{containerAttribs}>
                #{icon()}
               <input id='#{property}' class='form-control input-sm' data-name='#{property}' type='#{dataType}' #{inputAttributes} #{placeholder} #{propertyValue()} #{readonly} #{disabled}/>
-              #{isRequired}
+              #{isRequired()}
             </div>
             #{errors()}
           </div>
