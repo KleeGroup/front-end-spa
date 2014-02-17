@@ -1,23 +1,21 @@
-	{{#if isEdit}}
-            <td>{{id}}</td>
-            <td>{{input_for "name" isNoLabel="true"}}</td>
-            <td>{{input_for "translationKey" isNoLabel="true"}}</td>
-            <td>
-            	<div class="btn-group">
-            		{{button "button.cancel" id="cancel" class="btn-default"}}
-            		{{button "button.save" type='submit' class="btn-success"}}
-            	</div>
-			</td>
-         
-	{{else}}
-		
-            <td>{{id}}</td>
-            <td>{{name}}</td>
-            <td>{{translationKey}}</td>
-            <td>
-            	<div class="btn-group">
-            		<button class="btn btn-danger  ">{{t "Delete"}}</button>
-            		<button class="btn btn-primary" id="edit">{{t "Edit"}}</button>
-            	</div>
-            </td>
-	{{/if}}
+{{#if isEdit}}
+      <td>{{id}}</td>
+      <td>{{input_for "name" isNoLabel="true"}}</td>
+      <td>{{input_for "translationKey" isNoLabel="true"}}</td>
+      <td>
+      	<div class="btn-group">
+	           	{{button "button.cancel" id="cancel" class="btn-default"}}
+		    {{button "button.save" type='submit' class="btn-success"}}
+	     </div>
+	</td>
+{{else}}
+      <td>{{id}}</td>
+      <td>{{name}}</td>
+      <td>{{translationKey}}</td>
+      <td>
+      	<div class="btn-group">
+      		<button class="btn btn-danger  ">{{t "Delete"}}</button>
+      		<button class="btn btn-primary" id="edit">{{t "Edit"}}</button>
+      	</div>
+      </td>
+{{/if}}

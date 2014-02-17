@@ -37,5 +37,19 @@ module.exports = {
 			"domain": "DO_TEXTE_30",
 			"required": true
 		}
+	},
+	"reference": {
+		"id": {
+			"domain": "DO_ID",
+			"required": true
+		},
+		"name": {
+			"domain": "DO_TEXTE_30",
+			"required": true
+		},
+		"translationKey": {
+			"doamin": "DO_TEXTE_30",
+			"required": true
+		}
 	}
 };
