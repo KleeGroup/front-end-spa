@@ -15,12 +15,14 @@ module.exports = Backbone.View.extend({
 		this.searchResults = new VirtualMachines();
 
 		//handle the search action
-		this.listenTo(this.searchResults, 'reset', this.renderSearchResult);
+		//this.listenTo(this.searchResults, 'reset', this.renderSearchResult);
 		//The view subscribe to the validation event of the model.
 		this.listenTo(this.model, 'validated:valid', this.modelValid);
 		this.listenTo(this.model, 'validated:invalid', this.modelInValid);
 		//handle the clear criteria action
 		this.listenTo(this.model, 'change', this.render);
+
+		this.virtualMachineResultsView = new VirtualMachineResultsView({model: this.searchResults});
 	},
 
 	events: {
@@ -30,6 +32,7 @@ module.exports = Backbone.View.extend({
 
 	render: function renderVirtualMachineSearch() {
 		this.$el.html(this.template(this.model.toJSON()));
+		$('div#results', this.$el).html(this.virtualMachineResultsView.render().el);
 		return this;
 	},
 
@@ -69,7 +72,7 @@ module.exports = Backbone.View.extend({
 			if (this.searchResults.length === 0) {
 				Backbone.Notification.addNotification({
 					type: 'info',
-					message: i18n.t('virtualMachine.search.noResult')
+					message: i18n.t('search.noResult')
 				}, true);
 			} else {
 				var virtualMachineResultsView = new VirtualMachineResultsView({

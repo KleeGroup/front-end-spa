@@ -15,7 +15,7 @@
     "jquery": "~2.1.0",
     "moment": "~2.5.1",
     "bootstrap-switch": "*",
-    "i18next": "*",
+    "i18next": "~1.7.1",
     "Faker": "~0.5.11",
     "backbone-validation": "~0.9.1",
     "backbone.marionette": "~1.6.1",
@@ -64,7 +64,7 @@
       "main": "underscore.js"
     },
     "i18next": {
-      "main": "release/i18next-1.7.1.min.js"
+      "main": "i18next.js"
     },
     "Faker": {
       "main": "Faker.js"
@@ -77,6 +77,9 @@
     },
     "bluebird": {
       "main": "js/browser/bluebird.js"
+    },
+    "jquery":{
+      "main": "dist/jquery.js"
     }
   }
 }
