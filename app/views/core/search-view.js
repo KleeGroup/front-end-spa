@@ -27,12 +27,6 @@ module.exports = Backbone.View.extend({
 		throw new NotImplementedException('getRenderData');
 	},
 
-	render: function renderSearch() {
-		this.$el.html(this.template(this.getRenderData()));
-		$(this.resultsSelector, this.$el).html(this.searchResultsView.render().el);
-		return this;
-	},
-
 	searchVirtualMachine: function searchVirtualMachine(event) {
 		event.preventDefault();
 		//bind form fields on model
@@ -62,5 +56,11 @@ module.exports = Backbone.View.extend({
 		event.preventDefault();
 		//Backbone.Notification.clearNotifications();
 		this.model.clear();
+	},
+
+	render: function renderSearch() {
+		this.$el.html(this.template(this.getRenderData()));
+		$(this.resultsSelector, this.$el).html(this.searchResultsView.render().el);
+		return this;
 	}
 });

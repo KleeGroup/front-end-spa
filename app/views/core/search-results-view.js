@@ -1,12 +1,28 @@
+var NotImplementedException = require('../lib/custom_exception').NotImplementedException;
+var _url = require('../lib/url_helper');
+
 module.exports = Backbone.View.extend({
 	tagName: 'div',
-	className: 'searchView',
+	className: 'resultView',
 
 	initialize: function initializeVirtualMachineSearchResult(options) {
 		this.listenTo(this.model, "reset", function(){this.render({isSearchTriggered: true})}, this);
 	},
 
-	render: function renderVirtualMachineResults(options) {
+	events: {
+		'click tbody tr': 'lineSelection'
+	},
+
+	lineSelection: function lineSelectionSearchResults(event){
+		//throw new NotImplementedException('lineSelection');
+		var id = +event.target.parentElement.getAttribute('id');
+		//Navigate 
+		var url = _url.generateUrl([this.model.model.modelName, id]);
+		//Backbone.Notification.clearNotifications();
+		Backbone.history.navigate(url, true);
+	},
+
+	render: function renderSearchResults(options) {
 		options = options || {};
 		//If the research was not launch triggered.
 		if(!options.isSearchTriggered){return this;}
@@ -25,5 +41,5 @@ module.exports = Backbone.View.extend({
 			}));
 		}
 		return this;
-	},
+	}
 });
