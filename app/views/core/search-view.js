@@ -22,6 +22,7 @@ module.exports = Backbone.View.extend({
 		});
 	},
 
+	//get the JSON to attach to the template
 	getRenderData: function getRenderDataSearch() {
 		throw new NotImplementedException('getRenderData');
 	},
