@@ -1,6 +1,6 @@
-var NotImplementedException = require('../lib/custom_exception').NotImplementedException;
-var form_helper = require('../lib/form_helper');
-var ModelValidator = require('../lib/model-validation-promise');
+var NotImplementedException = require('../../lib/custom_exception').NotImplementedException;
+var form_helper = require('../../lib/form_helper');
+var ModelValidator = require('../../lib/model-validation-promise');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
@@ -17,13 +17,13 @@ module.exports = Backbone.View.extend({
 		this.model.set({isCriteriaReadonly: false});
 
 		//init results collection
-		this.searchResult = new Results();
+		this.searchResult = new this.Results();
 		//handle the search action
 		this.listenTo(this.searchResults, 'reset', this.renderSearchResult);
 		//handle the clear criteria action
 		this.listenTo(this.model, 'change', this.render);
 		//initialization of the result view 
-		this.searchResultsView = new ResultsView({
+		this.searchResultsView = new this.ResultsView({
 			model: this.searchResults
 		});
 

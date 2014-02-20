@@ -1,5 +1,5 @@
-var NotImplementedException = require('../lib/custom_exception').NotImplementedException;
-var _url = require('../lib/url_helper');
+var NotImplementedException = require('../../lib/custom_exception').NotImplementedException;
+var _url = require('../../lib/url_helper');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
