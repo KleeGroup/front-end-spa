@@ -32,6 +32,11 @@ module.exports = Backbone.View.extend({
 		}
 	},
 
+	events: {
+		"submit form": 'runSearch',
+		"click button#btnReset": 'clearSearchCriteria',
+	},
+
 	//get the JSON to attach to the template
 	getRenderData: function getRenderDataSearch() {
 		throw new NotImplementedException('getRenderData');
@@ -62,7 +67,6 @@ module.exports = Backbone.View.extend({
 					});
 				});
 			});
-
 		if(this.isReadOnly){
 			this.model.set({isCriteriaReadonly: true});
 		}
