@@ -4,6 +4,9 @@ var ErrorHelper = require('../lib/error_helper');
 module.exports = Backbone.View.extend({
 	tagName: 'div',
 	className: 'consultView',
+	getModel: undefined,
+	deleteModel: undefined,
+
 	initialize: function initializeVirtualMachine() {
 		//render view when the model is loaded
 		this.model.on('change', this.render, this);
@@ -18,24 +21,14 @@ module.exports = Backbone.View.extend({
 		"click button#btnDelete": "delete"
 	},
 
-	//load method.
-	getModel: function getModelConsult(id){
-		throw new NotImplementedException('getModel'); 
-	},
-
 	//JSON data to attach to the template.
-	getRenderData: function getRenderDataConsult(){
-		throw new NotImplementedException('getRenderData'); 
-	},
-
-	//delete method. must return a promise.
-	deleteModel: function deleteModelConsult(){
-		throw new NotImplementedException('deleteModel');
+	getRenderData: function getRenderDataConsult() {
+		throw new NotImplementedException('getRenderData');
 	},
 
 	edit: function editVm(event) {
 		event.preventDefault();
-		Backbone.history.navigate(this.model.modelName+ "edit/" + this.model.get('id'), true);
+		Backbone.history.navigate(this.model.modelName + "edit/" + this.model.get('id'), true);
 	},
 
 	delete: function deleteVm(event) {
@@ -43,11 +36,14 @@ module.exports = Backbone.View.extend({
 		var view = this;
 		//call suppression service
 		this.deleteModel()
-			.then(function(success) {
+			.then(view.deleteSuccess)
+			.catch(view.deleteError)
+
+			/*.then(function(success) {
 				view.deleteSuccess(success);
 			}, function error(argument) {
 				view.deleteError(argument);
-			});
+			});*/
 	},
 
 	deleteSuccess: function deleteVmSuccess(response) {
@@ -56,7 +52,7 @@ module.exports = Backbone.View.extend({
 		//navigate to next page
 		Backbone.history.navigate("/", true);
 	},
-	
+
 	deleteError: function errorVmDelete(errorResponse) {
 		ErrorHelper.manageResponseErrors(errorResponse, {
 			isDisplay: true

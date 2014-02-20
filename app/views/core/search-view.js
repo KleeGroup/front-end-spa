@@ -7,9 +7,15 @@ module.exports = Backbone.View.extend({
 	className: 'searchView',
 	ResultsView: undefined,
 	Results: undefined,
+	search: undefined,
 	resultsSelector: 'div#results',
 
 	initialize: function initializeSearch(options) {
+		options = options || {};
+		this.isSearchTriggered = options.isSearchTriggered || false;
+		this.isReadOnly = options.isReadOnly || false;
+		this.model.set({isCriteriaReadonly: false});
+
 		//init results collection
 		this.searchResult = new Results();
 		//handle the search action
@@ -20,6 +26,10 @@ module.exports = Backbone.View.extend({
 		this.searchResultsView = new ResultsView({
 			model: this.searchResults
 		});
+
+		if (this.isSearchTriggered) {
+			this.runSearch(null,{isFormBinded:false});
+		}
 	},
 
 	//get the JSON to attach to the template
@@ -27,29 +37,35 @@ module.exports = Backbone.View.extend({
 		throw new NotImplementedException('getRenderData');
 	},
 
-	searchVirtualMachine: function searchVirtualMachine(event) {
-		event.preventDefault();
+	runSearch: function runSearch(event, options) {
+		if(event !== undefined && event !== null){
+			event.preventDefault();	
+		}
+		options = options || {};
+		var isFormBinded = options.isFormBinded || true;
 		//bind form fields on model
-		form_helper.formModelBinder({
-			inputs: $('input', this.$el)
-		}, this.model);
-
-		var vmSearchView = this;
-		ModelValidator.validate(this.model).then(function(model) {
-			VmSvc.search(this.model.toJSON())
-				.then(function success(jsonResponse) {
-					return vmSearchView.searchResults.reset(jsonResponse);
-				}, function error(errorResponse) {
+		if (isFormBinded) {
+			form_helper.formModelBinder({
+				inputs: $('input', this.$el)
+			}, this.model);
+		}
+		var currentView = this;
+		ModelValidator.validate(this.model)
+			.catch (currentView.model.setErrors)
+			.then(function(model) {
+				currentView.model.unsetErrors();
+				currentView.search(this.model.toJSON())
+					.then(currentView.searchResults.reset)
+					.catch (function error(errorResponse) {
 					ErrorHelper.manageResponseErrors(errorResponse, {
 						isDisplay: true
 					});
 				});
-		}, function(errors) {
-			//validations errors
-			this.model.set({
-				'errors': errors
 			});
-		});
+
+		if(this.isReadOnly){
+			this.model.set({isCriteriaReadonly: true});
+		}
 	},
 
 	clearSearchCriteria: function clearSearchCriteria(event) {
