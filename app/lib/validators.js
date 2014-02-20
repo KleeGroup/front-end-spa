@@ -14,6 +14,7 @@ function stringLength(stringToTest, options) {
 		return false;
 	}
 	options = options || {};
+	//console.log(options);
 	var isMinLength = options.minLength ? stringToTest.length > options.minLength : true;
 	var isMaxLength = options.maxLength ? stringToTest.length < options.maxLength : true;
 	return isMinLength && isMaxLength;
@@ -56,9 +57,9 @@ var validateProperty = function(property, validator) {
   isValid = (function() {
     switch (validator.type) {
       case "required":
-        return property.value != null;
+        return validator.value === true ? property.value != null : true;
       case "regex":
-        return validator.value.match(property.value);
+        return validator.value.test(property.value);
       case "email":
         return emailValidation(property.value, validator.options);
       case "number":
