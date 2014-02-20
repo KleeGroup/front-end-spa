@@ -134,7 +134,93 @@ describe('Validator', function() {
         validationResult.should.have.property('isValid', false);
         validationResult.should.have.property('errors').to.be.an('Array');
       });
-
+    });
+    describe('##function', function() {
+      var property = {
+        name: "bool"
+      },
+        validator = {
+          type: "function",
+          options: {}
+        };
+      it("Simple function should test its a bool true.", function() {
+        property.value = true;
+        validator.value = function(prop, opt) {
+          return prop === true;
+        };
+        var validationResult = validate(property, [validator]);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', true);
+        validationResult.should.have.property('errors', undefined);
+      });
+      it("Simple function should test its a bool false.", function() {
+        property.value = false;
+        validator.value = function(prop, opt) {
+          return prop === true;
+        };
+        var validationResult = validate(property, [validator]);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', false);
+        validationResult.should.have.property('errors').be.an("Array");
+      });
+    });
+    describe('##two validator', function() {
+      var property = {
+        name: "bool"
+      },
+        validator = {
+          type: "function",
+          options: {}
+        }, validator2 = {
+          type: "function",
+          options: {}
+        };
+      it("Two validators, two ok.", function() {
+        property.value = true;
+        validator.value = function(prop, opt) {
+          return prop === true;
+        };
+        var validationResult = validate(property, [validator, validator]);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', true);
+        validationResult.should.have.property('errors', undefined).empty;
+      });
+      it("Two validators, one ok, one wrong", function() {
+        property.value = false;
+        validator.value = function(prop, opt) {
+          return prop === true;
+        };
+        validator2.value = function(prop, opt) {
+          return prop === false;
+        };
+        var validationResult = validate(property, [validator, validator2]);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', false);
+        validationResult.should.have.property('errors').be.an("Array").and.have.length(1);
+      });
+      it("Two validators, two wrong", function() {
+        property.value = true;
+        validator.value = function(prop, opt) {
+          return prop === false;
+        };
+        validator2.value = function(prop, opt) {
+          return prop === false;
+        };
+        var validationResult = validate(property, [validator, validator2]);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', false);
+        validationResult.should.have.property('errors').be.an("Array").and.have.length(2);
+      });
     });
   });
 });
