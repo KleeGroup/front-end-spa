@@ -92,7 +92,7 @@ describe('Validator', function() {
         validationResult.should.have.property('value', property.value);
         validationResult.should.have.property('isValid', true);
         validationResult.should.have.property('errors', undefined);
-        console.log(validationResult);
+        //console.log(validationResult);
       });
       it('The maxLength  be ko with a stringLength of 1', function() {
         validator.options.maxLength = 1;
@@ -220,6 +220,36 @@ describe('Validator', function() {
         validationResult.should.have.property('value');
         validationResult.should.have.property('isValid', false);
         validationResult.should.have.property('errors').be.an("Array").and.have.length(2);
+      });
+    });
+describe('##No validator', function() {
+      var property = {
+        name: "bool"
+      },
+        validator = {
+          type: "function",
+          options: {}
+        }, validator2 = {
+          type: "function",
+          options: {}
+        };
+      it("No validators should be ok.", function() {
+        property.value = true;
+        var validationResult = validate(property);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', true);
+        validationResult.should.have.property('errors', undefined);
+      });
+      it("An empty array of validators should be ok.", function() {
+        property.value = true;
+        var validationResult = validate(property, []);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', true);
+        validationResult.should.have.property('errors', undefined);
       });
     });
   });
