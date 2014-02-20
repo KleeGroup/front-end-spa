@@ -42,7 +42,9 @@ var getValidatedAttrs = function(model) {
 //Validate the validation domains attributes.
 var validateDomainAttributes = function validateDomainAttributes(model, errors) {
   for (var attr in getDomainsValidationAttrs(model)) {
-
+    if(this.model.has(attr)){
+      
+    }
   }
 };
 
@@ -96,7 +98,7 @@ var getDomainsValidationAttrs = function getDomainsValidationAttrs(model) {
   }
   return valDomAttrs;
 };
-
+//
 var tryConstructModelMetaDatasFromModelName(model) {
   throw new Error('Not Implemented');
 }

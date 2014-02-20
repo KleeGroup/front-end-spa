@@ -3,7 +3,8 @@ module.exports = {
 		"type": "number",
 		"validation": [{
 			"type": "regex",
-			"value": "^\\d+$"
+			"value": "^\\d+$",
+			"options":{}
 		}],
 	},
 	"DO_DATE": {
