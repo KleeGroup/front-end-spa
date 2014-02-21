@@ -17,7 +17,7 @@ module.exports = Backbone.View.extend({
 		//throw new NotImplementedException('lineSelection');
 		var id = +event.target.parentElement.getAttribute('id');
 		//Navigate 
-		var url = _url.generateUrl([this.model.model.modelName, id]);
+		var url = _url.generateUrl([this.model.model.prototype.modelName, id]);
 		//Backbone.Notification.clearNotifications();
 		Backbone.history.navigate(url, true);
 	},

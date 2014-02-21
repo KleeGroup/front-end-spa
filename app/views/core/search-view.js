@@ -1,6 +1,7 @@
 var NotImplementedException = require('../../lib/custom_exception').NotImplementedException;
 var form_helper = require('../../lib/form_helper');
 var ModelValidator = require('../../lib/model-validation-promise');
+var ErrorHelper = require('../../lib/error_helper');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
@@ -17,9 +18,7 @@ module.exports = Backbone.View.extend({
 		this.model.set({isCriteriaReadonly: false});
 
 		//init results collection
-		this.searchResult = new this.Results();
-		//handle the search action
-		this.listenTo(this.searchResults, 'reset', this.renderSearchResult);
+		this.searchResults = new this.Results();
 		//handle the clear criteria action
 		this.listenTo(this.model, 'change', this.render);
 		//initialization of the result view 
@@ -42,6 +41,16 @@ module.exports = Backbone.View.extend({
 		throw new NotImplementedException('getRenderData');
 	},
 
+	searchSuccess: function searchSuccess(jsonResponse) {
+		this.searchResults.reset(jsonResponse);
+	},
+
+	searchError: function searchError(response) {
+		ErrorHelper.manageResponseErrors(response, {
+			isDisplay: true
+		});
+	},
+
 	runSearch: function runSearch(event, options) {
 		if(event !== undefined && event !== null){
 			event.preventDefault();	
@@ -59,13 +68,13 @@ module.exports = Backbone.View.extend({
 			.catch (currentView.model.setErrors)
 			.then(function(model) {
 				currentView.model.unsetErrors();
-				currentView.search(this.model.toJSON())
-					.then(currentView.searchResults.reset)
+				currentView.search(currentView.model.toJSON())
+					.then(function success(jsonResponse) { 
+						return currentView.searchSuccess(jsonResponse);
+					})
 					.catch (function error(errorResponse) {
-					ErrorHelper.manageResponseErrors(errorResponse, {
-						isDisplay: true
+						currentView.searchError(errorResponse);
 					});
-				});
 			});
 		if(this.isReadOnly){
 			this.model.set({isCriteriaReadonly: true});
@@ -84,3 +93,13 @@ module.exports = Backbone.View.extend({
 		return this;
 	}
 });
+
+/*ModelValidator.validate(this.model)
+			.catch (currentView.model.setErrors)
+			.then(function(model) {
+				currentView.model.unsetErrors();
+				currentView.search(currentView.model.toJSON())
+					//.then(currentView.searchSuccess.bind(currentView))
+					.then(currentView.searchResults.reset.bind(currentView.searchResults))
+					.catch (currentView.searchError.bind(currentView))
+			});*/
