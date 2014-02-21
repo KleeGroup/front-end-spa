@@ -1,22 +1,48 @@
 /*global describe, it*/
 require('../initialize-globals').load();
-var Model = require('../../app/models/model').extend({
-  validation: {
-    firstName: {
-      required: true
-    }
-  }
-});
+var Md = require('../../app/models/model');
 var ModelValidator = require('../../app/lib/model-validation-promise');
-var model = new Model({
-  firstName: "Pierre",
-  lastName: "Besson"
-});
+
 describe('#model-validation-promise', function() {
-  describe('##validation on metadatas', function() {
-    it('should validate the metadatas');
+  describe.only('##validation on metadatas', function() {
+    var Model = Md.extend({
+      metadatas: {
+        firstName: {
+          domain: "DO_TEXTE_30",
+          required: false
+        },
+        lastName: {
+          domain: "DO_TEXTE_30",
+          required: true
+        },
+        email: {
+          domain: "DO_EMAIL"
+        }
+      }
+    });
+    it('should validate the metadatas', function(done) {
+      ModelValidator.validate(new Model()).then(function(modelSuccess) {
+      console.log("modelSuccess %j", modelSuccess);
+        done();
+      }).catch(function(errors){
+        console.log("errors %j", errors);
+        done();
+      });
+      
+    });
   });
   describe('##validation on model', function() {
+    var Model = Md.extend({
+      validation: {
+        firstName: {
+          required: true
+        }
+      }
+    });
+    var model = new Model({
+      firstName: "Pierre",
+      lastName: "Besson"
+    });
     it('The validation shoul be ok', function(done) {
       ModelValidator.validate(model).then(function(modelSuccess) {
         modelSuccess.toJSON().should.have.property('firstName', 'Pierre');

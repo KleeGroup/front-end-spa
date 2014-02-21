@@ -4,7 +4,7 @@ module.exports = {
 		"validation": [{
 			"type": "regex",
 			"value": "^\\d+$",
-			"options":{}
+			"options": {}
 		}],
 	},
 	"DO_DATE": {
@@ -38,8 +38,21 @@ module.exports = {
 	"DO_TEXTE_30": {
 		"type": "text",
 		"validation": [{
-			"type": "regex",
-			"value": "^\\+$"
+			"type": "string",
+			"options": {
+				"maxLength": 30
+			}
+		}]
+	},
+	"DO_EMAIL": {
+		"type": "email",
+		"validation": [{
+			"type": "email"
+		}, {
+			"type": "string",
+			"options": {
+				"minLength": 4
+			}
 		}]
 	}
 

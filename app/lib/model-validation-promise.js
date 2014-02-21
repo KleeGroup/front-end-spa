@@ -45,13 +45,16 @@ var getValidatedAttrs = function(model) {
 //Validate the validation domains attributes.
 var validateDomainAttributes = function validateDomainAttributes(model, errors) {
   var validatorsOfDomain = metadataBuilder.domainAttributes(model);
+  //console.log("validators %j", validatorsOfDomain);
   for (var attr in validatorsOfDomain) {
     //Validate the model only of there is the attribute on the model.
-    if (model.has(attr)) {
-      var valRes = validators.validate(this.model.get(attr), validatorsOfDomain[attr]);
-      if(valRes.errors !== undefined){
-        errors[attr] = valRes.errors.join(',');
-      }
+    var valRes = validators.validate({
+      name: attr,
+      value: model.get(attr)
+    }, validatorsOfDomain[attr]);
+    //If there is no error dont set any errors. 
+    if (valRes.errors !== undefined) {
+      errors[attr] = valRes.errors.join(',');
     }
-    }
-  };
+  }
+};
