@@ -72,7 +72,7 @@ module.exports = Backbone.View.extend({
 
 	generateNavigationUrl: function generateNavigationUrl(){
 		return _url.generateUrl(["virtualMachine", this.model.get("id")], {});
-	} 
+	}, 
 
 	cancelEdition: function cancelEdition() {
 		var url = generateNavigationUrl();
