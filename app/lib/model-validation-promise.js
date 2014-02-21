@@ -1,8 +1,11 @@
 /*global Promise, _*/
 var ArgumentNullException = require("./custom_Exception").ArgumentNullException;
+var metadataBuilder = require('./metadata_builder');
+var validators = require('./validators');
 exports.validate = function(model) {
   var errors = {};
   //Looping through each attributes.
+  validateDomainAttributes(model, errors);
   validateCustomAttributes(model, errors);
   //Promisify the validations , if there is errors call the reject else call resolve with the model.
   return new Promise(function promiseValidation(resolve, reject) {
@@ -41,64 +44,14 @@ var getValidatedAttrs = function(model) {
 
 //Validate the validation domains attributes.
 var validateDomainAttributes = function validateDomainAttributes(model, errors) {
-  for (var attr in getDomainsValidationAttrs(model)) {
-    if(this.model.has(attr)){
-      
+  var validatorsOfDomain = metadataBuilder.domainAttributes(model);
+  for (var attr in validatorsOfDomain) {
+    //Validate the model only of there is the attribute on the model.
+    if (model.has(attr)) {
+      var valRes = validators.validate(this.model.get(attr), validatorsOfDomain[attr]);
+      if(valRes.errors !== undefined){
+        errors[attr] = valRes.errors.join(',');
+      }
     }
-  }
-};
-
-
-
-//Get the domains definition.
-var domains = require('./domains');
-//Get the validation attributes from the domain.
-var getDomainsValidationAttrs = function getDomainsValidationAttrs(model) {
-  if (!model) {
-    return new ArgumentNullException('The model should exists and have a metadatas property.');
-  }
-  //Get the metadatas from the model.
-  var metadatas = model.metadatas;
-  if (!metadatas) {
-    if (!tryConstructModelMetaDatasFromModelName(model)) {
-      throw new ArgumentNullException('The model should have metadatas.');
     }
-  }
-  //Container for the validation rules of the domain of each property.
-  var valDomAttrs = {};
-  for (var attr in metadatas) {
-    var metadata = {}, md;
-    md = metadatas[attr];
-    if (md.metadata !== void 0 && md.metadata !== null) {
-      _.extend(metadata, md.metadata);
-    }
-
-    if (md.domain !== void 0 && md.domain !== null) {
-      metadata.domain = md.domain;
-    }
-
-    if (md.required !== void 0 && md.required !== null) {
-      metadata.required = md.domain;
-    }
-    /*Get all the validators*/
-    var validators = [];
-
-    /*If the required filed is set, add a validator.*/
-    if (metadata.required) {
-      validators.push({
-        "type": "required",
-        "value": true
-      });
-    }
-    if (metadata.domain !== null && metadata.domain !== void 0 && domains[metadata.domain] !== null && domains[metadata.domain] !== void 0) {
-      _.union(validators, domains[metadata.domain].validation);
-    }
-    /*Set the validators inide the */
-    valDomAttrs.attr = validators;
-  }
-  return valDomAttrs;
-};
-//
-var tryConstructModelMetaDatasFromModelName(model) {
-  throw new Error('Not Implemented');
-}
+  };
