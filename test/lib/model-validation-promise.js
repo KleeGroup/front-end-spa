@@ -26,12 +26,8 @@ describe('#model-validation-promise', function() {
         lastName: "Besson",
         email: "pierre.besson@ppp.com"
       });
-      ModelValidator.validate(model).then(function(modelSuccess) {
-        console.log("modelSuccess %j", modelSuccess);
+      ModelValidator.validate(model).then(function() {
         done();
-      }).catch(function(errors) {
-        console.log("errors %j", errors);
-        //done();
       });
 
     });
