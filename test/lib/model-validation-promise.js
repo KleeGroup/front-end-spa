@@ -21,24 +21,27 @@ describe('#model-validation-promise', function() {
       }
     });
     it('should validate the metadatas', function(done) {
-      ModelValidator.validate(new Model()).then(function(modelSuccess) {
-      console.log("modelSuccess %j", modelSuccess);
-        done();
-      }).catch(function(errors){
-        console.log("errors %j", errors);
-        done();
-      });
-      
-    });
-    if('shoud be invalidated with the metadatas', function(done){
-     var model =  new Model({
+      var model = new Model({
         firstName: "Pierre",
-        lastName: "Besson"
+        lastName: "Besson",
+        email: "pierre.besson@ppp.com"
       });
+      ModelValidator.validate(model).then(function(modelSuccess) {
+        console.log("modelSuccess %j", modelSuccess);
+        done();
+      }).catch(function(errors) {
+        console.log("errors %j", errors);
+        //done();
+      });
+
+    });
+    if ('shoud be invalidated with the metadatas', function(done) {
+      ModelValidator.validate(new Model()).catch(done());
     });
   });
   describe('##validation on model', function() {
     var Model = Md.extend({
+      metadatas:{},//Turning off the metadatas in order to be focus on the validation attribute.
       validation: {
         firstName: {
           required: true
@@ -64,7 +67,7 @@ describe('#model-validation-promise', function() {
         error.should.have.property('firstName', 'firstName not valid.');
         done();
       });
-      
+
     });
   });
 

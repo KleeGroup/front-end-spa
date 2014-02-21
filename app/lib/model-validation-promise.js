@@ -29,7 +29,7 @@ var validateCustomAttributes = function validateCustomAttributes(model, errors) 
   for (var attr in getValidatedAttrs(model)) {
     //console.log("Attr", attr);
     if (!model.isValid(attr)) {
-      errors[attr] = attr + " not valid."; // Todo: translate the message.
+      errors[attr] = '' + errors[attr] +''+  attr + " not valid."; // Todo: translate the message.
     }
   }
 };
