@@ -17,19 +17,20 @@ getDomainsValidationAttrs = (model)->
   for attr of metadatas 
     # Construct the metadata object
     metadata = {}
-    md = metadatas[attr]
-    _.extend(metadata, md.metadata) if md.metadata?
-    (metadata.domain = md.domain) if md.domain?
-    (metadata.required = md.required) if md.required?
+    md = metadatas[attr] or {}
+    if (md.isValidationOff? and md.isValidationOff is false) or (not md.isValidationOff?)
+     _.extend(metadata, md.metadata) if md.metadata?
+     (metadata.domain = md.domain) if md.domain?
+     (metadata.required = md.required) if md.required?
     
-    #Container for the validators.
-    validators = [];
-    #If the required filed is set, add a validator
-    validators.push({"type": "required","value": true}) if metadata.required
-    # Extend the validators 
-    (validators = _.union(validators, domains[metadata.domain].validation)) if metadata.domain? and domains[metadata.domain]?
-    # Set the validators inide the container associated with the field.
-    valDomAttrs[attr] = validators;
+     #Container for the validators.
+     validators = [];
+     #If the required filed is set, add a validator
+     validators.push({"type": "required","value": true}) if metadata.required
+     # Extend the validators 
+     (validators = _.union(validators, domains[metadata.domain].validation)) if metadata.domain? and domains[metadata.domain]?
+     # Set the validators inide the container associated with the field.
+     valDomAttrs[attr] = validators;
   return valDomAttrs
 
 module.exports =
