@@ -1,5 +1,5 @@
-var NotImplementedException = require('../lib/custom_exception').NotImplementedException;
-var ErrorHelper = require('../lib/error_helper');
+var NotImplementedException = require('../../lib/custom_exception').NotImplementedException;
+var ErrorHelper = require('../../lib/error_helper');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
@@ -7,17 +7,20 @@ module.exports = Backbone.View.extend({
 	getModel: undefined,
 	deleteModel: undefined,
 
-	initialize: function initializeVirtualMachine() {
+	initialize: function initializeConsult() {
 		//render view when the model is loaded
 		this.model.on('change', this.render, this);
 		if (this.model.has('id')) {
+			var view = this;
 			this.getModel(this.model.get('id'))
-				.then(this.model.set);
+				.then(function success(jsonModel){
+					view.model.set(jsonModel);
+				});
 		}
 	},
 
 	events: {
-		"click button#btnEditVm": "edit",
+		"click button#btnEdit": "edit",
 		"click button#btnDelete": "delete"
 	},
 
@@ -26,34 +29,43 @@ module.exports = Backbone.View.extend({
 		throw new NotImplementedException('getRenderData');
 	},
 
-	edit: function editVm(event) {
-		event.preventDefault();
-		Backbone.history.navigate(this.model.modelName + "edit/" + this.model.get('id'), true);
+	//genarate navigation url.
+	generateEditUrl: function generateEditUrl(){
+		return "update" + this.model.modelName + "/" + this.model.get('id');
 	},
 
-	delete: function deleteVm(event) {
+	edit: function editVm(event) {
+		event.preventDefault();
+		Backbone.history.navigate(this.generateEditUrl(), true);
+	},
+
+	delete: function deleteConsult(event) {
 		event.preventDefault();
 		var view = this;
 		//call suppression service
 		this.deleteModel()
-			.then(view.deleteSuccess)
-			.catch(view.deleteError)
-
-			/*.then(function(success) {
+			.then(function success(success) {
 				view.deleteSuccess(success);
-			}, function error(argument) {
-				view.deleteError(argument);
-			});*/
+			}, function error(errorResponse) {
+				view.deleteError(errorResponse);
+			})
 	},
 
-	deleteSuccess: function deleteVmSuccess(response) {
+	//Generate delete navigation url.
+	generateDeleteUrl: function generateDeleteUrl(){
+		return "/";
+	},
+
+	// Actions after a delete success.
+	deleteSuccess: function deleteConsultSuccess(response) {
 		//remove the view from the DOM
 		this.remove();
 		//navigate to next page
-		Backbone.history.navigate("/", true);
+		Backbone.history.navigate(generateDeleteUrl(), true);
 	},
 
-	deleteError: function errorVmDelete(errorResponse) {
+	// Actions after a delete error. 
+	deleteError: function deleteConsultError(errorResponse) {
 		ErrorHelper.manageResponseErrors(errorResponse, {
 			isDisplay: true
 		});

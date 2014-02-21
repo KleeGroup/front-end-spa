@@ -34,11 +34,16 @@ module.exports = Backbone.View.extend({
 	events: {
 		"submit form": 'runSearch',
 		"click button#btnReset": 'clearSearchCriteria',
+		"click button#btnEditCriteria": 'editCriteria',
 	},
 
 	//get the JSON to attach to the template
 	getRenderData: function getRenderDataSearch() {
 		throw new NotImplementedException('getRenderData');
+	},
+
+	editCriteria: function editCriteria(){
+		this.model.set({isCriteriaReadonly: false});
 	},
 
 	searchSuccess: function searchSuccess(jsonResponse) {
@@ -65,7 +70,9 @@ module.exports = Backbone.View.extend({
 		}
 		var currentView = this;
 		ModelValidator.validate(this.model)
-			.catch (currentView.model.setErrors)
+			.catch (function error(errors){
+				currentView.model.setErrors(errors);
+			})
 			.then(function(model) {
 				currentView.model.unsetErrors();
 				currentView.search(currentView.model.toJSON())

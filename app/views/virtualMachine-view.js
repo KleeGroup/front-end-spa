@@ -6,7 +6,7 @@ module.exports = Backbone.View.extend({
 	tagName: 'div',
 	template: template,
 	events: {
-		"click button#btnEditVm": "edit",
+		"click button#btnEdit": "edit",
 		"click button#btnDelete": "delete"
 	},
 	initialize: function initializeVirtualMachine() {
@@ -31,7 +31,7 @@ module.exports = Backbone.View.extend({
 	},
 	edit: function editVm(event) {
 		event.preventDefault();
-		Backbone.history.navigate("updateVirtualMachine/" + this.model.get('id'), true);
+		Backbone.history.navigate("editVirtualMachine/" + this.model.get('id'), true);
 	},
 
 	delete: function deleteVm(event) {

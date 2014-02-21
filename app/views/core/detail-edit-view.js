@@ -17,8 +17,11 @@ module.exports = Backbone.View.extend({
 		this.listenTo(this.model, 'validated:valid', this.modelValid);
 		this.listenTo(this.model, 'validated:invalid', this.modelInValid);
 		if (this.model.has('id')) {
-			this.get(this.model.get('id'))
-				.then(this.model.set);
+			var view = this;
+			this.getModel(this.model.get('id'))
+				.then(function success(jsonModel){
+					view.model.set(jsonModel);
+				});
 		}
 	},
 
@@ -35,31 +38,44 @@ module.exports = Backbone.View.extend({
 
 		var currentView = this;
 		ModelValidator.validate(currentView.model)
-			.catch (currentView.model.setErrors)
+			.catch (function error(errors){
+				currentView.model.setErrors(errors);
+			})
 			.then(function() {
 				currentView.model.unsetErrors();
 				currentView.save(currentView.model.toJSON())
-					.then(currentView.saveSuccess)
-					.catch (currentView.saveError);
+					.then(function success(jsonModel){
+						currentView.saveSuccess(jsonModel);
+					})
+					.catch (function error(responseError){
+						currentView.saveError(responseError);
+					});
 			});
 	},
 
+	//Actions on save success.
 	saveSuccess: function saveSuccess(jsonModel) {
 		Backbone.Notification.addNotification({
 			type: 'success',
 			message: i18n.t('virtualMachine.save.' + (jsonModel.isCreate ? 'create' : 'update') + 'success')
 		});
-		Backbone.history.navigate('virtualMachine/' + jsonModel.id, true);
+		var url = generateNavigationUrl();
+		Backbone.history.navigate(url, true);
 	},
 
+	//Actions on save error
 	saveError: function saveError(errors) {
 		ErrorHelper.manageResponseErrors(errors, {
 			model: this.model
 		});
 	},
 
+	generateNavigationUrl: function generateNavigationUrl(){
+		return _url.generateUrl(["virtualMachine", this.model.get("id")], {});
+	} 
+
 	cancelEdition: function cancelEdition() {
-		var url = _url.generateUrl(["virtualMachine", this.model.get("id")], {});
+		var url = generateNavigationUrl();
 		Backbone.Notification.clearNotifications();
 		Backbone.history.navigate(url, true);
 	},
