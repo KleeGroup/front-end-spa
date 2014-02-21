@@ -75,6 +75,7 @@ var validateProperty = function(property, validator) {
 		}
 	})();
 	if (!isValid) {
+		//Add the name of the property.
 		return "The property " + property.name + " is invalid.";
 	}
 };
