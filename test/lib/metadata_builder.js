@@ -27,8 +27,8 @@ var Model = Mdl.extend({
 			isValidationOff: false
 			//domain: ''
 		},
-		attrNoVal:{
-			metadata:"DO_ID",
+		attrNoVal: {
+			metadata: "DO_ID",
 			isValidationOff: true
 		}
 	}
@@ -36,27 +36,37 @@ var Model = Mdl.extend({
 
 
 describe('# MetadataBuilder', function() {
-	var model = new Model();
-	var validators =  MetadataBuilder.domainAttributes(model);
-	describe('## domainAttributes', function() {
+	describe('## getDomainsValidationAttrs', function() {
+		//Initialisation
+		var model = new Model();
+		var validators = MetadataBuilder.getDomainsValidationAttrs(model);
 		it('Should have validators for each property', function() {
 			validators.should.have.property('id');
 			validators.should.have.property('name');
 			validators.should.have.property('age');
-			//console.log("validators", validators);
 		});
-		it('Should have a required override on the validators.', function(){
+		it('Should have a required override on the validators.', function() {
 			validators.should.have.property('age').be.an("Array").of.length(2);
 			validators.age[0].should.have.a.property('type', "required");
 			validators.age[0].should.have.a.property('value', true);
 		});
 		it('should override the domain validators with others.');
-		it('should return no validation when isValidationOff:true is pass', function(){
+		it('should return no validation when isValidationOff:true is pass', function() {
 			validators.should.not.have.a.property('attrNoVal');
 		});
-		it('should behave normally when isValidationOff:false', function(){
+		it('should behave normally when isValidationOff:false', function() {
 			var validators = MetadataBuilder.domainAttributes(model);
 			validators.should.have.property('age').be.an("Array").of.length(2);
 		});
+	});
+	describe('## domainAttributes', function() {
+		var ModelWithName = Model.extend({
+			modelName: "fatherModel"
+		});
+		var modelWithoutName = new Model();
+		var modelWithName = new ModelWithName();
+		it("should call the getDomainsValidationAttr each time without name.");
+		it("should call the getDomainsValidationAttr once with a name.");
+
 	});
 });

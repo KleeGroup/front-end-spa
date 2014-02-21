@@ -1,6 +1,8 @@
 
 # Exceptions
 ArgumentNullException = require("./custom_Exception").ArgumentNullException
+# Proxy in order to have 
+proxyValidationContainer = {}
 
 # Get the domains definition.
 domains = require('./domains')
@@ -33,5 +35,12 @@ getDomainsValidationAttrs = (model)->
      valDomAttrs[attr] = validators;
   return valDomAttrs
 
+proxyDomainValidationAttrs = (model)->
+  return proxyValidationContainer[model.modelName] if(model.modelName? and proxyValidationContainer[model.modelName]?)
+  if model.modelName?
+    return proxyValidationContainer[model.modelName] = getDomainsValidationAttrs(model)
+  else
+    return getDomainsValidationAttrs(model)
 module.exports =
-  domainAttributes: getDomainsValidationAttrs
+  getDomainsValidationAttrs: getDomainsValidationAttrs
+  domainAttributes: proxyDomainValidationAttrs
