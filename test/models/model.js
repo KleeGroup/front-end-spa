@@ -31,7 +31,7 @@ describe('default model', function() {
   describe('#toJSON', function() {
     it('should have a metadatas property in addition to the other property', function() {
       var jsonModel = model.toJSON();
-      console.log(jsonModel);
+      //console.log(jsonModel);
       jsonModel.should.have.property('papa', 'singe');
       jsonModel.should.have.property('firstName', 'Pierre');
       jsonModel.should.have.property('lastName', 'Besson');
