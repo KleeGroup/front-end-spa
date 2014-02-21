@@ -8,6 +8,7 @@ proxyValidationContainer = {}
 domains = require('./domains')
 # Get the validation attributes from the domain.
 getDomainsValidationAttrs = (model)->
+  console.log('called')
   return new ArgumentNullException('The model should exists and have a metadatas property.') if not model?
   #Get the metadatas from the model.
   metadatas = model.metadatas
@@ -36,6 +37,7 @@ getDomainsValidationAttrs = (model)->
   return valDomAttrs
 
 proxyDomainValidationAttrs = (model)->
+  return getDomainsValidationAttrs(model)
   return proxyValidationContainer[model.modelName] if(model.modelName? and proxyValidationContainer[model.modelName]?)
   if model.modelName?
     return proxyValidationContainer[model.modelName] = getDomainsValidationAttrs(model)

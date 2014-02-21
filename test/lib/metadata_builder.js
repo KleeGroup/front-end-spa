@@ -1,4 +1,4 @@
-/*global describe, it*/
+/*global describe, it, beforeEach, afterEach, sinon, _*/
 require('../initialize-globals').load();
 //Require the module to test.
 var MetadataBuilder = require('../../app/lib/metadata_builder');
@@ -55,18 +55,38 @@ describe('# MetadataBuilder', function() {
 			validators.should.not.have.a.property('attrNoVal');
 		});
 		it('should behave normally when isValidationOff:false', function() {
-			var validators = MetadataBuilder.domainAttributes(model);
 			validators.should.have.property('age').be.an("Array").of.length(2);
 		});
 	});
-	describe('## domainAttributes', function() {
+	describe.skip('## domainAttributes', function() {
 		var ModelWithName = Model.extend({
 			modelName: "fatherModel"
 		});
-		var modelWithoutName = new Model();
-		var modelWithName = new ModelWithName();
-		it("should call the getDomainsValidationAttr each time without name.");
-		it("should call the getDomainsValidationAttr once with a name.");
+		var mb = _.clone(MetadataBuilder);
+		var spy;
+		//Register the spy before each test.
+		beforeEach(function() {
+
+			spy = sinon.spy(mb, "getDomainsValidationAttrs");
+		});
+
+		//Unregister the spy after each test.
+		afterEach(function() {
+			mb.getDomainsValidationAttrs.restore();
+		});
+		it("should call the getDomainsValidationAttr each time without name.", function() {
+			mb.domainAttributes(new Model());
+			//console.log("val", val);
+			spy.should.have.callCount(1);
+			mb.domainAttributes(new Model());
+			spy.should.have.callCount(2);
+		});
+		it("should call the getDomainsValidationAttr once with a name.", function() {
+			mb.domainAttributes(new ModelWithName());
+			spy.should.have.callCount(1);
+			mb.domainAttributes(new ModelWithName());
+			spy.should.have.callCount(1);
+		});
 
 	});
 });
