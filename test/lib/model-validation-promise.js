@@ -64,7 +64,7 @@ describe('#model-validation-promise', function() {
       });
       ModelValidator.validate(model).
       catch (function(error) {
-        error.should.have.property('firstName', 'firstName not valid.');
+        error.should.have.property('firstName').with.length.above(2);
         done();
       });
 

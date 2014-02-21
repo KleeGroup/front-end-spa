@@ -53,7 +53,7 @@ var validateDomainAttributes = function validateDomainAttributes(model, errors) 
       value: model.get(attr)
     }, validatorsOfDomain[attr]);
     //If there is no error dont set any errors. 
-    if (valRes.errors !== undefined) {
+    if (valRes.errors !== undefined && valRes.errors.length > 0) {
       errors[attr] = valRes.errors.join(',');
     }
   }
