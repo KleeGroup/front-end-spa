@@ -39,6 +39,8 @@
     "backbone": "~1.1.0",
     "underscore": "~1.6.0",
     "bluebird": "~1.0.5",
-    "backbone-validation": "~0.9.1"
+    "backbone-validation": "~0.9.1",
+    "sinon-chai": "~2.5.0",
+    "sinon": "~1.8.2"
   }
 }
