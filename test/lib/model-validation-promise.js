@@ -4,7 +4,7 @@ var Md = require('../../app/models/model');
 var ModelValidator = require('../../app/lib/model-validation-promise');
 
 describe('#model-validation-promise', function() {
-  describe.only('##validation on metadatas', function() {
+  describe('##validation on metadatas', function() {
     var Model = Md.extend({
       metadatas: {
         firstName: {
@@ -29,6 +29,12 @@ describe('#model-validation-promise', function() {
         done();
       });
       
+    });
+    if('shoud be invalidated with the metadatas', function(done){
+     var model =  new Model({
+        firstName: "Pierre",
+        lastName: "Besson"
+      });
     });
   });
   describe('##validation on model', function() {
@@ -58,6 +64,7 @@ describe('#model-validation-promise', function() {
         error.should.have.property('firstName', 'firstName not valid.');
         done();
       });
+      
     });
   });
 
