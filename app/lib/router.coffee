@@ -27,6 +27,11 @@ module.exports = class Router extends Backbone.Router
     'virtualMachine/:id': 'virtualMachine'
     'virtualMachine/edit/:id': 'updateVirtualMachine'
     'reference': 'reference'
+    'test/:modelName/search': 'search'
+    'test/:modelName/create': 'create'
+    'test/:modelName/:id': 'list' 
+    'test/:modelName/show/:id': 'show'
+    'test/:modelName/edit/:id': 'edit'
 
   home: =>
     view = new HomeView()
@@ -96,3 +101,19 @@ module.exports = class Router extends Backbone.Router
     model = new References()
     view = new ReferencesView({model: model})
     application.layout.content.show(view)
+  search: (modelName)=>
+    ###Model = require("../models/#{modelName}")
+    #View = #require("../models/#{modelName}-search")
+    model = new Model()
+    view =  new VirtualMachineSearchTemplateView({model: model}) 
+    #view = new VirtualMachineSearchView({model: model})
+    application.layout.content.show(view)###
+    console.log "search", modelName
+  create: (modelName)=>
+    console.log "create", modelName
+  list: (modelName, id)=>
+    console.log "list", modelName
+  show: (modelName, id)=>
+    console.log "show", modelName
+  edit:(modelName, id)=>
+    console.log "edit", modelName

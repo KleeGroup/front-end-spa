@@ -35,6 +35,18 @@ describe('Validator', function() {
         validationResult.should.have.property('errors').be.an('Array');
         //console.log('Validation results: %j', validationResult);
       });
+      it("property '' required true", function() {
+        property.value = '';
+        validator.value = true;
+        var validationResult = validate(property, [validator]);
+        console.log(validationResult);
+        validationResult.should.be.an('object');
+        validationResult.should.have.property('name', property.name);
+        validationResult.should.have.property('value');
+        validationResult.should.have.property('isValid', false);
+        validationResult.should.have.property('errors').be.an('Array');
+        //console.log('Validation results: %j', validationResult);
+      });
       it("property defined required false", function() {
         property.value = "singe";
         validator.value = false;
