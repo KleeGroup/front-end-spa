@@ -2,9 +2,7 @@ module.exports = {
 	"DO_ENTIER": {
 		"type": "number",
 		"validation": [{
-			"type": "regex",
-			"value": "^\\d+$",
-			"options": {}
+			"type": "number"
 		}],
 	},
 	"DO_DATE": {
@@ -17,16 +15,14 @@ module.exports = {
 	"DO_TEXTE_50": {
 		"type": "text",
 		"validation": [{
-			"type": "regex",
-			"value": "^\\+$"
+			"type": "string",
+			"options": {
+				"maxLength": 50
+			}
 		}]
 	},
 	"DO_LISTE": {
 		"type": "number",
-		"validation": [{
-			"type": "regex",
-			"value": "^\\+$"
-		}]
 	},
 	"DO_ID": {
 		"type": "text",

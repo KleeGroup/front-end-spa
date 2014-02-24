@@ -15,6 +15,9 @@ module.exports = Backbone.View.extend({
 			this.getModel(this.model.get('id'))
 				.then(function success(jsonModel){
 					view.model.set(jsonModel);
+				})
+				.catch(function error(error){
+					console.log('erreur : ' + error);
 				});
 		}
 	},

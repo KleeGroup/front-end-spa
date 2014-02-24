@@ -1,5 +1,5 @@
 /*global Promise, _*/
-var ArgumentNullException = require("./custom_Exception").ArgumentNullException;
+var ArgumentNullException = require("./custom_exception").ArgumentNullException;
 var metadataBuilder = require('./metadata_builder');
 var validators = require('./validators');
 exports.validate = function(model) {

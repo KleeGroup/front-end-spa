@@ -21,7 +21,7 @@ module.exports = {
 			"required": true
 		},
 		"users": {
-			"domain": "DO_LIST",
+			"domain": "DO_LISTE",
 			"required": true
 		},
 		"startDate": {

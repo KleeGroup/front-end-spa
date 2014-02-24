@@ -1,6 +1,6 @@
 
 # Exceptions
-ArgumentNullException = require("./custom_Exception").ArgumentNullException
+ArgumentNullException = require("./custom_exception").ArgumentNullException
 # Proxy in order to have 
 proxyValidationContainer = {}
 
