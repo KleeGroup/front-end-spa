@@ -19,15 +19,25 @@ module.exports = {
 		"update": "Update",
 		"save": "Save",
 		"back": "Back",
-		"edit":"Edit",
+		"edit": "Edit",
 		"delete": "Delete",
 		"loading": "Loading"
+	},
+	"domain": {
+		"validation": {
+			"required": "The field __fieldName__ is required.",
+			"email": "The field __fieldName__ is not a valid email.",
+			"number": "The field __fieldName__ is not a valid number.",
+			"string": "The field __fieldName__, is not a valid string.",
+			"regex": "The field __fieldName__ does not go through the validation.",
+			"function": "The field __fieldName__ does not go through the validation."
+		}
 	},
 	"home": {
 		"title": "Welcome to the vm tickets application.",
 		"description": "You will be able to see all the vms creation demands."
 	},
-	"references":{
+	"references": {
 		"title": "References"
 	},
 	"virtualMachine": {
@@ -40,7 +50,7 @@ module.exports = {
 		"detail": {
 			"title": "Detail of the virtual machine"
 		},
-		"save":{
+		"save": {
 			"createSuccess": "The creation was successfull.",
 			"updateSuccess": "The update was successfull.",
 			"error": "An error occurs on the update, could you please try again."

@@ -1,10 +1,12 @@
+/*global i18n*/
 var regex = {
 	email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 	number: /^-?\d+(?:\.d*)?(?:e[+\-]?\d+)?$/i
 };
 
 //Function to test an email.
-function emailValidation(emailToValidate) {
+function emailValidation(emailToValidate, options) {
+	options = options || options;
 	return regex.email.test(emailToValidate);
 }
 
@@ -75,10 +77,36 @@ var validateProperty = function(property, validator) {
 		}
 	})();
 	if (!isValid) {
+
 		//Add the name of the property.
-		return "The property " + property.name + " is invalid.";
+		return getErrorLalel(validator.type, property.name ,validator.options);//"The property " + property.name + " is invalid.";
 	}
 };
+
+function getErrorLalel(type, fieldName, options) {
+	options = options || {};
+	if(!i18n){throw new Error("Dependency not resolved: i18n.js");}
+	var translationKey = options.translationKey ? options.translationKey : "domain.validation."+ type;
+	return i18n.translate(translationKey, {fieldName: fieldName});
+	/*var message = (function() {
+		switch (type) {
+			case "required":
+				return i18n.translate();
+			case "regex":
+				return validator.value.test(property.value);
+			case "email":
+				return emailValidation(property.value, validator.options);
+			case "number":
+				return numberValidation(property.value, validator.options);
+			case "string":
+				return stringLength(property.value, validator.options);
+			case "function":
+				return validator.value(property.value, validator.options);
+			default:
+				return void 0;
+		}
+	})();*/
+}
 
 // Validations functions.
 module.exports = {

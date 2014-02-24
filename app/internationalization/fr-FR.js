@@ -23,6 +23,16 @@ module.exports = {
 		"delete": "Supprimer",
 		"loading": "Chargement"
 	},
+	"domain": {
+		"validation": {
+			"required": "Le champ __fieldName__ est requis.",
+			"email": "Le champ __fieldName__ n'est pas un email valide.",
+			"number": "Le champ __fieldName__ n'est pas un nombre valide.",
+			"string": "Le champ __fieldName__, n'est pas une chaîne de caractère valide.",
+			"regex": "Le champ __fieldName__ ne passe pas la validation.",
+			"function": "Le champ __fieldName__ ne passe pas la validation."
+		}
+	},
 	"home": {
 		"title": "Bienvenue dans l'application vm tickets.",
 		"description": "Vous pouvez voir ici toutes les demandes de création de VMs."
