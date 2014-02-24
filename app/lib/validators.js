@@ -77,7 +77,10 @@ var validateProperty = function(property, validator) {
 				return void 0;
 		}
 	})();
-	if (!isValid) {
+	if(isValid === undefined || isValid === null){
+		console.warn('The validator of type: ' + validator.type + ' is not defined');//Todo: call the logger.
+	}
+	else if (isValid === false) {
 
 		//Add the name of the property.
 		return getErrorLalel(validator.type, property.name ,validator.options);//"The property " + property.name + " is invalid.";

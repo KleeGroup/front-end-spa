@@ -8,7 +8,7 @@ module.exports = {
 	"DO_DATE": {
 		"type": "date",
 		"validation": [{
-			"type": "name",
+			"type": "date",
 			"value": "date"
 		}]
 	},
@@ -25,11 +25,7 @@ module.exports = {
 		"type": "number",
 	},
 	"DO_ID": {
-		"type": "text",
-		"validation": [{
-			"type": "regex",
-			"value": "^\\+$"
-		}]
+		"type": "text"
 	},
 	"DO_TEXTE_30": {
 		"type": "text",
