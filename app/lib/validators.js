@@ -1,4 +1,5 @@
 /*global i18n*/
+var DependencyException = require('./custom_exception').DependencyException;
 var regex = {
 	email: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 	number: /^-?\d+(?:\.d*)?(?:e[+\-]?\d+)?$/i
@@ -85,7 +86,7 @@ var validateProperty = function(property, validator) {
 
 function getErrorLalel(type, fieldName, options) {
 	options = options || {};
-	if(!i18n){throw new Error("Dependency not resolved: i18n.js");}
+	if(!i18n){throw new DependencyException("Dependency not resolved: i18n.js");}
 	var translationKey = options.translationKey ? options.translationKey : "domain.validation."+ type;
 	return i18n.translate(translationKey, {fieldName: fieldName});
 	/*var message = (function() {
