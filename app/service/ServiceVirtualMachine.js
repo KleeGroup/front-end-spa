@@ -7,6 +7,13 @@ var Promisify = require('../models/promisify');
 var promisifyVirtualMachine = Promisify.Convert.Model(new VirtualMachine());
 var promiseVirtualMachines = Promisify.Convert.Collection(new VirtualMachines());//new Promisify.Collection();
 
+//try to get a virtualMachine by id, returning a promise.
+function getVirtualMachine(id){
+	promisifyVirtualMachine.clear({silent: true});
+	promisifyVirtualMachine.set(id, {silent: true});
+	return promisifyVirtualMachine.fetch();
+}
+
 //Try to save a virtual machine, returning a promise.
 function saveVirtualMachine(jsonModel) {
 	promisifyVirtualMachine.clear({silent: true});
@@ -31,6 +38,7 @@ function searchVirtualMachine(criteria) {
 
 
 module.exports = {
+	get: getVirtualMachine,
 	save: saveVirtualMachine,
 	deleteVm: deleteVm,
 	search: searchVirtualMachine

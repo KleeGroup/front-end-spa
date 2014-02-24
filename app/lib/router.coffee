@@ -6,9 +6,12 @@ ContactView = require 'views/contact-view'
 SigninView = require 'views/signin-view'
 VirtualMachineSearch = require 'models/virtualMachineSearch' 
 VirtualMachineSearchView = require 'views/virtualMachine-search-view'
+VirtualMachineSearchTemplateView = require 'views/search-template-view'
 VirtualMachine = require 'models/virtualMachine'
 VirtualMachineView = require 'views/virtualMachine-view'
+VirtualMachineTemplateView = require 'views/detail-consult-template-view'
 VirtualMachineSaveView = require 'views/virtualMachine-save-view'
+VirtualMachineSaveTemplateView = require 'views/detail-edit-template-view'
 References = require('../models/references')
 ReferencesView = require('../views/references-view')
 
@@ -19,10 +22,10 @@ module.exports = class Router extends Backbone.Router
     'about': 'about'
     'contact': 'contact'
     'signin': 'signin'
-    'searchVirtualMachine': 'searchVirtualMachine'
-    'newVirtualMachine': 'newVirtualMachine' 
+    'virtualMachine/search': 'searchVirtualMachine'
+    'virtualMachine/create': 'newVirtualMachine' 
     'virtualMachine/:id': 'virtualMachine'
-    'updateVirtualMachine/:id': 'updateVirtualMachine'
+    'virtualMachine/edit/:id': 'updateVirtualMachine'
     'reference': 'reference'
 
   home: =>
@@ -67,22 +70,28 @@ module.exports = class Router extends Backbone.Router
 
   searchVirtualMachine: =>
     model = new VirtualMachineSearch()
-    view = new VirtualMachineSearchView({model: model})
+    view = new VirtualMachineSearchTemplateView({model: model})
+    #view = new VirtualMachineSearchView({model: model})
     application.layout.content.show(view)
 
   virtualMachine: (id) =>
     model = new VirtualMachine({id: id})
-    view = new VirtualMachineView({model: model})
+    #view = new VirtualMachineView({model: model})
+    view = new VirtualMachineTemplateView({model: model})
     application.layout.content.show(view)
 
   newVirtualMachine:() =>
     model = new VirtualMachine({isEdit: true, isCreate: true})
-    view = new VirtualMachineSaveView({model: model})
+    #view = new VirtualMachineSaveView({model: model})
+    view = new VirtualMachineSaveTemplateView({model: model})
     application.layout.content.show(view)
+
   updateVirtualMachine:(id) =>
     model = new VirtualMachine({id: id, isEdit: true})
-    view = new VirtualMachineSaveView({model: model})
+    #view = new VirtualMachineSaveView({model: model})
+    view = new VirtualMachineSaveTemplateView({model: model})
     application.layout.content.show(view)
+
   reference: ()=>
     model = new References()
     view = new ReferencesView({model: model})

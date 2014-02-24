@@ -9,9 +9,11 @@ module.exports = {
 				"search": "Recherche",
 				"new": "Création"
 			},
-			"reference": "Référence"
-
+		"reference": "Référence"
 		}
+	},
+	"search": {
+		"noResult": "Aucun résultat ne correspond à vos critères."
 	},
 	"button": {
 		"cancel": "Annuler",
