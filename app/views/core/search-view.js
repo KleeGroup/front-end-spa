@@ -70,18 +70,18 @@ module.exports = Backbone.View.extend({
 		}
 		var currentView = this;
 		ModelValidator.validate(this.model)
-			.catch (function error(errors){
-				currentView.model.setErrors(errors);
-			})
 			.then(function(model) {
 				currentView.model.unsetErrors();
 				currentView.search(currentView.model.toJSON())
-					.then(function success(jsonResponse) { 
+				.then(function success(jsonResponse) { 
 						return currentView.searchSuccess(jsonResponse);
 					})
 					.catch (function error(errorResponse) {
 						currentView.searchError(errorResponse);
 					});
+			})
+			.catch (function error(errors){
+				currentView.model.setErrors(errors);
 			});
 		if(this.isReadOnly){
 			this.model.set({isCriteriaReadonly: true});
