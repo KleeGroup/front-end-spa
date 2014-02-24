@@ -57,7 +57,7 @@ getMetadataFor = (property, context)->
       _.extend(metadata, {required: md.required}) if md.required?
       _.extend(metadata, {label: md.label}) if md.label?
       _.extend(metadata, {domain: md.domain}) if md.domain?
-      console.log "property", property,"metadata", metadata
+      #console.log "property", property,"metadata", metadata
   return metadata
    
 
@@ -264,7 +264,7 @@ guid = ->
 
 # Example => button "transalationKey", icon="heart" id="12" class="btn-danger" type="submit"
 Handlebars.registerHelper "button",(text_key, options) ->
-  console.log "button", i18n.t(text_key)
+  #console.log "button", i18n.t(text_key)
   opt = options.hash or {}
   isScript = if typeof opt.isScript is "undefined" then true else opt.isScript
   cssClass = opt.class or ""
