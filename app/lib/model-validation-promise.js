@@ -29,7 +29,8 @@ var validateCustomAttributes = function validateCustomAttributes(model, errors) 
   for (var attr in getValidatedAttrs(model)) {
     //console.log("Attr", attr);
     if (!model.isValid(attr)) {
-      errors[attr] = '' + errors[attr] +''+  attr + " not valid."; // Todo: translate the message.
+      var domainMessage = errors[attr] !== null && errors[attr] !== undefined ? errors[attr] : '';
+      errors[attr] = '' + domainMessage +''+  attr + " not valid."; // Todo: translate the message.
     }
   }
 };

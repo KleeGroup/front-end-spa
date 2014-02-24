@@ -37,8 +37,7 @@ module.exports = Model.extend({
 			metadata: domDef.virtualMachine.users
 		},
 		startDate: {
-			metadata: domDef.virtualMachine.startDate,
-			required: false
+			metadata: domDef.virtualMachine.startDate
 		},
 		endDate: {
 			metadata: domDef.virtualMachine.endDate
