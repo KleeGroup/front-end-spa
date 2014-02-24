@@ -41,6 +41,7 @@
     "bluebird": "~1.0.5",
     "backbone-validation": "~0.9.1",
     "sinon-chai": "~2.5.0",
-    "sinon": "~1.8.2"
+    "sinon": "~1.8.2",
+    "i18next": "~1.7.1"
   }
 }
