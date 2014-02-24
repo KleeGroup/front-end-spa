@@ -62,7 +62,9 @@ var validateProperty = function(property, validator) {
 	isValid = (function() {
 		switch (validator.type) {
 			case "required":
-				return validator.value === true ? property.value != null : true;
+				var prevalidString = property.value === "" ? false : true;
+				var prevalidDate = true;
+				return validator.value === true ? (property.value != null && prevalidString && prevalidDate) : true;
 			case "regex":
 				return validator.value.test(property.value);
 			case "email":
