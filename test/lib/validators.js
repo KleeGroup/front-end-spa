@@ -33,6 +33,7 @@ describe('Validator', function() {
         validationResult.should.not.have.property('value');
         validationResult.should.have.property('isValid', false);
         validationResult.should.have.property('errors').be.an('Array');
+        //console.log('Validation results: %j', validationResult);
       });
       it("property defined required false", function() {
         property.value = "singe";
@@ -82,6 +83,7 @@ describe('Validator', function() {
         validationResult.should.have.property('value', property.value);
         validationResult.should.have.property('isValid', false);
         validationResult.should.have.property('errors');
+        //console.log('Validation results: %j', validationResult);
       });
       it('The maxLength should be ok with a stringLength of 7', function() {
         validator.options.minLength = 0;
@@ -133,6 +135,7 @@ describe('Validator', function() {
         validationResult.should.have.property('value', property.value);
         validationResult.should.have.property('isValid', false);
         validationResult.should.have.property('errors').to.be.an('Array');
+        //console.log('Validation results: %j', validationResult);
       });
     });
     describe('##function', function() {
@@ -146,6 +149,7 @@ describe('Validator', function() {
       it("Simple function should test its a bool true.", function() {
         property.value = true;
         validator.value = function(prop, opt) {
+          opt = opt || {};
           return prop === true;
         };
         var validationResult = validate(property, [validator]);
@@ -158,6 +162,7 @@ describe('Validator', function() {
       it("Simple function should test its a bool false.", function() {
         property.value = false;
         validator.value = function(prop, opt) {
+          opt = opt || {};
           return prop === true;
         };
         var validationResult = validate(property, [validator]);
@@ -166,6 +171,7 @@ describe('Validator', function() {
         validationResult.should.have.property('value');
         validationResult.should.have.property('isValid', false);
         validationResult.should.have.property('errors').be.an("Array");
+        //console.log('Validation results: %j', validationResult);
       });
     });
     describe('##two validator', function() {
@@ -182,6 +188,7 @@ describe('Validator', function() {
       it("Two validators, two ok.", function() {
         property.value = true;
         validator.value = function(prop, opt) {
+          opt = opt || {};
           return prop === true;
         };
         var validationResult = validate(property, [validator, validator]);
