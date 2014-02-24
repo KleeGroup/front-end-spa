@@ -88,7 +88,7 @@ function getErrorLalel(type, fieldName, options) {
 	options = options || {};
 	if(!i18n){throw new DependencyException("Dependency not resolved: i18n.js");}
 	var translationKey = options.translationKey ? options.translationKey : "domain.validation."+ type;
-	return i18n.translate(translationKey, {fieldName: fieldName});
+	return i18n.translate(translationKey, {fieldName: fieldName, options : options});
 	/*var message = (function() {
 		switch (type) {
 			case "required":
