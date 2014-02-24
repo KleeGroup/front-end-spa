@@ -43,9 +43,6 @@ module.exports = Backbone.View.extend({
 
 		var currentView = this;
 		ModelValidator.validate(currentView.model)
-			.catch (function error(errors){
-				currentView.model.setErrors(errors);
-			})
 			.then(function() {
 				currentView.model.unsetErrors();
 				currentView.saveModel(currentView.model.toJSON())
@@ -55,6 +52,9 @@ module.exports = Backbone.View.extend({
 					.catch (function error(responseError){
 						currentView.saveError(responseError);
 					});
+			})
+			.catch (function error(errors){
+				currentView.model.setErrors(errors);
 			});
 	},
 
