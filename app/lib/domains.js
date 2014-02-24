@@ -6,11 +6,7 @@ module.exports = {
 		}],
 	},
 	"DO_DATE": {
-		"type": "date",
-		"validation": [{
-			"type": "date",
-			"value": "date"
-		}]
+		"type": "date"
 	},
 	"DO_TEXTE_50": {
 		"type": "text",
