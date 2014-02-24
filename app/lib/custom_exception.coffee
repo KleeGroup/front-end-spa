@@ -15,7 +15,9 @@ class ArgumentNullException extends CustomException
 class ArgumentInvalidException extends CustomException
   constructor:(message, options)->
     super("ArgumentInvalidException", message, options)
-
+class DependencyException extends CustomException
+  constructor:(message)->
+    super("DependencyException", message)
 module.exports=
 	CustomException: CustomException
 	NotImplementedException: NotImplementedException
