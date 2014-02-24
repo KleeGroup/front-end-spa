@@ -1,4 +1,4 @@
-/*global Backbone, Promise*/
+/*global Backbone, Promise, _*/
 // Backbone model with **promise** CRUD method instead of its own methods.
 var PromiseModel = Backbone.Model.extend({
 	//Ovverride the save method on the model in order to Return a promise.
@@ -24,6 +24,17 @@ var PromiseModel = Backbone.Model.extend({
 				});
 			}
 		);
+	},
+	fetch: function promiseFetchModel(options) {
+		options = options || {};
+		var model = this;
+		console.log('promiseFetchModel', model);
+		return new Promise(function(resolve, reject) {
+			/*Don't use underscore but could have because bacckbone has a dependency on it.*/
+			options.success = resolve;
+			options.error = reject;
+			Backbone.sync('read', model, options);
+		});
 	}
 
 });
@@ -49,7 +60,11 @@ var ConvertModel = function ConvertBackBoneModelToPromiseModel(model) {
 	if (model.url === undefined || model.urlRoot === undefined) {
 		throw new Error("ConvertBackBoneModelToPromiseModel: The model url cannot be undefined.");
 	}
-	var promiseModel = new PromiseModel();
+	var fields = {};
+	if(model.has('id')){
+		_.extend(fields, model.pick('id'));
+	}
+	var promiseModel = new PromiseModel(fields);
 	var property = model.urlRoot !== undefined ? 'urlRoot' : 'url';
 	promiseModel[property] = model[property];
 	return promiseModel;
