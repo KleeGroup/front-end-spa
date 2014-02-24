@@ -31,7 +31,7 @@ module.exports = Backbone.View.extend({
 
 	//genarate navigation url.
 	generateEditUrl: function generateEditUrl(){
-		return "update" + this.model.modelName + "/" + this.model.get('id');
+		return this.model.modelName + "/edit/" + this.model.get('id');
 	},
 
 	edit: function editVm(event) {

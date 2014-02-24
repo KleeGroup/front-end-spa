@@ -11,6 +11,7 @@ VirtualMachine = require 'models/virtualMachine'
 VirtualMachineView = require 'views/virtualMachine-view'
 VirtualMachineTemplateView = require 'views/detail-consult-template-view'
 VirtualMachineSaveView = require 'views/virtualMachine-save-view'
+VirtualMachineSaveTemplateView = require 'views/detail-edit-template-view'
 References = require('../models/references')
 ReferencesView = require('../views/references-view')
 
@@ -22,9 +23,9 @@ module.exports = class Router extends Backbone.Router
     'contact': 'contact'
     'signin': 'signin'
     'searchVirtualMachine': 'searchVirtualMachine'
-    'newVirtualMachine': 'newVirtualMachine' 
+    'virtualMachine/create': 'newVirtualMachine' 
     'virtualMachine/:id': 'virtualMachine'
-    'updateVirtualMachine/:id': 'updateVirtualMachine'
+    'virtualMachine/edit/:id': 'updateVirtualMachine'
     'reference': 'reference'
 
   home: =>
@@ -81,12 +82,14 @@ module.exports = class Router extends Backbone.Router
 
   newVirtualMachine:() =>
     model = new VirtualMachine({isEdit: true, isCreate: true})
-    view = new VirtualMachineSaveView({model: model})
+    #view = new VirtualMachineSaveView({model: model})
+    view = new VirtualMachineSaveTemplateView({model: model})
     application.layout.content.show(view)
 
   updateVirtualMachine:(id) =>
     model = new VirtualMachine({id: id, isEdit: true})
-    view = new VirtualMachineSaveView({model: model})
+    #view = new VirtualMachineSaveView({model: model})
+    view = new VirtualMachineSaveTemplateView({model: model})
     application.layout.content.show(view)
 
   reference: ()=>
