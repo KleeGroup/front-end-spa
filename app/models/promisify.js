@@ -14,6 +14,7 @@ var PromiseModel = Backbone.Model.extend({
 			}
 		);
 	},
+	//Replacing the classic destroy model with a promise.
 	destroy: function promiseDestroyModel() {
 		var model = this;
 		return new Promise(
@@ -25,6 +26,7 @@ var PromiseModel = Backbone.Model.extend({
 			}
 		);
 	},
+	//Replacing the classic backbone fetch with a promise, resolve and reject are givent as options.success, and options.error of the ajax.
 	fetch: function promiseFetchModel(options) {
 		options = options || {};
 		var model = this;
