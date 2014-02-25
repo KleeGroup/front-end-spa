@@ -1,17 +1,40 @@
 var NotImplementedException = require('../../lib/custom_exception').NotImplementedException;
 var _url = require('../../lib/url_helper');
+var templatePagination = require('../template/collection-pagination');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
 	className: 'resultView',
+	resultsPagination: 'div#pagination',
+	templatePagination: templatePagination,
 
-	initialize: function initializeVirtualMachineSearchResult(options) {
+	initialize: function initializeSearchResult(options) {
 		this.listenTo(this.model, "reset", function(){this.render({isSearchTriggered: true})}, this);
 	},
 
 	events: {
-		'click tbody tr': 'lineSelection'
+		'click tbody tr': 'lineSelection',
+		'click .pagination li': 'goToPage'
 	},
+
+	goToPage: function goToPage(page){
+		this.model.setPage(page);
+		this.fetchDemand();
+	},
+
+	nextPage: function nextPage(){
+		this.model.setNextPage();
+		this.fetchDemand();
+	},
+
+	previousPage: function PreviousPage(){
+		this.model.setPreviousPage();
+		this.fetchDemand();
+	},
+
+	fetchDemand: function fetchDemand(){
+		this.trigger('results:fetchDemand');
+	}
 
 	lineSelection: function lineSelectionSearchResults(event){
 		//throw new NotImplementedException('lineSelection');
@@ -39,6 +62,9 @@ module.exports = Backbone.View.extend({
 			this.$el.html(this.template({
 				collection: this.model.toJSON()
 			}));
+
+			//render pagination
+			$(this.resultsPagination, this.$el).html(this.templatePagination(this.model.pageInfo()));
 		}
 		return this;
 	}

@@ -60,7 +60,6 @@ getMetadataFor = (property, context)->
       #console.log "property", property,"metadata", metadata
   return metadata
    
-
 ###------------------------------------------- FORM FOR THE INPUTS -------------------------------------------###
 Handlebars.registerHelper "input_for", (property, options) ->
   #Initialize the variables which are options
@@ -276,6 +275,28 @@ Handlebars.registerHelper "button",(text_key, options) ->
      if opt.icon? then "<i class='fa fa-fw fa-#{opt.icon}'></i>" else ""
   button = "<button type='#{type}' class='btn #{cssClass}' id='#{cssId}' data-loading-text='#{i18n.t('button.loading')}'>#{icon()} #{if text_key isnt '' then i18n.t(text_key) else ''}</button>#{script()}"
   new Handlebars.SafeString(button)
+
+# display pagination on table 
+# consume an object in the this which is : 
+# `{currentPage: currentPage, firstPage: firstPage, totalPages: totalPages}`
+Handlebars.registerHelper "paginate", (property, options)->
+  options = options.hash or {}
+  currentPage = this.currentPage
+  firstPage = this.firstPage or 0
+  endPage = (this.totalPages or 0) + firstPage
+  generateLeftArrow = ()->
+    className = if currentPage is firstPage then "disabled" else ""
+    return "<li class='#{className}' data-page='#{firstPage}'><a href='#'>&laquo;</a></li>"
+  generatePageNumber= ()->
+    html = ""
+    (html+= "<li class='#{if i is currentPage then 'active' else ''}'><a href='#' data-page='#{i}'>#{i}</a></li>") for i in [firstPage..endPage]
+    return html
+  generateRigthArrow = ()->
+    className = if currentPage is endPage then "disabled" else ""
+    return "<li class='#{className}' data-page='#{endPage}'><a href='#'>&laquo;</a></li>"
+  return "<ul class='pagination'>#{generateLeftArrow()}#{generatePageNumber()}#{generateRigthArrow()}</ul>"
+  
+
 # Currency helper in order to have a vizualization for the currency.
 ## Todo: reenable when number format is needed..
 ###Handlebars.registerHelper "currency",(property, options) ->  

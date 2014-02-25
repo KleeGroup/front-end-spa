@@ -23,9 +23,11 @@ module.exports = Backbone.View.extend({
 		this.listenTo(this.model, 'change', this.render);
 		//initialization of the result view 
 		this.searchResultsView = new this.ResultsView({
-			model: this.searchResults
+			model: this.searchResults,
+			criteria : this.model
 		});
 
+		this.listenTo(this.searchResultsView, 'results:fetchDemand', function(){this.runSearch(null,{isFormBinded:false});});
 		if (this.isSearchTriggered) {
 			this.runSearch(null,{isFormBinded:false});
 		}
@@ -100,13 +102,3 @@ module.exports = Backbone.View.extend({
 		return this;
 	}
 });
-
-/*ModelValidator.validate(this.model)
-			.catch (currentView.model.setErrors)
-			.then(function(model) {
-				currentView.model.unsetErrors();
-				currentView.search(currentView.model.toJSON())
-					//.then(currentView.searchSuccess.bind(currentView))
-					.then(currentView.searchResults.reset.bind(currentView.searchResults))
-					.catch (currentView.searchError.bind(currentView))
-			});*/
