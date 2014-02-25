@@ -50,6 +50,9 @@ class Application extends Backbone.Marionette.Application
     # Add a notification functionnality into Backbone.
     @addInitializer (options) =>
       window.Backbone.Notification = require './lib/backbone_notification'
+    # Add an initializer to the logger with the config define in the app config.
+    @addInitializer (options) =>
+      window.l = new Logger(config.name, config.log.level, {options : config.log})
 
     @addInitializer (options) =>
       # Add the main layout
