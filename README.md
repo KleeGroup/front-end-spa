@@ -21,6 +21,7 @@ Main features are [CoffeeScript](http://coffeescript.org/),
 
 ## Generate the code documentation
 * `npm run doc` will launch docco and serve it into the docs directory, which is by the way not commited.
+
 ## Wiki
 In order to fully understant the concepts in this application you can have a look on the [wiki](https://github.com/dtklee/front-end-spa/wiki)
 
