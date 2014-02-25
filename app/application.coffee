@@ -54,7 +54,7 @@ class Application extends Backbone.Marionette.Application
     # Add an initializer to the logger with the config define in the app config.
     @addInitializer (options) =>
       console.log 'config log', config.log
-      window.l = new Logger(appName.name, config.log.level, {options : config.log})
+      window.l = new Logger(config.appName, config.log.level, {options : config.log})
 
     @addInitializer (options) =>
       # Add the main layout
