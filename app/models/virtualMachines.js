@@ -2,16 +2,45 @@
 //Dependencies.
 var URL = require('./URL');
 var VirtualMachine = require('./virtualMachine');
+var PaginatedCollection = require('./paginatedCollection');
 
 //define a collection of virtual machines
-module.exports = Backbone.Collection.extend({
+module.exports = PaginatedCollection.extend({
 	//A collection only need a model property in order to _Type_ each element of the collection.
 	model: VirtualMachine,
 	/*
 		The url will  be use in order to do all the [CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
 		operations on the model with the **REST** api. All operations will only exchange json between client and server.
 	 */
-	url: URL.virtualMachine
+	url: URL.virtualMachine,
+
+	server_api: {
+		// the query field in the request
+		'$filter': '',
+
+		// number of items to return per request/page
+		'$top': function() {
+			return this.perPage
+		},
+
+		// how many results the request should skip ahead to
+		// customize as needed. For the Netflix API, skipping ahead based on
+		// page * number of results per page was necessary.
+		'$skip': function() {
+			return this.currentPage * this.perPage
+		},
+
+		// field to sort by
+		'$orderby': 'name',
+
+		// what format would you like to request results in?
+		'$format': 'json',
+
+		// custom parameters
+		'$inlinecount': 'allpages',
+		'$callback': 'callback'
+	},
+
 });
 
 /*

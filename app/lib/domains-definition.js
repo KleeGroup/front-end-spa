@@ -35,7 +35,7 @@ module.exports = {
 	"virtualMachineSearch": {
 		"name": {
 			"domain": "DO_TEXTE_30",
-			"required": true
+			"required": false
 		}
 	},
 	"reference": {

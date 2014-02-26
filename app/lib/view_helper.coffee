@@ -280,21 +280,22 @@ Handlebars.registerHelper "button",(text_key, options) ->
 # consume an object in the this which is : 
 # `{currentPage: currentPage, firstPage: firstPage, totalPages: totalPages}`
 Handlebars.registerHelper "paginate", (property, options)->
+  options = options or {}
   options = options.hash or {}
   currentPage = this.currentPage
   firstPage = this.firstPage or 0
   endPage = (this.totalPages or 0) + firstPage
   generateLeftArrow = ()->
     className = if currentPage is firstPage then "disabled" else ""
-    return "<li class='#{className}' data-page='#{firstPage}'><a href='#'>&laquo;</a></li>"
+    return "<li class='#{className}' data-page='#{firstPage}'><a href='#' data-bypass>&laquo;</a></li>"
   generatePageNumber= ()->
     html = ""
-    (html+= "<li class='#{if i is currentPage then 'active' else ''}'><a href='#' data-page='#{i}'>#{i}</a></li>") for i in [firstPage..endPage]
+    (html+= "<li class='#{if i is currentPage then 'active' else ''}'><a href='#' data-bypass data-page='#{i}'>#{i}</a></li>") for i in [firstPage..endPage]
     return html
   generateRigthArrow = ()->
     className = if currentPage is endPage then "disabled" else ""
-    return "<li class='#{className}' data-page='#{endPage}'><a href='#'>&laquo;</a></li>"
-  return "<ul class='pagination'>#{generateLeftArrow()}#{generatePageNumber()}#{generateRigthArrow()}</ul>"
+    return "<li class='#{className}' data-page='#{endPage}'><a href='#' data-bypass>&raquo;</a></li>"
+  return new Handlebars.SafeString("<ul class='pagination'>#{generateLeftArrow()}#{generatePageNumber()}#{generateRigthArrow()}</ul>")
   
 
 # Currency helper in order to have a vizualization for the currency.

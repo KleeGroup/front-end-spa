@@ -6,6 +6,7 @@ var Promisify = require('../models/promisify');
 /*Instances of both model and collection of virtual machines.*/
 var promisifyVirtualMachine = Promisify.Convert.Model(new VirtualMachine());
 var promiseVirtualMachines = Promisify.Convert.Collection(new VirtualMachines());//new Promisify.Collection();
+var OdataHelper = require('../lib/odata_helper');
 
 //try to get a virtualMachine by id, returning a promise.
 function getVirtualMachine(id){
@@ -29,13 +30,11 @@ function deleteVm(jsonModel) {
 }
 
 // Seach for a virtual machine, using a criteria into the request. And return a promise.
-function searchVirtualMachine(criteria) {
+function searchVirtualMachine(criteria, pagesInfo) {
 	promiseVirtualMachines.reset(null, {silent: true});
-	if(criteria === undefined){
-		return promiseVirtualMachines.fetch();
-	} return  promiseVirtualMachines.fetch({data: criteria});
+	var options = OdataHelper.createOdataOptions(criteria, pagesInfo);
+	return  promiseVirtualMachines.fetch(options);//.then(OdataHelper.parseOdataResponse);
 }
-
 
 module.exports = {
 	get: getVirtualMachine,

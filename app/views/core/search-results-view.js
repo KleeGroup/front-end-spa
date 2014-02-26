@@ -1,6 +1,6 @@
 var NotImplementedException = require('../../lib/custom_exception').NotImplementedException;
 var _url = require('../../lib/url_helper');
-var templatePagination = require('../template/collection-pagination');
+var templatePagination = require('../templates/collection-pagination');
 
 module.exports = Backbone.View.extend({
 	tagName: 'div',
@@ -17,26 +17,31 @@ module.exports = Backbone.View.extend({
 		'click .pagination li': 'goToPage'
 	},
 
-	goToPage: function goToPage(page){
+	goToPage: function goToPage(event){
+		event.preventDefault();
+		var page = +event.target.getAttribute("data-page");
 		this.model.setPage(page);
 		this.fetchDemand();
 	},
 
 	nextPage: function nextPage(){
+		event.preventDefault();
 		this.model.setNextPage();
 		this.fetchDemand();
 	},
 
 	previousPage: function PreviousPage(){
+		event.preventDefault();
 		this.model.setPreviousPage();
 		this.fetchDemand();
 	},
 
 	fetchDemand: function fetchDemand(){
 		this.trigger('results:fetchDemand');
-	}
+	},
 
 	lineSelection: function lineSelectionSearchResults(event){
+		event.preventDefault();
 		//throw new NotImplementedException('lineSelection');
 		var id = +event.target.parentElement.getAttribute('id');
 		//Navigate 
@@ -64,7 +69,7 @@ module.exports = Backbone.View.extend({
 			}));
 
 			//render pagination
-			$(this.resultsPagination, this.$el).html(this.templatePagination(this.model.pageInfo()));
+			$(this.resultsPagination, this.$el).html(this.templatePagination({currentPage: 0, firstPage: 0, totalPages: 10}));//this.model.pageInfo()
 		}
 		return this;
 	}

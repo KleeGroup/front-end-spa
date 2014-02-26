@@ -26,7 +26,6 @@ module.exports = Backbone.View.extend({
 			model: this.searchResults,
 			criteria : this.model
 		});
-
 		this.listenTo(this.searchResultsView, 'results:fetchDemand', function(){this.runSearch(null,{isFormBinded:false});});
 		if (this.isSearchTriggered) {
 			this.runSearch(null,{isFormBinded:false});
@@ -50,6 +49,8 @@ module.exports = Backbone.View.extend({
 
 	searchSuccess: function searchSuccess(jsonResponse) {
 		this.searchResults.reset(jsonResponse);
+		//this.searchResults.reset(jsonResponse.values);
+		//this.searchResults.setTotalRecords(jsonResponse.totalRecords);
 	},
 
 	searchError: function searchError(response) {
@@ -74,7 +75,7 @@ module.exports = Backbone.View.extend({
 		ModelValidator.validate(this.model)
 			.then(function(model) {
 				currentView.model.unsetErrors();
-				currentView.search(currentView.model.toJSON())
+				currentView.search(currentView.model.toJSON(), currentView.searchResults.pageInfo())
 				.then(function success(jsonResponse) { 
 						return currentView.searchSuccess(jsonResponse);
 					})
