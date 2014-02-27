@@ -14,6 +14,8 @@ VirtualMachineSaveView = require 'views/virtualMachine-save-view'
 VirtualMachineSaveTemplateView = require 'views/detail-edit-template-view'
 References = require('../models/references')
 ReferencesView = require('../views/references-view')
+Pret = require('../models/nantissement/pret')
+PretSearchView = require('../views/nantissement/pret-search-view')
 
 module.exports = class Router extends Backbone.Router
 
@@ -32,9 +34,15 @@ module.exports = class Router extends Backbone.Router
     'test/:modelName/:id': 'list' 
     'test/:modelName/show/:id': 'show'
     'test/:modelName/edit/:id': 'edit'
-
+    'nantissement/pret/search': 'searchPret'
+  # Nantissement
+  searchPret: =>
+    application.layout.setActiveMenu('nantissement')
+    application.layout.content.show(new PretSearchView({model: new Pret()}))
+  
   home: =>
     view = new HomeView()
+    application.layout.setActiveMenu('refinancement')
     application.layout.content.show(view)
     application.layout.footer.show(
       new FooterView

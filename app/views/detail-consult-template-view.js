@@ -1,4 +1,4 @@
-/*global Backbone, _ */
+/*global  _ */
 var DetailView = require('./core/detail-consult-view');
 var template = require('./templates/virtualMachine');
 var VmSvc = require('../service/ServiceVirtualMachine');

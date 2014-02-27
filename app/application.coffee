@@ -61,7 +61,7 @@ class Application extends Backbone.Marionette.Application
       AppLayout = require 'views/app-layout'
       @layout = new AppLayout()
       @layout.render()
-
+      @layout.displayHeader()
     
     @addInitializer (options) =>
       # Instantiate the router

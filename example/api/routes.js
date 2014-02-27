@@ -2,6 +2,12 @@ var Hapi = require('hapi');
 ///var Types = require('hapi').Types;
 module.exports = [{
 	method: 'GET',
+	path: '/CIL',
+	config: {
+		handler: getCIL
+	}
+},{
+	method: 'GET',
 	path: '/reference',
 	config: {
 		handler: getRefs
@@ -136,4 +142,17 @@ function deleteVm(request, reply) {
 		"deleted": true,
 		"id": request.params.id
 	});
+}
+//Get CIL.
+function getCIL(request, reply){
+	reply([{
+			id: "1",
+			label: "CIL1"
+		}, {
+			id: "2",
+			label: "CIL2"
+		}, {
+			id: "3",
+			label: "CIL3"
+		}]);
 }

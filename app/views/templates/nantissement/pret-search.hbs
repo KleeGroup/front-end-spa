@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{t "nantissement.pret.search.title"}}</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">{{options_selected "olsId" listKey="ols"}}</div>
+      <div class="col-md-4">{{options_selected "cilId" listKey="cil"}}</div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-4">{{input_for "isTopListeRouge"}}</div>
+      <div class="col-md-4">{{input_for "isTopConvention"}}</div>
+      <div class="col-md-4">{{input_for "isNanti"}}</div>
+    </div>
+    {{!-- Conditional display. --}}
+    <hr/>
+    {{#unless isMoreCriteria}}
+      {{button "button.moreCriteria" icon="angle-down" class="toogleCriteria"}}
+    {{else}}
+      
+      {{button "button.lessCriteria" class="toogleCriteria" icon="angle-up"}}
+      <hr />
+      <div class="row">
+        <div class="col-md-6">{{input_for "identificationUESLPret"}}</div>
+        <div class="col-md-6">{{input_for "identificationCILPret"}}</div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6">{{input_for "montantNominalMin"}}</div>
+        <div class="col-md-6">{{input_for "montantNominalMax"}}</div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6">{{input_for "dateContratMin"}}</div>
+        <div class="col-md-6">{{input_for "dateContratMax"}}</div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6">{{input_for "dateDerniereEcheanceMin"}}</div>
+        <div class="col-md-6">{{input_for "dateDerniereEcheanceMax"}}</div>
+      </div>
+    {{/unless}}
+    {{button "button.reset" id="btnReset" class="btn-primary"}}
+    {{button "button.search" icon="search" class="btn-primary pull-right" type="submit"}}
+  </div>
+</div>
+
+

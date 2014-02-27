@@ -83,6 +83,7 @@ Handlebars.registerHelper "input_for", (property, options) ->
   #isRequired = if !opt.isRequired? or !opt.isRequired then "" else "<span class='input-group-addon'>*</span>"
   translationRoot = opt.translationRoot or undefined
   dataType = opt.dataType or domain.type or "text"
+  (dataType = "checkbox") if dataType is "boolean"
   readonly = opt.readonly or false
   readonly = if readonly then "readonly" else ""
   disabled = opt.disabled or false

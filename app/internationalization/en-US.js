@@ -1,7 +1,7 @@
 module.exports = {
 	"key": "value",
 	"application": {
-		"name": "VM tickets",
+		"name": "GIMINI",
 		"navigation": {
 			"home": "Home",
 			"virtualMachines": {
@@ -64,5 +64,13 @@ module.exports = {
 		"startDate": "Creation date",
 		"endDate": "Out date",
 		"os": "OS"
+	},
+	"header":{
+		"accueil": "Accueil",
+		"nantissement": "Nantissement",
+		"refinancement": "Refinancement",
+		"paiementEcheance": "Paiement à l'échéance",
+		"reporting": "Reporting",
+		"administration": "Administration"
 	}
 };

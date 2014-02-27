@@ -1,7 +1,7 @@
 module.exports = {
 	"key": "value",
 	"application": {
-		"name": "VM tickets",
+		"name": "GIMINI",
 		"navigation": {
 			"home": "accueil",
 			"virtualMachines": {
@@ -23,7 +23,11 @@ module.exports = {
 		"back": "Retour",
 		"edit":"Modifier",
 		"delete": "Supprimer",
-		"loading": "Chargement"
+		"loading": "Chargement",
+		"moreCriteria": "Plus de critères",
+		"search": "Rechercher",
+		"lessCriteria": "Moins de critères",
+		"reset": "Vider les critères"
 	},
 	"domain": {
 		"validation": {
@@ -36,8 +40,8 @@ module.exports = {
 		}
 	},
 	"home": {
-		"title": "Bienvenue dans l'application vm tickets.",
-		"description": "Vous pouvez voir ici toutes les demandes de création de VMs."
+		"title": "GIMINI: Gestion Informatisée du Milliard Investi.",
+		"description": "Bienvenue dans l'application GIMINI."
 	},
 	"references":{
 		"title": "Reférences"
@@ -66,5 +70,34 @@ module.exports = {
 		"startDate": "Date de création",
 		"endDate": "Date limite",
 		"os": "OS"
+	},
+	"header":{
+		"accueil": "Accueil",
+		"nantissement": "Nantissement",
+		"refinancement": "Refinancement",
+		"paiementEcheance": "Paiement à l'échéance",
+		"reporting": "Reporting",
+		"administration": "Administration"
+	},
+	"nantissement":{
+		"pret":{
+			"olsId": "OLS",
+			"cilId": "CIl",
+			"isTopListeRouge": "Top Liste Rouge",
+			"isTopConvention": "Top convention",
+			"isNanti": "Nanti",
+			"identificationUESLPret": "Identifiant UESL du prêt",
+			"identificationCILPret": "Identification CIL du prêt",
+			"montantNominalMin": "Montant nominal compris entre",
+			"montantNominalMax": "et",
+			"dateContratMin": "Date contrat comprise entre",
+			"dateContratMax": "et",
+			"dateDerniereEcheanceMin": "Date de dernière échance comprise entre",
+			"dateDerniereEcheanceMax": "et",
+			"search":{
+				"title": "Recherche des prêts",
+				"identificationPret": "Identification du prêt"
+			}
+		}
 	}
 };

@@ -51,5 +51,43 @@ module.exports = {
 			"doamin": "DO_TEXTE_30",
 			"required": true
 		}
+	},
+	"nantissement": {
+		"pret": {
+			"isTopListeRouge": {
+				"domain": "DO_BOOLEEN"
+			},
+			"isTopConvention": {
+				"domain": "DO_BOOLEEN"
+			},
+			"isNanti": {
+				"domain": "DO_BOOLEEN"
+			},
+			"identificationUESLPret": {
+				"domain": "DO_TEXTE_30"
+			},
+			"identificationCILPret": {
+				"domain": "DO_TEXTE_30"
+			},
+			"montantNominalMin": {
+				"domain": "DO_DEVISE"
+			},
+			"montantNominalMax": {
+				"domain": "DO_DEVISE"
+			},
+			"dateContratMin":{
+				"domain": "DO_DATE"
+			},
+			"dateContratMax":{
+				"domain": "DO_DATE"
+			},
+			"dateDerniereEcheanceMin":{
+				"domain": "DO_DATE"
+			},
+			"dateDerniereEcheanceMax":{
+				"domain": "DO_DATE"
+			}
+		}
 	}
+
 };

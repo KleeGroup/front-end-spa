@@ -42,6 +42,17 @@ module.exports = {
 				"minLength": 4
 			}
 		}]
+	},
+	"DO_BOOLEEN":{
+		"type": "boolean"
+	},
+	"DO_DEVISE":{
+		"type": "number",
+		"validation":{
+			"type": "number",
+			"options":{"min": 0}
+		},
+		"formatter": "devise"
 	}
 
 };
