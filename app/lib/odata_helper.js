@@ -15,8 +15,20 @@ function criteriaToOdata(criteria) {
 	return "";
 }
 
+function orderToOdata(sortFields){
+	var orderBy = "";
+	sortFields.forEach(function(sortField){
+		orderBy += sortField.field + " " + sortField.order + ",";  
+	});
+	return orderBy.substring(0,orderBy.length-1);
+}
+
 //generate parameter for odata server API
 function generateServerApi(criteria, pagesInfo) {
+	var sortFields = [];
+	if(pagesInfo.sortField){
+		sortFields.push(pagesInfo.sortField);
+	}
 	return {
 		// the query field in the request
 		'$filter': criteriaToOdata(criteria),
@@ -25,7 +37,7 @@ function generateServerApi(criteria, pagesInfo) {
 		//records to bypass
 		'$skip': pagesInfo.currentPage * pagesInfo.perPage,
 		// field to sort by
-		'$orderby': pagesInfo.order,
+		'$orderby': orderToOdata(sortFields),
 		// what format would you like to request results in?
 		'$format': 'json',
 		// custom parameters

@@ -14,7 +14,21 @@ module.exports = Backbone.View.extend({
 
 	events: {
 		'click tbody tr': 'lineSelection',
-		'click .pagination li': 'goToPage'
+		'click .pagination li': 'goToPage',
+		'click a.sortColumn': 'sortCollection'
+	},
+
+	sortCollection: function sortCollection(event){
+		event.preventDefault();
+		var collectionInfos = this.model.pageInfo();
+		var sortField = event.target.getAttribute("data-name");
+		var currentSort = collectionInfos.sortField;
+		var order = "asc"
+		if(currentSort !==undefined && sortField === currentSort.field && currentSort.order === "asc"){
+			order = "desc";	
+		} 
+		this.model.setSortField(sortField,order);
+		this.fetchDemand();
 	},
 
 	goToPage: function goToPage(event){
@@ -65,7 +79,9 @@ module.exports = Backbone.View.extend({
 		} else {
 			//the template must have named property to iterate over it
 			this.$el.html(this.template({
-				collection: this.model.toJSON()
+				collection: this.model.toJSON(),
+				sortField: "name",
+				order: "asc"
 			}));
 
 			//render pagination

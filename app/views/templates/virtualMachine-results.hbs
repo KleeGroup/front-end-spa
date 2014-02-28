@@ -1,11 +1,11 @@
 <table class="table table-hover table-bordered">
 	<caption><br/></caption>
-    <thead>
+    <thead id="tableHeader">
     	<tr>
-	        <th>{{t "virtualMachine.name"}}</th>
-	        <th>{{t "virtualMachine.nbCpu"}}</th>
-	        <th>{{t "virtualMachine.memory"}}</th>
-      	</tr>
+			<th>{{sortColumn "name" translationKey="virtualMachine.name"}}</a></th>
+			<th>{{sortColumn "nbCpu" translationKey="virtualMachine.nbCpu"}}</th>
+			<th>{{t "virtualMachine.memory"}} {{sortColumn "memory"}}</th>
+		</tr>
     </thead>
     <tbody>
     	{{#each collection}}

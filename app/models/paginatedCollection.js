@@ -1,4 +1,5 @@
 /*global Backbone,$*/
+var ArgumentInvalidException = require('../../lib/custom_exception').ArgumentInvalidException;
 
 module.exports = Backbone.Collection.extend({
 	//first number of page
@@ -23,7 +24,8 @@ module.exports = Backbone.Collection.extend({
 			lastPage: this.totalPages, // should use totalPages in template
 			perPage: this.perPage,
 			previous: false,
-			next: false
+			next: false,
+			sortField: this.sortField
 		};
 
 		if (this.currentPage > 1) {
@@ -57,8 +59,17 @@ module.exports = Backbone.Collection.extend({
 		this.currentPage--;
 	},
 
-	setSortField: function setSortField(field){
-		this.sortField = field;
+	setSortField: function setSortField(field, order){
+		order = order || "asc";
+		if(field === undefined || (order !== "asc" && order !== "desc")){
+			throw new ArgumentInvalidException("sort arguments invalid");
+		}
+		this.sortField = {
+			field: field,
+			order: order
+		};
+
+		this.currentPage = this.firstPage;
 	},
 
 	setTotalRecords: function setTotalRecords(totalRecords){

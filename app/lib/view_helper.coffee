@@ -296,7 +296,21 @@ Handlebars.registerHelper "paginate", (property, options)->
     className = if currentPage is endPage then "disabled" else ""
     return "<li class='#{className}' data-page='#{endPage}'><a href='#' data-bypass>&raquo;</a></li>"
   return new Handlebars.SafeString("<ul class='pagination'>#{generateLeftArrow()}#{generatePageNumber()}#{generateRigthArrow()}</ul>")
-  
+
+# display sort icon on table column
+# `{sortField: sortField, order: order, modelName: modelName}`
+Handlebars.registerHelper "sortColumn", (property, options)->
+  options = options.hash or {}
+  sortField = this.sortField
+  order = this.order || "asc"
+  translationKey = options.translationKey or undefined
+  generateSortPosition= ()->
+    icon = "fa fa-sort"
+    if property is sortField
+      icon+= "-" + order
+    return "<i class='#{icon}' data-name='#{property}'></i>"
+  return new Handlebars.SafeString("<a class='sortColumn' href='#' data-name='#{property}' data-bypass>#{i18n.t(translationKey)} #{generateSortPosition()}</a>")
+
 
 # Currency helper in order to have a vizualization for the currency.
 ## Todo: reenable when number format is needed..
