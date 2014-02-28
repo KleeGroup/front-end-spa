@@ -84,9 +84,9 @@ function getRefs(request, reply) {
 function getVms(request, reply) {
 	console.log('getVMS request');
 	if (request.query.name) {
-		reply(vms);
+		reply({"odata.count":"50", value: vms});
 	} else {
-		reply(vms);
+		reply({"odata.count":"50", value: vms});
 	}
 }
 

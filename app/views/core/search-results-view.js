@@ -85,7 +85,7 @@ module.exports = Backbone.View.extend({
 			}));
 
 			//render pagination
-			$(this.resultsPagination, this.$el).html(this.templatePagination({currentPage: 0, firstPage: 0, totalPages: 10}));//TODO : this.model.pageInfo()
+			$(this.resultsPagination, this.$el).html(this.templatePagination(this.model.pageInfo()));//TODO : this.model.pageInfo() {currentPage: 0, firstPage: 0, totalPages: 10}
 		}
 		return this;
 	}

@@ -48,10 +48,10 @@ module.exports = Backbone.View.extend({
 	},
 
 	searchSuccess: function searchSuccess(jsonResponse) {
-		this.searchResults.reset(jsonResponse);
+		//this.searchResults.reset(jsonResponse);
 		//TODO response ODATA
-		//this.searchResults.reset(jsonResponse.values);
-		//this.searchResults.setTotalRecords(jsonResponse.totalRecords);
+		this.searchResults.setTotalRecords(jsonResponse.totalRecords);
+		this.searchResults.reset(jsonResponse.values);
 	},
 
 	searchError: function searchError(response) {

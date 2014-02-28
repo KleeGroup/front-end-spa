@@ -33,7 +33,7 @@ function deleteVm(jsonModel) {
 function searchVirtualMachine(criteria, pagesInfo) {
 	promiseVirtualMachines.reset(null, {silent: true});
 	var options = OdataHelper.createOdataOptions(criteria, pagesInfo);
-	return  promiseVirtualMachines.fetch(options);//.then(OdataHelper.parseOdataResponse);
+	return  promiseVirtualMachines.fetch(options).then(OdataHelper.parseOdataResponse);
 }
 
 module.exports = {

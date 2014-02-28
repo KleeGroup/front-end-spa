@@ -100,13 +100,13 @@ function compileOptions(criteria, pagesInfo, options) {
 }
 
 function parseOdataResponse(response) {
-	if (!(response === undefined || response === null 
-		|| response["odata.count"] === undefined || response["odata.count"] === null)) {
+	if (response === undefined || response === null 
+		|| response["odata.count"] === undefined || response["odata.count"] === null) {
 		throw new Error('Odata error : parsing result');
 	}
 	return {
 		totalRecords: response["odata.count"],
-		values: response.values
+		values: response.value
 	};
 }
 
