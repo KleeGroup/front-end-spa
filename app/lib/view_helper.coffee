@@ -129,7 +129,7 @@ Handlebars.registerHelper "input_for", (property, options) ->
   #Deal with the label
   label = ()=>
     if opt.isNoLabel?
-      return ""
+      return "" 
     else
       return "<label class='control-label #{labelSize}' for='#{property}'>#{translationKey()}</label>"
     #if not opt.isNoLabel? then "<label class='control-label #{labelSize}' for='#{property}'> #{translationKey} </label>" else ""
