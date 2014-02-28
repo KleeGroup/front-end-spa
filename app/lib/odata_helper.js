@@ -49,7 +49,9 @@ function compileOptions(criteria, pagesInfo, options) {
 			value = _.bind(value, self);
 			value = value();
 		}
-		queryAttributes[key] = value;
+		if (value!== undefined && value !==null && value.toString().length > 0){
+			queryAttributes[key] = value;
+		}			
 	});
 
 	var queryOptions = _.clone(paginator_core);
