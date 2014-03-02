@@ -6,6 +6,9 @@ domains_definition = require('./domains')
 Handlebars.registerHelper 'pick', (val, options) ->
 	return options.hash[val]
 
+Handlebars.registerHelper 'html', (val)->
+  new Handlebars.SafeString(@[val])
+
 #use in order to use the translation system in the view.
 Handlebars.registerHelper "t", (i18n_key, options) ->
   opt = options.hash or {}
@@ -145,24 +148,30 @@ Handlebars.registerHelper "input_for", (property, options) ->
     return "col-sm-#{errorLength} col-md-#{errorLength} col-lg-#{errorLength} col-sm-offset-#{offsetError} col-md-offset-#{offsetError} col-lg-offset-#{offsetError}"
   #Deal with error
   errors = ()=>
-    if error == "has-error" then "<span class='#{error} #{errorSize()} help-inline pull-left' style='color:#b94a48'> #{errorValue } </span>" else ""
-  #Build the html tag.
-  # <div class="form-group">
-  #     <label for="exampleInputEmail">Email address</label>
-  #     <input type="text" class="form-control" id="exampleInputEmail" placeholder="Enter email">
-  #   </div>
+    isHidden = if opt.isShowErrors then "" else "hidden"
+    if error == "has-error" then "<span class='#{error} #{errorSize()} help-inline pull-left ' #{isHidden} style='color:#b94a48' > #{errorValue } </span>" else ""
+  # Add on information in the tag
+  isAddOn = () =>
+    if metadata.format? and metadata.format.addOn?
+      return metadata.format.addOn
+    return ""
   html = "
           <div class='form-group #{error}'>
             #{label()}
             <div class='#{if isAddOnInput then 'input-group' else ""} #{inputSize()} #{containerCss}' #{containerAttribs}>
                #{icon()}
               <input id='#{property}' class='form-control input-sm' data-name='#{property}' type='#{dataType}' #{inputAttributes} #{placeholder} #{propertyValue()} #{readonly} #{disabled}/>
+              #{isAddOn()}
               #{isRequired()}
             </div>
             #{errors()}
           </div>
         "
   new Handlebars.SafeString(html)
+
+### Example generation
+
+###
 
 #Generate a optionset selector. https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement
 Handlebars.registerHelper "options_selected", (property, options) ->

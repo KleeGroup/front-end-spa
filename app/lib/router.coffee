@@ -25,16 +25,17 @@ module.exports = class Router extends Backbone.Router
     'contact': 'contact'
     'signin': 'signin'
     'virtualMachine/search': 'searchVirtualMachine'
-    'virtualMachine/create': 'newVirtualMachine' 
+    'virtualMachine/create': 'newVirtualMachine'
     'virtualMachine/:id': 'virtualMachine'
     'virtualMachine/edit/:id': 'updateVirtualMachine'
     'reference': 'reference'
     'test/:modelName/search': 'search'
     'test/:modelName/create': 'create'
-    'test/:modelName/:id': 'list' 
+    'test/:modelName/:id': 'list'
     'test/:modelName/show/:id': 'show'
     'test/:modelName/edit/:id': 'edit'
     'nantissement/pret/search': 'searchPret'
+    'errorTest' : 'errorTest'
   # Nantissement
   searchPret: =>
     application.layout.setActiveMenu('nantissement')
@@ -125,3 +126,24 @@ module.exports = class Router extends Backbone.Router
     console.log "show", modelName
   edit:(modelName, id)=>
     console.log "edit", modelName
+  # Test route on errors.
+  errorTest:()=>
+    model = new Backbone.Model({firstName: "Pierre", lastName: "Pierre", errors: {firstName: "Wrong firstName", lastName: "Wrong lastName"}})
+    ViewErrorsTest = Backbone.View.extend({
+      events:
+        "focus input" : "inputFocus"
+        "blur input": "inputBlur"
+      inputFocus: (event)->
+        # Deals with the  input focus , show the errors.
+        #console.log 'focus', event.target, 'this', this
+        event.target.parentElement.parentElement.childNodes[5].removeAttribute('hidden')
+      template: require('../views/templates/errorTest')
+      inputBlur: (event)->
+        # Deals with the blur event, add the hidden attribute on the element.
+        #console.log 'blur', event.target, 'this', this
+        event.target.parentElement.parentElement.childNodes[5].setAttribute("hidden", "hidden")
+      render: ()->
+        Backbone.Notification.addNotification({type: 'error', isHtml: true ,message: '<a data-name="firstName">FirstName</a> error'}, true)
+        @$el.html(@template(@model.toJSON()))
+    })
+    application.layout.content.show(new ViewErrorsTest({model: model}))

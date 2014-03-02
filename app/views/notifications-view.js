@@ -1,9 +1,17 @@
-/*global Backbone*/
+/*global Backbone, $*/
 var template = require('./templates/notifications');
 module.exports = Backbone.View.extend({
 	tagName: 'div',
 	className: 'notifications',
 	template: template,
+	events: {
+		"click a": "errorFocusClick"
+	},
+	errorFocusClick: function(event){
+		event.preventDefault();
+		var dataName = event.target.getAttribute('data-name');
+		$('input[data-name="'+ dataName +'"]').focus();
+	},
 	//Render each type of notification.
 	render: function() {
 		var messages = this.model.getMessagesByType();
