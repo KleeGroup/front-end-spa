@@ -5,12 +5,13 @@ module.exports = Backbone.View.extend({
 	className: 'notifications',
 	template: template,
 	events: {
-		"click a": "errorFocusClick"
+		"click a": "errorFocusClick"//Errors on fields are saved into a link, a click on it is doing the focus.
 	},
+	//Focus on an error field.
 	errorFocusClick: function(event){
-		event.preventDefault();
-		var dataName = event.target.getAttribute('data-name');
-		$('input[data-name="'+ dataName +'"]').focus();
+		event.preventDefault();//Prevent the default link action.
+		var dataName = event.target.getAttribute('data-name'); //Get the data-name attribute.
+		$('input[data-name="'+ dataName +'"]').focus();//Focus on the input which have the data-name attribute.
 	},
 	//Render each type of notification.
 	render: function() {
