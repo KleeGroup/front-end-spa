@@ -78,12 +78,12 @@ module.exports = Backbone.View.extend({
 				}, true);
 		} else {
 			//the template must have named property to iterate over it
+			var infos = this.model.pageInfo();
 			this.$el.html(this.template({
 				collection: this.model.toJSON(),
-				sortField: "name",
-				order: "asc"
+				sortField: infos.sortField.field,
+				order: infos.sortField.order
 			}));
-
 			//render pagination
 			$(this.resultsPagination, this.$el).html(this.templatePagination(this.model.pageInfo()));//TODO : this.model.pageInfo() {currentPage: 0, firstPage: 0, totalPages: 10}
 		}

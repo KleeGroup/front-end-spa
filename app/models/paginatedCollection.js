@@ -11,7 +11,7 @@ module.exports = Backbone.Collection.extend({
 	// total number og pages. default initialization
 	totalPages: 10,
 	//sort fields
-	sortField: undefined,
+	sortField: {},
 
 	pageInfo: function pageInfo(){
 		var info = {
