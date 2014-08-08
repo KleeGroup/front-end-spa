@@ -12,8 +12,8 @@ Main features are [CoffeeScript](http://coffeescript.org/),
 
 ## Getting started
 * Install `npm install -g brunch mocha gulp bower`
-* Run `npm install`
-* Run `bower install`
+* Run `npm install` in the root directory
+* Run `bower install` in the root directory/
 * `npm start` in order tolaunch the brunch server
 * Build the project with `brunch b` or `brunch w`.
 * Open the `public/` dir to see the result.
